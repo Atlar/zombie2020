@@ -4,7 +4,7 @@ import (
 	"errors"
 	"github.com/jinzhu/gorm"
 	"github.com/Atlar/golang-gin-realworld-example-app/common"
-	"golang.org/x/crypto/bcrypt"
+	"github.com/crypto/bcrypt"
 )
 
 // Models should only be concerned with database schema, more strict checking should be put in validator.
