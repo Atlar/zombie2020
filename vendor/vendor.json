@@ -7,9 +7,6 @@
          },
 	"package": [
 		{
-			"path": "golang.org/x/crypto/bcrypt"
-		},
-		{
 			"checksumSHA1": "8tLSbloQ6bpVBB/CcPbP9sLW45Y=",
 			"path": "github.com/Pallinder/go-randomdata",
 			"revision": "8c3362a5e6781e0d1046f1267b3c1f19b2cde334",
