@@ -23,7 +23,7 @@ func Migrate(db *gorm.DB) {
 
 func main() {
 
-var Port := os.Getenv("PORT")
+    Port := os.Getenv("PORT")
 
 	db := common.Init()
 	Migrate(db)
@@ -72,5 +72,5 @@ var Port := os.Getenv("PORT")
 	//}).First(&userAA)
 	//fmt.Println(userAA)
 
-	r.Run() // listen and serve on 0.0.0.0:8080
+	r.Run(Port) // listen and serve on 0.0.0.0:8080
 }
