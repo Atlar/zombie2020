@@ -2,6 +2,7 @@ package users
 
 import (
 	"errors"
+	"bytes"
 	"github.com/jinzhu/gorm"
 	"github.com/Atlar/golang-gin-realworld-example-app/common"
 	//"golang.org/x/crypto/bcrypt"
@@ -68,7 +69,7 @@ func (u *UserModel) setPassword(password string) error {
 func (u *UserModel) checkPassword(password string) error {
 	bytePassword := []byte(password)
 	byteHashedPassword := []byte(u.PasswordHash)
-	return !Compare(bytePassword, byteHashedPassword)
+	return !bytes.Compare(bytePassword, byteHashedPassword)
 	//bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
 }
 
