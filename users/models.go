@@ -4,7 +4,7 @@ import (
 	"errors"
 	"github.com/jinzhu/gorm"
 	"github.com/Atlar/golang-gin-realworld-example-app/common"
-	"golang.org/x/crypto/bcrypt"
+	//"golang.org/x/crypto/bcrypt"
 )
 
 // Models should only be concerned with database schema, more strict checking should be put in validator.
@@ -57,7 +57,8 @@ func (u *UserModel) setPassword(password string) error {
 	}
 	bytePassword := []byte(password)
 	// Make sure the second param `bcrypt generator cost` between [4, 32)
-	passwordHash, _ := bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
+	passwordHash, _ := bytePassword
+	//bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
 	u.PasswordHash = string(passwordHash)
 	return nil
 }
@@ -67,7 +68,8 @@ func (u *UserModel) setPassword(password string) error {
 func (u *UserModel) checkPassword(password string) error {
 	bytePassword := []byte(password)
 	byteHashedPassword := []byte(u.PasswordHash)
-	return bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
+	return !Compare(bytePassword, byteHashedPassword)
+	//bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
 }
 
 // You could input the conditions and it will return an UserModel in database with error info.
