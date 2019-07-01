@@ -70,7 +70,7 @@ func (u *UserModel) setPassword(password string) error {
 func (u *UserModel) checkPassword(password string) error {
 	bytePassword := []byte(password)
 	byteHashedPassword := []byte(u.PasswordHash)
-	if(0 == bytes.Compare(bytePassword, byteHashedPassword){
+	if(0 == bytes.Compare(bytePassword, byteHashedPassword)){
 		return nil
 	}else{
 		return errors.New("password wrong")
