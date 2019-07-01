@@ -141,10 +141,14 @@
 			"revisionTime": "2017-07-10T14:00:56Z"
 		},
 		{
+			"path": "github.com/mongo/mongo-go-drivers/mongo",
+			"revision": ""
+		},
+		{
 			"checksumSHA1": "gLzVRcV6OgxC7GgM13E9h83iL4w=",
 			"path": "github.com/mongodb/mongo-go-driver",
-			"revision": "5d7e5a2a03a6097464d2b946f7ae3fe0031aebc1",
-			"revisionTime": "2019-06-18T18:58:34Z"
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
 		},
 		{
 			"checksumSHA1": "85+/ZKDf75WWapV756QXgClrg9w=",
@@ -156,10 +160,15 @@
 			"checksumSHA1": "JDTjlJeIiWfau/tHXcigXajNv0s=",
 			"path": "github.com/mongodb/mongo-go-driver/mongo",
 			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
-			"revisionTime": "2019-06-28T18:44:05Z"
+			"revisionTime": "2019-06-28T18:44:05Z",
+			"version": "1.0.0"
 		},
 		{
 			"path": "github.com/mongodb/mongo-go-driver/options",
+			"revision": ""
+		},
+		{
+			"path": "github.com/mongodb/mongo-go-drivers",
 			"revision": ""
 		},
 		{
@@ -205,8 +214,10 @@
 			"revisionTime": "2017-06-20T10:48:52Z"
 		},
 		{
+			"checksumSHA1": "wFShdyz7YowbWblBlUn1S6ZVvT0=",
 			"path": "go.mongodb.org/mongo-driver/bson",
-			"revision": ""
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
 		},
 		{
 			"checksumSHA1": "IUxjKxu4ageFcl4FPP/K6EeYaIE=",
@@ -238,28 +249,27 @@
 		},
 		{
 			"path": "go.mongodb.org/mongo-driver/mongo",
-			"revision": "~1.0.0",
-			"version": "~1.0.0"
+			"revision": ""
 		},
 		{
 			"path": "go.mongodb.org/mongo-driver/mongo/options",
-			"revision": "~1.0.0",
-			"version": "~1.0.0"
+			"revision": ""
 		},
 		{
 			"path": "go.mongodb.org/mongo-driver/mongo/readconcern",
-			"revision": "~1.0.0",
-			"version": "~1.0.0"
+			"revision": ""
 		},
 		{
 			"path": "go.mongodb.org/mongo-driver/mongo/readpref",
-			"revision": "~1.0.0",
-			"version": "~1.0.0"
+			"revision": ""
 		},
 		{
 			"path": "go.mongodb.org/mongo-driver/mongo/writeconcern",
-			"revision": "~1.0.0",
-			"version": "~1.0.0"
+			"revision": ""
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/options",
+			"revision": ""
 		},
 		{
 			"path": "go.mongodb.org/mongo-driver/tag",
