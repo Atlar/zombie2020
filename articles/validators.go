@@ -2,8 +2,8 @@ package articles
 
 import (
 	"github.com/gosimple/slug"
-	"./common"
-	"./users"
+	"github.com/Atlar/golang-gin-realworld-example-app/common"
+	"github.com/Atlar/golang-gin-realworld-example-app/users"
 	"gopkg.in/gin-gonic/gin.v1"
 )
 
