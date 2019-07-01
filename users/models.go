@@ -58,7 +58,8 @@ func (u *UserModel) setPassword(password string) error {
 	}
 	bytePassword := []byte(password)
 	// Make sure the second param `bcrypt generator cost` between [4, 32)
-	passwordHash, _ := bytePassword
+	passwordHash := bytePassword
+	//passwordHash, _ := bytePassword
 	//bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
 	u.PasswordHash = string(passwordHash)
 	return nil
@@ -69,7 +70,7 @@ func (u *UserModel) setPassword(password string) error {
 func (u *UserModel) checkPassword(password string) error {
 	bytePassword := []byte(password)
 	byteHashedPassword := []byte(u.PasswordHash)
-	return !bytes.Compare(bytePassword, byteHashedPassword)
+	return 0 == bytes.Compare(bytePassword, byteHashedPassword)
 	//bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
 }
 
