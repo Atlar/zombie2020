@@ -1,10 +1,12 @@
 {
 	"comment": "",
-	"ignore": "test",
 	"heroku": {
-           "install" : [ "./..." ],
-           "goVersion": "go1.12.6"
-         },
+		"goVersion": "go1.12.6",
+		"install": [
+			"./..."
+		]
+	},
+	"ignore": "test",
 	"package": [
 		{
 			"checksumSHA1": "8tLSbloQ6bpVBB/CcPbP9sLW45Y=",
@@ -85,6 +87,12 @@
 			"revisionTime": "2017-03-27T19:17:03Z"
 		},
 		{
+			"checksumSHA1": "h0OyM0uf40lnwTU89ENuiATar5Q=",
+			"path": "github.com/go-stack/stack",
+			"revision": "2fee6af1a9795aafbe0253a0cfbdf668e1fb8a9a",
+			"revisionTime": "2018-08-26T13:48:48Z"
+		},
+		{
 			"checksumSHA1": "yqF125xVSkmfLpIVGrLlfE05IUk=",
 			"path": "github.com/golang/protobuf/proto",
 			"revision": "0a4f71a498b7c4812f64969510bcb4eca251e33a",
@@ -133,6 +141,28 @@
 			"revisionTime": "2017-07-10T14:00:56Z"
 		},
 		{
+			"checksumSHA1": "gLzVRcV6OgxC7GgM13E9h83iL4w=",
+			"path": "github.com/mongodb/mongo-go-driver",
+			"revision": "5d7e5a2a03a6097464d2b946f7ae3fe0031aebc1",
+			"revisionTime": "2019-06-18T18:58:34Z"
+		},
+		{
+			"checksumSHA1": "85+/ZKDf75WWapV756QXgClrg9w=",
+			"path": "github.com/mongodb/mongo-go-driver/bson",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
+			"checksumSHA1": "JDTjlJeIiWfau/tHXcigXajNv0s=",
+			"path": "github.com/mongodb/mongo-go-driver/mongo",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
+			"path": "github.com/mongodb/mongo-go-driver/options",
+			"revision": ""
+		},
+		{
 			"checksumSHA1": "LuFv4/jlrmFNnDb/5SCSEPAM9vU=",
 			"path": "github.com/pmezard/go-difflib/difflib",
 			"revision": "792786c7400a136282c1664665ae0a8db921c6c2",
@@ -175,6 +205,139 @@
 			"revisionTime": "2017-06-20T10:48:52Z"
 		},
 		{
+			"path": "go.mongodb.org/mongo-driver/bson",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "IUxjKxu4ageFcl4FPP/K6EeYaIE=",
+			"path": "go.mongodb.org/mongo-driver/bson/bsoncodec",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
+			"checksumSHA1": "Gb/LMyyvyN87rnNwEKbmMJeHlJI=",
+			"path": "go.mongodb.org/mongo-driver/bson/bsonrw",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
+			"checksumSHA1": "51qlkFUCQYdB7NdbzPWXtb3GQG8=",
+			"path": "go.mongodb.org/mongo-driver/bson/bsontype",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
+			"checksumSHA1": "7IgSO4JKcemj224nlZs7yHeGP+g=",
+			"path": "go.mongodb.org/mongo-driver/bson/primitive",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/event",
+			"revision": ""
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/mongo",
+			"revision": "~1.0.0",
+			"version": "~1.0.0"
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/mongo/options",
+			"revision": "~1.0.0",
+			"version": "~1.0.0"
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/mongo/readconcern",
+			"revision": "~1.0.0",
+			"version": "~1.0.0"
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/mongo/readpref",
+			"revision": "~1.0.0",
+			"version": "~1.0.0"
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/mongo/writeconcern",
+			"revision": "~1.0.0",
+			"version": "~1.0.0"
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/tag",
+			"revision": ""
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/version",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "81DQ5+uTV/Z5mIEsYYHecaOPgpo=",
+			"path": "go.mongodb.org/mongo-driver/x/bsonx",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
+			"checksumSHA1": "ix1KsDpicwuUliaATtLKGd7i9HY=",
+			"path": "go.mongodb.org/mongo-driver/x/bsonx/bsoncore",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/x/mongo/driver",
+			"revision": ""
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/x/mongo/driver/address",
+			"revision": ""
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/x/mongo/driver/auth",
+			"revision": ""
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/x/mongo/driver/connstring",
+			"revision": ""
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/x/mongo/driver/description",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "uAaxlEHrdXvFpSnqPwOZ/Jap4vY=",
+			"path": "go.mongodb.org/mongo-driver/x/mongo/driver/operation",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
+			"checksumSHA1": "KoH/D9Xw/fsp5ZrKSfnSw6naA1w=",
+			"path": "go.mongodb.org/mongo-driver/x/mongo/driver/session",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/x/mongo/driver/topology",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "JFvMdP5wv8eWjjPs7FrbWI/bJLs=",
+			"path": "go.mongodb.org/mongo-driver/x/mongo/driver/uuid",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/x/mongo/driverlegacy",
+			"revision": ""
+		},
+		{
+			"path": "go.mongodb.org/mongo-driver/x/network/command",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "hkmNBbPbp8ZLGIyndwMWjpcOqgI=",
+			"path": "go.mongodb.org/mongo-driver/x/network/result",
+			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
+			"revisionTime": "2019-06-28T18:44:05Z"
+		},
+		{
 			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
 			"path": "golang.org/x/net/context",
 			"revision": "f01ecb60fe3835d80d9a0b7b2bf24b228c89260e",
@@ -211,5 +374,5 @@
 			"revisionTime": "2017-07-12T05:45:46Z"
 		}
 	],
-	"rootPath": "github.com/Atlar/golang-gin-realworld-example-app/"
+	"rootPath": "goTextQest"
 }

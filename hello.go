@@ -2,14 +2,16 @@ package main
 
 import (
 	"fmt"
-"os" 
+	"os"
 
 	"gopkg.in/gin-gonic/gin.v1"
 
-	"github.com/jinzhu/gorm"
 	"github.com/Atlar/golang-gin-realworld-example-app/articles"
-	"github.com/Atlar/golang-gin-realworld-example-app/common"
 	"github.com/Atlar/golang-gin-realworld-example-app/users"
+	"github.com/jinzhu/gorm"
+
+	//My
+	"github.com/Atlar/golang-gin-realworld-example-app/database_agent"
 )
 
 func Migrate(db *gorm.DB) {
@@ -23,10 +25,15 @@ func Migrate(db *gorm.DB) {
 
 func main() {
 
-    Port := os.Getenv("PORT")
+	/////////////
+	Port := os.Getenv("PORT")
+	var db database_agent.MongoAgent
 
-	db := common.Init()
-	Migrate(db)
+	database_agent.Init(db)
+	//db := common.Init()
+	database_agent.TestDB()
+
+	//Migrate(db)
 	defer db.Close()
 
 	r := gin.Default()
