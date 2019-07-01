@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+"os" 
 
 	"gopkg.in/gin-gonic/gin.v1"
 
@@ -21,6 +22,8 @@ func Migrate(db *gorm.DB) {
 }
 
 func main() {
+
+var Port := os.Getenv("PORT")
 
 	db := common.Init()
 	Migrate(db)
