@@ -7,7 +7,7 @@
          },
 	"package": [
 		{
-			golang.org/x/crypto/bcrypt"
+			"path": "golang.org/x/crypto/bcrypt"
 		},
 		{
 			"checksumSHA1": "8tLSbloQ6bpVBB/CcPbP9sLW45Y=",
