@@ -384,5 +384,5 @@
 			"revisionTime": "2017-07-12T05:45:46Z"
 		}
 	],
-	"rootPath": "https://github.com/Atlar/golang-gin-realworld-example-app"
+	"rootPath": "github.com/Atlar/golang-gin-realworld-example-app"
 }
