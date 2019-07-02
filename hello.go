@@ -11,7 +11,7 @@ import (
 	"github.com/jinzhu/gorm"
 
 	//My
-	"database_agent"
+	"github.com/Atlar/golang-gin-realworld-example-app/database_agent"
 )
 
 func Migrate(db *gorm.DB) {
