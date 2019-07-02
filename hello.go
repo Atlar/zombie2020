@@ -39,11 +39,11 @@ func main() {
 	r := gin.Default()
 
 	//set html
-	r.LoadHTMLGlob("public/react_frontend/public/index.html")
-	r.Static("public/react_frontend/public", "static")
+	r.LoadHTMLGlob("public/react_frontend/public/index*.html")
+	r.Static("/public/react_frontend/public", "static")
 
 	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "public/react_frontend/public/index.html", nil)
+		c.HTML(http.StatusOK, "index.html", nil)
 	})
 	//////////////
 
