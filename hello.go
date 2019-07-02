@@ -39,10 +39,10 @@ func main() {
 	r := gin.Default()
 
 	//set html
-	router.LoadHTMLGlob("public/react_frontend/public*.tmpl.html")
-	router.Static("public/react_frontend/static", "static")
+	r.LoadHTMLGlob("public/react_frontend/public*.tmpl.html")
+	r.Static("public/react_frontend/static", "static")
 
-	router.GET("/", func(c *gin.Context) {
+	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "public/react_frontend/public/index.tmpl.html", nil)
 	})
 	//////////////
