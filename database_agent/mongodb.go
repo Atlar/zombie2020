@@ -13,7 +13,7 @@ import (
 )
 
 //init
-func Init(agent *mongoAgent) error {
+func Init(agent *MongoAgent) error {
 
 	//tutorial
 	//https://github.com/mongodb/mongo-go-driver
@@ -21,7 +21,7 @@ func Init(agent *mongoAgent) error {
 	//create client
 	ClientOptions := options.Client()
 	//get Connection URI
-	ConnectionURI := mongoAgent.getConnectionUrl()
+	ConnectionURI := agent.getConnectionUrl()
 	ClientOptions.ApplyURI(ConnectionURI)
 	client, err := mongo.NewClient(ClientOptions)
 
@@ -53,7 +53,7 @@ func Init(agent *mongoAgent) error {
 
 }
 
-func TestDB(agent *mongoAgent) {
+func TestDB(agent *MongoAgent) {
 
 	//get collection
 	collection := agent.Database("Test").Collection("TestDoc")
@@ -79,7 +79,7 @@ type MongoAgent struct {
 	mongo.Client
 }
 
-func (dbagent *mongoAgent) GetConnectionUrl() string {
+func (dbagent *MongoAgent) GetConnectionUrl() string {
 
 	//set password
 	url := os.Getenv("MONGODB_URI")
