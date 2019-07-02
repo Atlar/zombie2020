@@ -273,10 +273,6 @@
 			"revisionTime": "2019-06-28T18:44:05Z"
 		},
 		{
-			"path": "go.mongodb.org/mongo-driver/options",
-			"revision": ""
-		},
-		{
 			"checksumSHA1": "9BXzRN1RPx6GLgP4LcTWud8U8Qs=",
 			"path": "go.mongodb.org/mongo-driver/tag",
 			"revision": "bab1629324fde2fccd78e20eb1267eac59b6a297",
