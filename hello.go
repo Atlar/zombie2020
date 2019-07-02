@@ -6,12 +6,12 @@ import (
 
 	"gopkg.in/gin-gonic/gin.v1"
 
-	"github.com/Atlar/golang-gin-realworld-example-app/articles"
-	"github.com/Atlar/golang-gin-realworld-example-app/users"
+	"articles"
+	"users"
 	"github.com/jinzhu/gorm"
 
 	//My
-	"github.com/Atlar/golang-gin-realworld-example-app/database_agent"
+	"database_agent"
 )
 
 func Migrate(db *gorm.DB) {
