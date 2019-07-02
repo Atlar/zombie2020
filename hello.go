@@ -34,7 +34,7 @@ func main() {
 	database_agent.TestDB(&db)
 
 	//Migrate(db)
-	defer db.Close()
+	//defer db.Close()
 
 	r := gin.Default()
 
