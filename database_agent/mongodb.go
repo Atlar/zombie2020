@@ -46,7 +46,7 @@ func Init(agent *MongoAgent) error {
 	fmt.Println("context created")
 
 	fmt.Println("connecting to database")
-	err := agent.Connect(ctx)
+	err = agent.Connect(ctx)
 	fmt.Println("connected to database")
 
 	return err
@@ -66,7 +66,7 @@ func TestDB(agent *MongoAgent) {
 
 	id := res.InsertedID
 
-	fmt.Println("inserted id-" + id)
+	fmt.Println("inserted id-", id)
 
 }
 
