@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"net/http"
 	"os"
 
 	"gopkg.in/gin-gonic/gin.v1"
@@ -29,14 +29,25 @@ func main() {
 	Port := os.Getenv("PORT")
 	var db database_agent.MongoAgent
 
-	database_agent.Init(db)
+	database_agent.Init(&db)
 	//db := common.Init()
-	database_agent.TestDB()
+	database_agent.TestDB(&db)
 
 	//Migrate(db)
 	defer db.Close()
 
 	r := gin.Default()
+
+	//set html
+	router.LoadHTMLGlob("public/react_frontend/public*.tmpl.html")
+	router.Static("public/react_frontend/static", "static")
+
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "public/react_frontend/public/index.tmpl.html", nil)
+	})
+	//////////////
+
+	//setup API
 
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))
@@ -58,17 +69,21 @@ func main() {
 		})
 	})
 
-	// test 1 to 1
-	tx1 := db.Begin()
-	userA := users.UserModel{
-		Username: "AAAAAAAAAAAAAAAA",
-		Email:    "aaaa@g.cn",
-		Bio:      "hehddeda",
-		Image:    nil,
-	}
-	tx1.Save(&userA)
-	tx1.Commit()
-	fmt.Println(userA)
+	///////////////
+
+	/*
+		// test 1 to 1
+		tx1 := db.Begin()
+		userA := users.UserModel{
+			Username: "AAAAAAAAAAAAAAAA",
+			Email:    "aaaa@g.cn",
+			Bio:      "hehddeda",
+			Image:    nil,
+		}
+		tx1.Save(&userA)
+		tx1.Commit()
+		fmt.Println(userA)
+	*/
 
 	//db.Save(&ArticleUserModel{
 	//    UserModelID:userA.ID,

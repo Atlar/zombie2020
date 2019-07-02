@@ -5,7 +5,7 @@ var webpack = require('webpack');
 module.exports = {
     entry: './public/react_frontend/src/index.js',
     output: {
-        path: path.join(__dirname, '/public/react_frontend/src/'),
+        path: path.join(__dirname, '/public/react_frontend/public/'),
         filename: 'bundle.js'
     },
     module: {
