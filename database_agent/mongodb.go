@@ -21,7 +21,7 @@ func Init(agent *MongoAgent) error {
 	//create client
 	ClientOptions := options.Client()
 	//get Connection URI
-	ConnectionURI := agent.getConnectionUrl()
+	ConnectionURI := agent.GetConnectionUrl()
 	ClientOptions.ApplyURI(ConnectionURI)
 	client, err := mongo.NewClient(ClientOptions)
 
@@ -36,7 +36,7 @@ func Init(agent *MongoAgent) error {
 	}
 
 	//save created client incto wrap class
-	agent.Client = client
+	agent.Client = *client
 
 	fmt.Println("client saved")
 
