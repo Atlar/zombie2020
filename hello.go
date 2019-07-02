@@ -6,8 +6,8 @@ import (
 
 	"gopkg.in/gin-gonic/gin.v1"
 
-	"https://github.com/Atlar/golang-gin-realworld-example-app/articles"
-	"https://github.com/Atlar/golang-gin-realworld-example-app/users"
+	"github.com/Atlar/golang-gin-realworld-example-app/articles"
+	"github.com/Atlar/golang-gin-realworld-example-app/users"
 	"github.com/jinzhu/gorm"
 
 	//My
