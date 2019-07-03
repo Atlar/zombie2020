@@ -5,7 +5,7 @@ var webpack = require('webpack');
 module.exports = {
     entry: './public/react_frontend/src/index.js',
     output: {
-        path: path.join(__dirname, '/public/react_frontend/public/'),
+        path: path.join(__dirname, '/public/'),
         filename: 'bundle.js'
     },
     module: {
@@ -14,7 +14,7 @@ module.exports = {
             loader: 'babel-loader',
             exclude: /node_modules/,
             query: {
-                presets: ['es2015', 'react']
+                presets: ['@babel/preset-env', '@babel/preset-react','mobx']
             }
         }]
     },
