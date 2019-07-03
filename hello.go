@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"os"
 
+"github.com/gin-gonic/contrib/static"
 	"gopkg.in/gin-gonic/gin.v1"
 
 	"github.com/Atlar/golang-gin-realworld-example-app/articles"
@@ -39,8 +40,10 @@ func main() {
 	r := gin.Default()
 
 	//set html
-	r.LoadHTMLGlob("public/react_frontend/public/index*.html")
-	r.Static("/public/react_frontend/public", "static")
+	//r.LoadHTMLGlob("public/react_frontend/public/index*.html")
+    //r.Static("/public/react_frontend/public", "static")
+
+	r.Use( static.Serve("/",static.LocalFile("./public/react_frontend/public",true)))
 
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)

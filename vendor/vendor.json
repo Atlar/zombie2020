@@ -8,6 +8,9 @@
 	},
 	"ignore": "test",
 	"package": [
+	{
+	"path": "github.com/gin-gonic/contrib/static"
+	},
 		{
 			"checksumSHA1": "8tLSbloQ6bpVBB/CcPbP9sLW45Y=",
 			"path": "github.com/Pallinder/go-randomdata",
