@@ -7,7 +7,7 @@ import { HashRouter } from 'react-router-dom';
 import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 
-import App from './components/App';
+import AdventureApp from './componentsAdventure/AdventureApp';
 
 import articlesStore from './stores/articlesStore';
 import commentsStore from './stores/commentsStore';
@@ -16,7 +16,9 @@ import commonStore from './stores/commonStore';
 import editorStore from './stores/editorStore';
 import userStore from './stores/userStore';
 import profileStore from './stores/profileStore';
- 
+
+
+
 
 const stores = {
   articlesStore,
@@ -28,6 +30,12 @@ const stores = {
   profileStore,
 };
 
+const adventureStores={
+
+	heroStore,
+	eventStore
+
+}
 
 // For easier debugging
 window._____APP_STATE_____ = stores;
@@ -36,9 +44,9 @@ promiseFinally.shim();
 useStrict(true);
 
 ReactDOM.render((
-  <Provider {...stores}>
+  <Provider {...adventureStores}>
     <HashRouter>
-      <App />
+      <AdventureApp />
     </HashRouter>
   </Provider>
 ), document.getElementById('root'));
