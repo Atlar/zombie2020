@@ -10,7 +10,8 @@
 	"ignore": "test",
 	"package": [
 	{
-	"path": "github.com/gin-gonic/contrib/static"
+	"path": "github.com/gin-gonic/contrib/static",
+"origin": "github.com/gin-gonic/contrib/static"
 	},
 		{
 			"checksumSHA1": "8tLSbloQ6bpVBB/CcPbP9sLW45Y=",
