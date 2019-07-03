@@ -1,1 +1,1 @@
-web: ~/bin
+web: golang-gin-realworld-example-app

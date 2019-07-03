@@ -56,7 +56,11 @@ func Init(agent *MongoAgent) error {
 func TestDB(agent *MongoAgent) {
 
 	//get collection
-	collection := agent.Database("Test").Collection("TestDoc")
+	collection := agent.Database("test").Collection("TestDoc")
+
+if (collection== nil) {
+	fmt.Println("no such collection")
+}
 
 	res, err := collection.InsertOne(context.Background(), bson.M{"hello": "world"})
 

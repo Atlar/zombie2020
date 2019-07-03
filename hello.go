@@ -34,16 +34,16 @@ func main() {
 	database_agent.TestDB(&db)
 
 	//Migrate(db)
-	defer db.Close()
+	//defer db.Close()
 
 	r := gin.Default()
 
 	//set html
-	r.LoadHTMLGlob("public/react_frontend/public*.tmpl.html")
-	r.Static("public/react_frontend/static", "static")
+	r.LoadHTMLGlob("public/react_frontend/public/index*.html")
+	r.Static("/public/react_frontend/public", "static")
 
 	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "public/react_frontend/public/index.tmpl.html", nil)
+		c.HTML(http.StatusOK, "index.html", nil)
 	})
 	//////////////
 
@@ -94,5 +94,5 @@ func main() {
 	//}).First(&userAA)
 	//fmt.Println(userAA)
 
-	r.Run(Port) // listen and serve on 0.0.0.0:8080
+	r.Run(":"+Port) // listen and serve on 0.0.0.0:8080
 }
