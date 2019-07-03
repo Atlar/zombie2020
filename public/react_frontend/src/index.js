@@ -1,4 +1,4 @@
-console.log("start react import...");
+
 
 import ReactDOM from 'react-dom';
 import promiseFinally from 'promise.prototype.finally';
@@ -16,8 +16,7 @@ import commonStore from './stores/commonStore';
 import editorStore from './stores/editorStore';
 import userStore from './stores/userStore';
 import profileStore from './stores/profileStore';
-
-console.log("finished importing...");
+ 
 
 const stores = {
   articlesStore,
@@ -29,13 +28,12 @@ const stores = {
   profileStore,
 };
 
+
 // For easier debugging
 window._____APP_STATE_____ = stores;
 
 promiseFinally.shim();
 useStrict(true);
-
-console.log("rendering react...");
 
 ReactDOM.render((
   <Provider {...stores}>

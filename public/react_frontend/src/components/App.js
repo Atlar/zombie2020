@@ -18,6 +18,7 @@ import Settings from './Settings';
 export default class App extends React.Component {
 
   componentWillMount() {
+    
     if (!this.props.commonStore.token) {
       this.props.commonStore.setAppLoaded();
     }
@@ -31,6 +32,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    window.alert("rendering" );
     if (this.props.commonStore.appLoaded) {
       return (
         <div>
