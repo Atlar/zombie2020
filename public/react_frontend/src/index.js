@@ -55,8 +55,9 @@ class adventureStore extends StoreComponent{
 
 }
 alert("store defined");
+alert("store defined");
 const adventureStores = new adventureStore({parent: "a"});
-alert("store created");
+alert(appStatusStore);
 adventureStores.appStatusStore = adventureStores.CreateComponent(appStatusStore);
 alert("app status");
 adventureStores.heroStore = adventureStores.CreateComponent(heroStore);
