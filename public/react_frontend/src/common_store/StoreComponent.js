@@ -22,13 +22,13 @@ export default class StoreComponent {
 } 
  //composition
  CreateComponent( componentClass ){
-    var properties = { parent: this
-    };
+    var properties = { parent: this };
     alert("creating component");
+    alert(componentClass);
  	var NewComponennt = new componentClass(properties);
  	alert(NewComponennt);
  	return NewComponennt;
-} 
+}
  
  //creating
  constructor( properties ){
