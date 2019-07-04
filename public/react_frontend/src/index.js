@@ -36,48 +36,28 @@ const stores = {
   profileStore,
 };
 //////SETUP///////////////
-//appStatusStore.appName="Quest";
-//appStatusStore.APIRootURL="/api";
+const appStatus = new appStatusStore();
+appStatus.appName="Quest";
+appStatus.APIRootURL="/api";
+//////
+const adventureStores = new StoreComponent();
+adventureStores.addComponent(appStatus);
+adventureStores.addComponent( new heroStore()) ;
+adventureStores.addComponent( new eventStore()) ;
+adventureStores.addComponent( new agent_object()) ;
+adventureStores.addComponent( new agent_events());
 
 //////////////////////////
-alert(appStatusStore);
+
 //////SETUP GLOBAL STORE///
-class adventureStore extends StoreComponent{
 
-/*
-  appStatusStore = this.CreateComponent(appStatusStore);
-  heroStore = this.CreateComponent(heroStore);
-  eventStore = this.CreateComponent(eventStore);
-
-  agent_events = this.CreateComponent(agent_events);
-  agent_object = this.CreateComponent(agent_object);
-  */
-
-}
-alert("store defined");
-alert("store defined");
-const adventureStores = new adventureStore({parent: "a"});
-alert(appStatusStore);
-adventureStores.appStatusStore = adventureStores.CreateComponent(appStatusStore);
-alert("app status");
-adventureStores.heroStore = adventureStores.CreateComponent(heroStore);
-alert("hero store");
-  adventureStores.eventStore = adventureStores.CreateComponent(eventStore);
-alert("event store");
- adventureStores.agent_events = adventureStores.CreateComponent(agent_events);
- alert("agent event created");
- adventureStores.agent_object = adventureStores.CreateComponent(agent_object);
-alert("agent object created");
-
-adventureStores.appStatusStore.appName="Quest";
-adventureStores.appStatusStore.APIRootURL="/api";
 /////////////////////////////
-alert("settings done");
+alert("setting store done");
 // For easier debugging
 window._____APP_STATE_____ = stores;
 
 promiseFinally.shim();
-useStrict(false);
+//useStrict(false);
 alert("rendering");
 ReactDOM.render((
   <Provider stores = {adventureStores}>

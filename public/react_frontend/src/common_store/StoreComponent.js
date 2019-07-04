@@ -29,7 +29,12 @@ export default class StoreComponent {
  	alert(NewComponennt);
  	return NewComponennt;
 }
+ addComponent( nameComponent, componentInstance ){
  
+ 	this[ nameComponent ] = componentInstance;
+ 	this[ nameComponent ].parent = this;
+ 
+ } 
  //creating
  constructor( properties ){
    //alert("component constructor" );
