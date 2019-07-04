@@ -22,7 +22,7 @@ export default class StoreComponent {
 } 
  //composition
  CreateComponent( componentClass ){
-    var properties = { parent: parent
+    var properties = { parent: this
     };
     alert("creating component");
  	var NewComponennt = new componentClass(properties);
@@ -32,7 +32,7 @@ export default class StoreComponent {
  
  //creating
  constructor( properties ){
-   alert("component constructor" );
+   //alert("component constructor" );
    this.parent = properties.parent;
    alert("component construction finishing" );
  } 
