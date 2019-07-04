@@ -2,7 +2,7 @@ import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
 //import commonStore from './stores/commonStore';
 //import authStore from './stores/authStore';
-superagent = superagentPromise(_superagent, global.Promise);
+const superagent = superagentPromise(_superagent, global.Promise);
 //
 //create common url for api request site_api/type/id
 const urlTypeId = (root, type,id) => `${root}/${type}/${id}`;
