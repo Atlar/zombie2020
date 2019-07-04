@@ -103,7 +103,7 @@ func main() {
 }
 func heroHandler( c *gin.Context ){
 	
-	c.JSON(200, c.H{
+	c.JSON(200, gin.H{
 			"name" : "myname", 
 			"status":"loaded"})
 	
