@@ -34,13 +34,13 @@ const stores = {
   profileStore,
 };
 //////SETUP///////////////
-appStatusStore.appName="Quest";
-appStatusStore.APIRootURL="/api";
+//appStatusStore.appName="Quest";
+//appStatusStore.APIRootURL="/api";
 
 //////////////////////////
 
 //////SETUP GLOBAL STORE///
-class adventureStores extends StoreComponent{
+class adventureStore extends StoreComponent{
 
   appStatusStore = this.CreateComponent(appStatusStore);
   heroStore = this.CreateComponent(heroStore);
@@ -50,7 +50,9 @@ class adventureStores extends StoreComponent{
   agent_object = this.CreateComponent(agent_object);
 
 }
-const adventureStores = new adventureStores();
+const adventureStores = new adventureStore();
+adventureStores.appStatusStore.appName="Quest";
+adventureStores.appStatusStore.APIRootURL="/api";
 /////////////////////////////
 
 // For easier debugging
