@@ -15,3 +15,4 @@ export default class appStatusStore extends StoreComponent {
   }
 
 }
+alert(appStatusStore);

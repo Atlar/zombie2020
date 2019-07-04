@@ -40,7 +40,7 @@ const stores = {
 //appStatusStore.APIRootURL="/api";
 
 //////////////////////////
-alert("imported");
+alert(appStatusStore);
 //////SETUP GLOBAL STORE///
 class adventureStore extends StoreComponent{
 
