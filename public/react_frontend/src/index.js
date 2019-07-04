@@ -62,10 +62,11 @@ class adventureStores {
 window._____APP_STATE_____ = stores;
 
 promiseFinally.shim();
-useStrict(true);
+//useStrict(true);
 
 ReactDOM.render((
   <Provider stores = {adventureStores}>
+  <div>App Header</div>
     <HashRouter>
       <AdventureApp />
     </HashRouter>

@@ -12,6 +12,7 @@ export default class Adventure extends React.Component {
   }
 
   componentDidMount() {
+    alert("loadind events" );
     this.props.stores.eventStore.loadEvents();
 
     //set regular events update
@@ -20,6 +21,7 @@ export default class Adventure extends React.Component {
   }
 
   render() {
+    alert("rendering events" );
     const { currentHero } = this.props.stores.heroStore.currentHero;
     const events = this.props.stores.eventStore.events;
 
@@ -39,4 +41,3 @@ export default class Adventure extends React.Component {
     );
   }
 };
-

@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"os"
+	"static"
 
 	"gopkg.in/gin-gonic/gin.v1"
 
@@ -39,10 +40,10 @@ func main() {
 	r := gin.Default()
 
 	//set html
-	r.LoadHTMLGlob("public/react_frontend/public/index*.html")
-    r.Static("/static", "./public/react_frontend/public")
+	//r.LoadHTMLGlob("public/react_frontend/public/index*.html")
+    //r.Static("/public/react_frontend/public", "static")
 
-	//r.Use( static.Serve("/",static.LocalFile("./public/react_frontend/public",true)))
+	r.Use( static.Serve("/",static.LocalFile("./public/react_frontend/public",true)))
 
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
@@ -51,6 +52,8 @@ func main() {
 
 	//setup API
 
+    r.GET("/api/hero/",heroHandler)
+    
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))
 	v1.Use(users.AuthMiddleware(false))
@@ -97,4 +100,12 @@ func main() {
 	//fmt.Println(userAA)
 
 	r.Run(":"+Port) // listen and serve on 0.0.0.0:8080
+}
+func heroHandler( c *gin.Context ){
+	
+	c.JSON(200, c.H{
+			"name" : "myname", 
+			"status":"loaded"
+		})
+	
 }

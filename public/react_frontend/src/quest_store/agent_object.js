@@ -9,7 +9,7 @@ const urlTypeId = (root, type,id) => `${root}/${type}/${id}`;
 
 const returnResponseBody = res => res.body;
 //
-export default class APICommunicator{
+export default class agent_object{
 
     superagent = superagentPromise(_superagent, global.Promise);
 
