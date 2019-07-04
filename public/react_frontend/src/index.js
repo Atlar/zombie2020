@@ -77,7 +77,7 @@ alert("settings done");
 window._____APP_STATE_____ = stores;
 
 promiseFinally.shim();
-//useStrict(true);
+useStrict(false);
 alert("rendering");
 ReactDOM.render((
   <Provider stores = {adventureStores}>
