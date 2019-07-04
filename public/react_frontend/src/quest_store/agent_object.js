@@ -24,7 +24,7 @@ export default class agent_object extends StoreComponent{
 							.put(urlTypeId( this.getRootAPIUrl() ,type, id), object_data)
               .then( returnResponseBody )
               
-		getRootAPIUrl = () => this.parent.appSettingStore.APIRootURL		
+		getRootAPIUrl = () => this.parent.appStatusStore.APIRootURL		
 }
 
 

@@ -1,6 +1,7 @@
 import { observable, action, reaction } from 'mobx';
+import StoreComponent from './StoreComponent';
 
-class appStatusStore {
+export default class appStatusStore extends StoreComponent {
 
   APIRootURL;
   @observable appName = 'Conduit';
@@ -14,5 +15,3 @@ class appStatusStore {
   }
 
 }
-
-export default new appStatusStore();

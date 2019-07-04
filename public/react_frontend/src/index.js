@@ -1,5 +1,4 @@
 
-
 import ReactDOM from 'react-dom';
 import promiseFinally from 'promise.prototype.finally';
 import React from 'react';
@@ -38,7 +37,7 @@ const stores = {
 //appStatusStore.APIRootURL="/api";
 
 //////////////////////////
-
+alert("imported");
 //////SETUP GLOBAL STORE///
 class adventureStore extends StoreComponent{
 
@@ -50,17 +49,19 @@ class adventureStore extends StoreComponent{
   agent_object = this.CreateComponent(agent_object);
 
 }
+alert("store defined");
 const adventureStores = new adventureStore();
+alert("store created");
 adventureStores.appStatusStore.appName="Quest";
 adventureStores.appStatusStore.APIRootURL="/api";
 /////////////////////////////
-
+alert("settings done");
 // For easier debugging
 window._____APP_STATE_____ = stores;
 
 promiseFinally.shim();
 //useStrict(true);
-
+alert("rendering");
 ReactDOM.render((
   <Provider stores = {adventureStores}>
   <div>App Header</div>

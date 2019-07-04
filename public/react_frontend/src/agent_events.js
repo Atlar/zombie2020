@@ -16,6 +16,6 @@ export default class agent_events extends StoreComponent{
 									.get(`${getAPIRoot()}/events/hero/${heroId}`)
 									.then(returnResponseBody)
 
-	getAPIRoot = () => this.parent.appSettingStore.APIRootURL;
+	getAPIRoot = () => this.parent.appStatusStore.APIRootURL;
 						
 }
