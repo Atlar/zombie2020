@@ -1,34 +1,37 @@
 import { observable, action } from 'mobx';
 //import agent from '../agent';
 import agent_object from './agent_object';
+import StoreComponent from "../common_store/StoreComponent";
 
-export default class HeroStore {
+export default class HeroStore extends StoreComponent{
 
-  parent;
-  agent_object = new agent_object();
   @observable currentHero;
   @observable loadingHero;
   @observable updatingHero;
   //@observable updatingUserErrors;
-
-  constructor( parent ){
-
-    this.parent = parent;
-    this.agent_object.appSettingStore = parent.appSettingStore;
-
-  }
   
   @action loadHero(){
+     //get appropriate agent
+     var agent = this.parent.agent_object;
+     if(agent == undefined){
+     	alert("hero store on load hero did not find agent_object in parent");
+     	return;
+     }
      this.loadingHero = true;
      //send hero api request
-     return this.agent_object.loadById( "hero", this.currentHero.name )
+     return agent.loadById( "hero", this.currentHero.name )
      .then(action(({ hero }) => { this.currentHero = hero; }))
      .finally(action(() => { this.loadingHero = false; }))
  } 
 
   @action updateHero(newHero) {
     this.updatingHero = true;
-    return  this.agent_object.updateById( "hero", newHero.name, newHero )
+    	var agent = this.parent.agent_object;
+    	if(agent == undefined){
+    alert("hero store on update hero did not find agent_object in parent");
+    return;
+    }
+    return agent.updateById( "hero", newHero.name, newHero )
       .then(action(({ hero }) => { this.currentHero = hero; }))
       .finally(action(() => { this.updatingHero = false; }))
   }

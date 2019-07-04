@@ -1,5 +1,4 @@
 
-
 import ReactDOM from 'react-dom';
 import promiseFinally from 'promise.prototype.finally';
 import React from 'react';
@@ -11,6 +10,10 @@ import AdventureApp from './componentsAdventure/AdventureApp';
 import appStatusStore from './common_store/appStatusStore';
 import heroStore from "./quest_store/heroStore";
 import eventStore from "./quest_store/eventStore";
+import StoreComponent from "./common_store/StoreComponent";
+
+import agent_object from './quest_store/agent_object';
+import agent_events from './agent_events';
 
 import articlesStore from './stores/articlesStore';
 import commentsStore from './stores/commentsStore';
@@ -33,39 +36,32 @@ const stores = {
   profileStore,
 };
 //////SETUP///////////////
-appStatusStore.appName="Quest";
-appStatusStore.APIRootURL="/api";
+const appStatus = new appStatusStore();
+appStatus.appName="Quest";
+appStatus.APIRootURL="/api";
+//////
+const adventureStores = new StoreComponent();
+adventureStores.addComponent(appStatus);
+adventureStores.addComponent( new heroStore()) ;
+adventureStores.addComponent( new eventStore()) ;
+adventureStores.addComponent( new agent_object()) ;
+adventureStores.addComponent( new agent_events());
 
 //////////////////////////
 
 //////SETUP GLOBAL STORE///
-class adventureStores {
-
-  appStatusStore;
-	heroStore;
-  eventStore;
-
-  constructor(){
-    
-    this.appStatusStore = appStatusStore;
-
-    this.heroStore      = new heroStore(this);
-    this.eventStore     = new eventStore(this);
-
-  }
-
-}
 
 /////////////////////////////
-
+alert("setting store done");
 // For easier debugging
 window._____APP_STATE_____ = stores;
 
 promiseFinally.shim();
-useStrict(true);
-
+//useStrict(false);
+alert("rendering");
 ReactDOM.render((
   <Provider stores = {adventureStores}>
+  <div>App Header</div>
     <HashRouter>
       <AdventureApp />
     </HashRouter>

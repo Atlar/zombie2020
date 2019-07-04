@@ -1,5 +1,6 @@
 import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
+import StoreComponent from "../common_store/StoreComponent";
 //import commonStore from './stores/commonStore';
 //import authStore from './stores/authStore';
 
@@ -9,11 +10,9 @@ const urlTypeId = (root, type,id) => `${root}/${type}/${id}`;
 
 const returnResponseBody = res => res.body;
 //
-export default class agent_object{
+export default class agent_object extends StoreComponent{
 
     superagent = superagentPromise(_superagent, global.Promise);
-
-    appSettingStore;
 
     loadById = (type, id ) => this.superagent
     						//send request site/api/objectt_type/object_name
@@ -25,7 +24,7 @@ export default class agent_object{
 							.put(urlTypeId( this.getRootAPIUrl() ,type, id), object_data)
               .then( returnResponseBody )
               
-		getRootAPIUrl = () => appSettingStore.APIRootURL		
+		getRootAPIUrl = () => this.parent.appStatusStore.APIRootURL		
 }
 
 

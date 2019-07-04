@@ -11,13 +11,14 @@ import Adventure from './Adventure';
 export default class AdventureApp extends React.Component {
 
   componentWillMount() {
-    
+    alert("Adventure will be Mounted" );
     if (1) {
       this.props.stores.appStatusStore.setAppLoaded();
     }
   }
 
   componentDidMount() {
+    alert("Adventure Mounted" );
     //if (this.props.commonStore.token) {
     //  this.props.userStore.pullUser()
     //    .finally(() => this.props.commonStore.setAppLoaded());
@@ -29,8 +30,9 @@ export default class AdventureApp extends React.Component {
     if (this.props.stores.appStatusStore.appLoaded) {
       return (
         <div>
+          <div> Component Header </div>
           <Switch>
-            <Route path="/adventure" component={Adventure} />
+            <Adventure/>
           </Switch>
         </div>
       );
