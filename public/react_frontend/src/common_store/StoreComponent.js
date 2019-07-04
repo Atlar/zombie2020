@@ -38,4 +38,4 @@ export default class StoreComponent {
  } 
  
 } 
-
+alert(StoreComponent);
