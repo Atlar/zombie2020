@@ -12,6 +12,9 @@ import heroStore from "./quest_store/heroStore";
 import eventStore from "./quest_store/eventStore";
 import StoreComponent from "./common_store/StoreComponent";
 
+import agent_object from './quest_store/agent_object';
+import agent_events from './agent_events';
+
 import articlesStore from './stores/articlesStore';
 import commentsStore from './stores/commentsStore';
 import authStore from './stores/authStore';
@@ -41,17 +44,30 @@ alert("imported");
 //////SETUP GLOBAL STORE///
 class adventureStore extends StoreComponent{
 
+/*
   appStatusStore = this.CreateComponent(appStatusStore);
   heroStore = this.CreateComponent(heroStore);
   eventStore = this.CreateComponent(eventStore);
 
   agent_events = this.CreateComponent(agent_events);
   agent_object = this.CreateComponent(agent_object);
+  */
 
 }
 alert("store defined");
-const adventureStores = new adventureStore();
+const adventureStores = new adventureStore({parent: "a"});
 alert("store created");
+adventureStores.appStatusStore = adventureStores.CreateComponent(appStatusStore);
+alert("app status");
+adventureStores.heroStore = adventureStores.CreateComponent(heroStore);
+alert("hero store");
+  adventureStores.eventStore = adventureStores.CreateComponent(eventStore);
+alert("event store");
+ adventureStores.agent_events = adventureStores.CreateComponent(agent_events);
+ alert("agent event created");
+ adventureStores.agent_object = adventureStores.CreateComponent(agent_object);
+alert("agent object created");
+
 adventureStores.appStatusStore.appName="Quest";
 adventureStores.appStatusStore.APIRootURL="/api";
 /////////////////////////////

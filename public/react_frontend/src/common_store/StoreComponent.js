@@ -8,8 +8,8 @@ export default class StoreComponent {
  
  //methods
  //lifecycle
- onCreated = () => {}
- onSettingUpdate = ( oldSettings ) => {}
+ onCreated = () => {};
+ onSettingUpdate = ( oldSettings ) => {};
  //Settings control
  setSettings(settingsNew){
    this.settings = settingsNew;
@@ -24,12 +24,17 @@ export default class StoreComponent {
  CreateComponent( componentClass ){
     var properties = { parent: parent
     };
+    alert("creating component");
  	var NewComponennt = new componentClass(properties);
+ 	alert(NewComponennt);
+ 	return NewComponennt;
 } 
  
  //creating
  constructor( properties ){
+   alert("component constructor" );
    this.parent = properties.parent;
+   alert("component construction finishing" );
  } 
  
 } 
