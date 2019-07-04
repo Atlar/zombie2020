@@ -8,6 +8,9 @@ import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 
 import AdventureApp from './componentsAdventure/AdventureApp';
+import appStatusStore from './common_store/appStatusStore';
+import heroStore from "./quest_store/heroStore";
+import eventStore from "./quest_store/eventStore";
 
 import articlesStore from './stores/articlesStore';
 import commentsStore from './stores/commentsStore';
@@ -19,7 +22,7 @@ import profileStore from './stores/profileStore';
 
 
 
-
+//better because no need to initialize
 const stores = {
   articlesStore,
   commentsStore,
@@ -29,13 +32,31 @@ const stores = {
   userStore,
   profileStore,
 };
+//////SETUP///////////////
+appStatusStore.appName="Quest";
+appStatusStore.APIRootURL="/api";
 
-const adventureStores={
+//////////////////////////
 
-	heroStore,
-	eventStore
+//////SETUP GLOBAL STORE///
+class adventureStores {
+
+  appStatusStore;
+	heroStore;
+  eventStore;
+
+  constructor(){
+    
+    this.appStatusStore = appStatusStore;
+
+    this.heroStore      = new heroStore(this);
+    this.eventStore     = new eventStore(this);
+
+  }
 
 }
+
+/////////////////////////////
 
 // For easier debugging
 window._____APP_STATE_____ = stores;
@@ -44,7 +65,7 @@ promiseFinally.shim();
 useStrict(true);
 
 ReactDOM.render((
-  <Provider {...adventureStores}>
+  <Provider stores = {adventureStores}>
     <HashRouter>
       <AdventureApp />
     </HashRouter>

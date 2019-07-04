@@ -2,6 +2,7 @@ import { observable, action, reaction } from 'mobx';
 
 class appStatusStore {
 
+  APIRootURL;
   @observable appName = 'Conduit';
   @observable appLoaded = false;
 

@@ -1,20 +1,19 @@
-import Header from './Header';
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import PrivateRoute from './PrivateRoute';
+//import PrivateRoute from './PrivateRoute';
 
 import Adventure from './Adventure';
 
-@inject('commonStore')
+@inject("stores")
 @withRouter
 @observer
-export default class App extends React.Component {
+export default class AdventureApp extends React.Component {
 
   componentWillMount() {
     
     if (1) {
-      this.props.commonStore.setAppLoaded();
+      this.props.stores.appStatusStore.setAppLoaded();
     }
   }
 
@@ -27,10 +26,9 @@ export default class App extends React.Component {
 
   render() {
     window.alert("rendering" );
-    if (this.props.commonStore.appLoaded) {
+    if (this.props.stores.appStatusStore.appLoaded) {
       return (
         <div>
-          <Header />
           <Switch>
             <Route path="/adventure" component={Adventure} />
           </Switch>
@@ -38,7 +36,7 @@ export default class App extends React.Component {
       );
     }
     return (
-      <Header />
+      <div></div>
     );
   }
 }

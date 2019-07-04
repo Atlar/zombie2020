@@ -9,12 +9,14 @@ const urlTypeId = (root, type,id) => `${root}/${type}/${id}`;
 
 const returnResponseBody = res => res.body;
 //
-default export class agent_events {
+export default class agent_events {
+
+	appSettings;
 
 	loadHeroEvents = (heroId) => superagent
 									.get(`${getAPIRoot()}/events/hero/${heroId}`)
 									.then(returnResponseBody)
 
-	getAPIRoot = () => 'root_api'
+	getAPIRoot = () => this.appSettings.APIRootURL;
 						
 }

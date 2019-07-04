@@ -11,19 +11,21 @@ const returnResponseBody = res => res.body;
 //
 export default class APICommunicator{
 
-    var superagent = superagentPromise(_superagent, global.Promise);
+    superagent = superagentPromise(_superagent, global.Promise);
 
-    var API_ROOT = 'https://conduit.productionready.io/api';
+    appSettingStore;
 
     loadById = (type, id ) => this.superagent
     						//send request site/api/objectt_type/object_name
-    						.get( urlTypeId( this.API_ROOT, type, id) )
+    						.get( urlTypeId( this.getRootAPIUrl(), type, id) )
     						//return response body parsed by default
-    						.then( returnResponseBody ),
-	updateById = (type, id, object_data) => this.superagent
-							.put(urlTypeId( this.API_ROOT ,type, id), object_data)
-							.then( returnResponseBody ),
-							
+                .then( returnResponseBody )
+                
+	  updateById = (type, id, object_data) => this.superagent
+							.put(urlTypeId( this.getRootAPIUrl() ,type, id), object_data)
+              .then( returnResponseBody )
+              
+		getRootAPIUrl = () => appSettingStore.APIRootURL		
 }
 
 
