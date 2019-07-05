@@ -57,7 +57,7 @@ func main() {
 	//setup API
 
 	r.GET("/api/hero/", heroHandler)
-	r.GET("/api/events/hero/*name", heroEventsHandler ))
+	r.GET("/api/events/hero/*name", heroEventsHandler )
 
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))
@@ -119,7 +119,7 @@ func heroHandler(c *gin.Context) {
 }
 func heroEventsHandler(c *gin.Context) {
 	
-	NewEvent := EventAdventure{"Battle", "win", rand.Intn(100) + 10 )}
+	NewEvent := EventAdventure{"Battle", "win", rand.Intn(100) + 10 }
 	
 	database_agent.DBagent.AddEvent( NewEvent )
 	

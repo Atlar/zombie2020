@@ -12,6 +12,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+var DBagent MongoAgent
+
 //init
 func Init(agent *MongoAgent) error {
 
@@ -74,6 +76,10 @@ func TestDB(agent *MongoAgent) {
 
 }
 
+func Init(){
+   Init(&DBagent)
+}
+
 type MongoAgent struct {
 	//extended mongo client
 	//wrapper
@@ -108,6 +114,14 @@ func (dbagent *MongoAgent) AddEvent( eventNew EventAdventure ){
 
 	res, err := collection.InsertOne(context.Background(), eventNew)
 
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	id := res.InsertedID
+	
+	fmt.Println("inserted id-", id)
+
 }
 
 func (dbagent *MongoAgent) LoadEvents( ) []EventAdventure {
@@ -122,6 +136,10 @@ func (dbagent *MongoAgent) LoadEvents( ) []EventAdventure {
 findOptions.SetLimit(10)
 
 	cur, err := collection.Find(context.Background(),bson.D{{}},findOptions)
+    
+    if err != nil {
+    	fmt.Println(err)
+    }
     
     var Event1 EventAdventure
     var Result []EventAdventure
