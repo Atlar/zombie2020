@@ -14,7 +14,7 @@ export default class EventStore extends StoreComponent{
      var StoreRef = this;
      var agent = this.parent.agent_events;
      return agent.loadHeroEvents( this.parent.heroStore.currentHero.name )
-     .then(action( (events)  => { this.events = events; alert(JSON.stringify(this))}))
+     .then(action( (events)  => { this.events = events;}))
 
  } 
   
