@@ -45,9 +45,9 @@ func main() {
 
 	//r.Use( static.Serve("/",static.LocalFile("./public/react_frontend/public",true)))
 
-	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
-	})
+	//r.GET("/", func(c *gin.Context) {
+	//	c.HTML(http.StatusOK, "index.html", nil)
+	//})
 	//////////////
 
 	//setup API
@@ -74,6 +74,10 @@ func main() {
 			"message": "pong",
 		})
 	})
+
+r.GET("/", func(c *gin.Context) {
+	c.HTML(http.StatusOK, "index.html", nil)
+})
 
 	///////////////
 
@@ -111,7 +115,6 @@ func heroHandler(c *gin.Context) {
 }
 func heroEventsHandler(c *gin.Context) {
 
-	c.Writer.Header().Set("Content-Type","application/json")
 	c.JSON(200, []gin.H{gin.H{
 		"event_type": "battle",
 		"status":     "win",

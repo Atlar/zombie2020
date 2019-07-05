@@ -13,7 +13,7 @@ export default class EventStore extends StoreComponent{
      //send hero api request
      var agent = this.parent.agent_events;
      return agent.loadHeroEvents( this.parent.heroStore.currentHero.name )
-     .then(action( (events)  => { this.events = events; console.log(this.events) }))
+     .then(action( (events)  => { alert(JSON.stringify(events)); this.events = events; alert(JSON.stringify(this))}))
 
  } 
   
