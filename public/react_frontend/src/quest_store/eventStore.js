@@ -8,12 +8,13 @@ export default class EventStore extends StoreComponent{
 
   @observable events;
 
-  @action loadEvents(){
+  @action loadEvents = () => {
      //this.loadingHero = true;
      //send hero api request
+     var StoreRef = this;
      var agent = this.parent.agent_events;
      return agent.loadHeroEvents( this.parent.heroStore.currentHero.name )
-     .then(action( (events)  => { alert(JSON.stringify(events)); this.events = events; alert(JSON.stringify(this))}))
+     .then(action( (events)  => { this.events = events; alert(JSON.stringify(this))}))
 
  } 
   
