@@ -29,7 +29,7 @@ func main() {
 
 	/////////////
 	//Port := os.Getenv("PORT")
-	var db database_agent.MongoAgent
+	//var db database_agent.MongoAgent
 
 	database_agent.Init(&database_agent.DBagent)
 	//db := common.Init()
