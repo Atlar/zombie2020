@@ -25,7 +25,7 @@ export default class Adventure extends React.Component {
     const currentHero = this.props.stores.heroStore.currentHero;
 
     const events = this.props.stores.eventStore.events;
-    alert("render" + JSON.stringify( events ) );
+    //alert("render" + JSON.stringify( events ) );
     console.log(events);
 
     return (
@@ -36,7 +36,7 @@ export default class Adventure extends React.Component {
         <div>
         { 
           events && events.map( (elem , index) => {
-            return( <div key={index}>{elem.event_type+" result: "+elem.status+"("+elem.bonus+"xp)"}</div>)
+            return( <div key={index}>{elem.Name+" result: "+elem.Result+"("+elem.Bonus+"xp)"}</div>)
           })
         }
         </div>

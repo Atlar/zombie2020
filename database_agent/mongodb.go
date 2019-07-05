@@ -97,3 +97,49 @@ func (dbagent *MongoAgent) GetConnectionUrl() string {
 	return url
 
 }
+
+func (dbagent *MongoAgent) AddEvent( eventNew EventAdventure ){
+	//get collection
+	collection := dbagent.Database("test").Collection("TestEvent")
+
+	if collection == nil {
+		fmt.Println("no such collection")
+	}
+
+	res, err := collection.InsertOne(context.Background(), eventNew)
+
+}
+
+func (dbagent *MongoAgent) LoadEvents( ) []EventAdventure {
+	//get collection
+	collection := dbagent.Database("test").Collection("TestEvent")
+
+	if collection == nil {
+		fmt.Println("no such collection")
+	}
+
+	findOptions := options.Find()
+findOptions.SetLimit(10)
+
+	cur, err := collection.Find(context.Background(),bson.D{{}},findOptions)
+    
+    var Event1 EventAdventure
+    var Result []EventAdventure
+    for cur.Next(context.Background()) {
+    	
+    	cur.Decode(&Event1)
+    	Result = append(Result, Event1)
+    }
+    cur.Close(context.Background())
+    fmt.Printf( "Found multiple documents (array of pointers): %+v\n", Result )
+    return Result
+    
+}
+
+type EventAdventure struct{
+	
+	Name string
+	Result string
+	Bonus int
+	
+}

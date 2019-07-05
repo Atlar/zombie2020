@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"os"
 
+	"math/rand"
+
 	"gopkg.in/gin-gonic/gin.v1"
 
 	"github.com/Atlar/golang-gin-realworld-example-app/articles"
@@ -29,9 +31,11 @@ func main() {
 	//Port := os.Getenv("PORT")
 	var db database_agent.MongoAgent
 
-	database_agent.Init(&db)
+	//database_agent.Init(&db)
 	//db := common.Init()
 	database_agent.TestDB(&db)
+
+    database_agent.Init()
 
 	//Migrate(db)
 	//defer db.Close()
@@ -53,7 +57,7 @@ func main() {
 	//setup API
 
 	r.GET("/api/hero/", heroHandler)
-	r.GET("/api/events/hero/*name", heroEventsHandler)
+	r.GET("/api/events/hero/*name", heroEventsHandler ))
 
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))
@@ -114,15 +118,13 @@ func heroHandler(c *gin.Context) {
 
 }
 func heroEventsHandler(c *gin.Context) {
-
-	c.JSON(200, []gin.H{gin.H{
-		"event_type": "battle",
-		"status":     "win",
-		"bonus":      12},
-		gin.H{
-			"event_type": "battle",
-			"status":     "win",
-			"bonus":      23}})
+	
+	NewEvent := EventAdventure{"Battle", "win", rand.Intn(100) + 10 )}
+	
+	database_agent.DBagent.AddEvent( NewEvent )
+	
+    Events:= database_agent.DBagent.LoadEvents()
+	c.JSON(200, Events)
 
 }
 func getEnvPort() string {
