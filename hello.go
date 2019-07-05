@@ -33,7 +33,7 @@ func main() {
 
 	database_agent.Init(&database_agent.DBagent)
 	//db := common.Init()
-	database_agent.TestDB(&db)
+	//database_agent.TestDB(&db)
 
     //database_agent.Init()
 
