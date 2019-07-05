@@ -1,24 +1,19 @@
 import { observable, action } from 'mobx';
 //import agent from '../agent';
 import agent_events from '../agent_events';
+import StoreComponent from "../common_store/StoreComponent";
+import { observer } from 'mobx-react';
 
-export default class EventStore {
+export default class EventStore extends StoreComponent{
 
-  parent;
-  agent_events = new agent_events();
   @observable events;
-
-
-  constructor(parent){
-    this.parent = parent;
-    this.agent_events.appSettings = parent.appSettings;
-  }
 
   @action loadEvents(){
      //this.loadingHero = true;
      //send hero api request
-     return agent_events.loadHeroEvents( this.parent.heroStore.currentHero.name )
-     .then(action(({ events }) => { this.events = events; }))
+     var agent = this.parent.agent_events;
+     return agent.loadHeroEvents( this.parent.heroStore.currentHero.name )
+     .then(action( (events)  => { this.events = events; console.log(this.events) }))
 
  } 
   

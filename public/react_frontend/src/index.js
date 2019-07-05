@@ -41,29 +41,28 @@ appStatus.appName="Quest";
 appStatus.APIRootURL="/api";
 //////
 const adventureStores = new StoreComponent();
-adventureStores.addComponent(appStatus);
-adventureStores.addComponent( new heroStore()) ;
-adventureStores.addComponent( new eventStore()) ;
-adventureStores.addComponent( new agent_object()) ;
-adventureStores.addComponent( new agent_events());
+adventureStores.addComponent( "appStatusStore", appStatus);
+adventureStores.addComponent( "heroStore", new heroStore()) ;
+adventureStores.addComponent( "eventStore",new eventStore()) ;
+adventureStores.addComponent( "agent_object", new agent_object()) ;
+adventureStores.addComponent( "agent_events", new agent_events());
 
 //////////////////////////
-
+adventureStores.heroStore.currentHero = { name: "Hedrick ", level: 1};
 //////SETUP GLOBAL STORE///
 
 /////////////////////////////
-alert("setting store done");
+
 // For easier debugging
 window._____APP_STATE_____ = stores;
 
 promiseFinally.shim();
 //useStrict(false);
-alert("rendering");
+
 ReactDOM.render((
   <Provider stores = {adventureStores}>
-  <div>App Header</div>
     <HashRouter>
-      <AdventureApp />
+      <AdventureApp/>
     </HashRouter>
   </Provider>
 ), document.getElementById('root'));

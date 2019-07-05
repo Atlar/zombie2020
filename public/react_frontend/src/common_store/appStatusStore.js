@@ -7,12 +7,8 @@ export default class appStatusStore extends StoreComponent {
   @observable appName = 'Conduit';
   @observable appLoaded = false;
 
-  constructor() {
-  }
-
   @action setAppLoaded() {
     this.appLoaded = true;
   }
 
 }
-alert(appStatusStore);

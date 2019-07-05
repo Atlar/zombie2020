@@ -8,13 +8,14 @@ const superagent = superagentPromise(_superagent, global.Promise);
 //create common url for api request site_api/type/id
 const urlTypeId = (root, type,id) => `${root}/${type}/${id}`;
 
-const returnResponseBody = res => res.body;
+const returnResponseBody = res => { console.log(res.body); return res.body;}
 //
 export default class agent_events extends StoreComponent{
 
 	loadHeroEvents = (heroId) => superagent
-									.get(`${getAPIRoot()}/events/hero/${heroId}`)
-									.then(returnResponseBody)
+									.get(`${this.getAPIRoot()}/events/hero/${heroId}`)
+									.accept('json')
+									.then(returnResponseBody);
 
 	getAPIRoot = () => this.parent.appStatusStore.APIRootURL;
 						

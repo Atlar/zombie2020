@@ -8,32 +8,34 @@ import { withRouter, NavLink } from 'react-router-dom'
 export default class Adventure extends React.Component {
 
   componentWillMount() {
-    this.props.appSettingStore.setAppLoaded();
+    this.props.stores.appStatusStore.setAppLoaded();
   }
 
   componentDidMount() {
-    alert("loadind events" );
+    
     this.props.stores.eventStore.loadEvents();
 
     //set regular events update
-    setInterval( this.props.stores.eventStore.loadEvents() , 1000);
+    setInterval( () => this.props.stores.eventStore.loadEvents() , 3500);
 
   }
 
   render() {
-    alert("rendering events" );
-    const { currentHero } = this.props.stores.heroStore.currentHero;
+
+    const currentHero = this.props.stores.heroStore.currentHero;
+
     const events = this.props.stores.eventStore.events;
+    console.log(events);
 
     return (
       <div className="col-md-9">
         <div>
-          {currentHero.Name}
+          {currentHero.name}
         </div>
         <div>
         { 
           events && events.map( (elem , index) => {
-            <div key={index}>elem.Description</div>
+            <div key={index}>{elem.event_type+" result: "+elem.status+"("+elem.bonus+"xp)"}</div>
           } )
         }
         </div>

@@ -26,7 +26,7 @@ func Migrate(db *gorm.DB) {
 func main() {
 
 	/////////////
-	Port := os.Getenv("PORT")
+	//Port := os.Getenv("PORT")
 	var db database_agent.MongoAgent
 
 	database_agent.Init(&db)
@@ -40,7 +40,7 @@ func main() {
 
 	//set html
 	r.LoadHTMLGlob("public/react_frontend/public/index*.html")
-    //r.Static("/public/react_frontend/public", "static")
+	//r.Static("/public/react_frontend/public", "static")
 	r.Static("/static", "./public/react_frontend/public")
 
 	//r.Use( static.Serve("/",static.LocalFile("./public/react_frontend/public",true)))
@@ -52,8 +52,9 @@ func main() {
 
 	//setup API
 
-    r.GET("/api/hero/",heroHandler)
-    
+	r.GET("/api/hero/", heroHandler)
+	r.GET("/api/events/hero/*name", heroEventsHandler)
+
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))
 	v1.Use(users.AuthMiddleware(false))
@@ -99,12 +100,35 @@ func main() {
 	//}).First(&userAA)
 	//fmt.Println(userAA)
 
-	r.Run(":"+Port) // listen and serve on 0.0.0.0:8080
+	r.Run(":" + getEnvPort()) // listen and serve on 0.0.0.0:8080
 }
-func heroHandler( c *gin.Context ){
-	
+func heroHandler(c *gin.Context) {
+
 	c.JSON(200, gin.H{
-			"name" : "myname", 
-			"status":"loaded"})
-	
+		"name":   "myname",
+		"status": "loaded"})
+
+}
+func heroEventsHandler(c *gin.Context) {
+
+	c.JSON(200, []gin.H{gin.H{
+		"event_type": "battle",
+		"status":     "win",
+		"bonus":      12},
+		gin.H{
+			"event_type": "battle",
+			"status":     "win",
+			"bonus":      23}})
+
+}
+func getEnvPort() string {
+	ENV_PORT := os.Getenv("PORT")
+	default_port := "8080"
+	var port string
+	if ENV_PORT != "" {
+		port = ENV_PORT
+	} else {
+		port = default_port
+	}
+	return port
 }

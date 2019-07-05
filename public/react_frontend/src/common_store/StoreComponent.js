@@ -23,24 +23,17 @@ export default class StoreComponent {
  //composition
  CreateComponent( componentClass ){
     var properties = { parent: this };
-    alert("creating component");
-    alert(componentClass);
+
+
  	var NewComponennt = new componentClass(properties);
- 	alert(NewComponennt);
+
  	return NewComponennt;
 }
  addComponent( nameComponent, componentInstance ){
  
  	this[ nameComponent ] = componentInstance;
- 	this[ nameComponent ].parent = this;
+ 	componentInstance.parent = this;
  
  } 
- //creating
- constructor( properties ){
-   //alert("component constructor" );
-   this.parent = properties.parent;
-   alert("component construction finishing" );
- } 
  
-} 
-alert(StoreComponent);
+}

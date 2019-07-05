@@ -58,9 +58,9 @@ func TestDB(agent *MongoAgent) {
 	//get collection
 	collection := agent.Database("test").Collection("TestDoc")
 
-if (collection== nil) {
-	fmt.Println("no such collection")
-}
+	if collection == nil {
+		fmt.Println("no such collection")
+	}
 
 	res, err := collection.InsertOne(context.Background(), bson.M{"hello": "world"})
 
@@ -86,7 +86,14 @@ type MongoAgent struct {
 func (dbagent *MongoAgent) GetConnectionUrl() string {
 
 	//set password
-	url := os.Getenv("MONGODB_URI")
+	ENV_URL := os.Getenv("MONGODB_URI")
+	default_url := "mongodb+srv://Atlar:00000094@monacomongocluster-luzdy.mongodb.net/test?retryWrites=true&w=majority"
+	var url string
+	if ENV_URL != "" {
+		url = ENV_URL
+	} else {
+		url = default_url
+	}
 	return url
 
 }
