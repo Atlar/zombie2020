@@ -8,7 +8,7 @@ const superagent = superagentPromise(_superagent, global.Promise);
 //create common url for api request site_api/type/id
 const urlTypeId = (root, type,id) => `${root}/${type}/${id}`;
 
-const returnResponseBody = res => { alert(res.body); return res.body;}
+const returnResponseBody = res => { alert(JSON.stringify(res.body) ); return res.body;}
 //
 export default class agent_events extends StoreComponent{
 
