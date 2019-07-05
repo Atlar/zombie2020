@@ -112,7 +112,7 @@ func heroHandler(c *gin.Context) {
 func heroEventsHandler(c *gin.Context) {
 
 	c.Writer.Header().Set("Content-Type","application/json")
-	c.JSON(200, gin.H{gin.H{
+	c.JSON(200, []gin.H{gin.H{
 		"event_type": "battle",
 		"status":     "win",
 		"bonus":      12},
