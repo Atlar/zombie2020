@@ -31,11 +31,11 @@ func main() {
 	//Port := os.Getenv("PORT")
 	var db database_agent.MongoAgent
 
-	//database_agent.Init(&db)
+	database_agent.Init(&database_agent.DBagent)
 	//db := common.Init()
 	database_agent.TestDB(&db)
 
-    database_agent.Init()
+    //database_agent.Init()
 
 	//Migrate(db)
 	//defer db.Close()

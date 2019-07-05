@@ -76,10 +76,6 @@ func TestDB(agent *MongoAgent) {
 
 }
 
-func Init(){
-   Init(&DBagent)
-}
-
 type MongoAgent struct {
 	//extended mongo client
 	//wrapper
