@@ -35,7 +35,7 @@ func main() {
 	//db := common.Init()
 	//database_agent.TestDB(&db)
 
-    //database_agent.Init()
+	//database_agent.Init()
 
 	//Migrate(db)
 	//defer db.Close()
@@ -56,8 +56,8 @@ func main() {
 
 	//setup API
 
-	r.GET("/api/hero/", heroHandler)
-	r.GET("/api/events/hero/*name", heroEventsHandler )
+	r.GET("/api/hero/*name", heroHandler)
+	r.GET("/api/events/hero/*name", heroEventsHandler)
 
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))
@@ -79,9 +79,9 @@ func main() {
 		})
 	})
 
-r.GET("/", func(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.html", nil)
-})
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
 
 	///////////////
 
@@ -112,18 +112,42 @@ r.GET("/", func(c *gin.Context) {
 }
 func heroHandler(c *gin.Context) {
 
-	c.JSON(200, gin.H{
-		"name":   "myname",
-		"status": "loaded"})
+	var hero database_agent.HeroCharacter
+	database_agent.FindHeroByName("Hedrik", &hero)
+
+	c.JSON(200, hero)
 
 }
 func heroEventsHandler(c *gin.Context) {
-	
-	NewEvent := database_agent.EventAdventure{"Battle", "win", rand.Intn(100) + 10 }
-	
-	database_agent.DBagent.AddEvent( NewEvent )
-	
-    Events:= database_agent.DBagent.LoadEvents()
+
+	//try load hero
+	var hero database_agent.HeroCharacter
+	err := database_agent.FindHeroByName("Hedrik", &hero)
+
+	//check if foud
+	if err != nil {
+		//not foud - create
+		hero = database_agent.HeroCharacter{Name: "Hedrik",
+			Level:  1,
+			Xp:     0,
+			Points: 3,
+			Character: database_agent.Character{
+				Strength:  (database_agent.Attribute)(1 + rand.Intn(4)),
+				Intellect: (database_agent.Attribute)(1 + rand.Intn(4)),
+				Charisma:  (database_agent.Attribute)(1 + rand.Intn(4))}}
+		database_agent.AddHero(hero)
+	}
+
+	//add event
+	XpBonus := rand.Intn(100) + 10
+	NewEvent := database_agent.EventAdventure{"Battle", "win", XpBonus}
+
+	//update hero xp
+	database_agent.AddHeroXp(hero.Name, XpBonus)
+
+	database_agent.DBagent.AddEvent(NewEvent)
+
+	Events := database_agent.DBagent.LoadEvents()
 	c.JSON(200, Events)
 
 }

@@ -8,7 +8,7 @@ import StoreComponent from "../common_store/StoreComponent";
 //create common url for api request site_api/type/id
 const urlTypeId = (root, type,id) => `${root}/${type}/${id}`;
 
-const returnResponseBody = res => res.body;
+const returnResponseBody = res =>{ return res.body;  }
 //
 export default class agent_object extends StoreComponent{
 
@@ -16,7 +16,8 @@ export default class agent_object extends StoreComponent{
 
     loadById = (type, id ) => this.superagent
     						//send request site/api/objectt_type/object_name
-    						.get( urlTypeId( this.getRootAPIUrl(), type, id) )
+                .get( urlTypeId( this.getRootAPIUrl(), type, id) )
+                .accept('json')
     						//return response body parsed by default
                 .then( returnResponseBody )
                 

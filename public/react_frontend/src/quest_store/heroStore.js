@@ -10,7 +10,7 @@ export default class HeroStore extends StoreComponent{
   @observable updatingHero;
   //@observable updatingUserErrors;
   
-  @action loadHero(){
+  @action loadHero( name ){
      //get appropriate agent
      var agent = this.parent.agent_object;
      if(agent == undefined){
@@ -19,8 +19,8 @@ export default class HeroStore extends StoreComponent{
      }
      this.loadingHero = true;
      //send hero api request
-     return agent.loadById( "hero", this.currentHero.name )
-     .then(action(({ hero }) => { this.currentHero = hero; }))
+     return agent.loadById( "hero", name )
+     .then(action(( hero ) => { this.currentHero = hero; }))
      .finally(action(() => { this.loadingHero = false; }))
  } 
 
@@ -31,7 +31,7 @@ export default class HeroStore extends StoreComponent{
     alert("hero store on update hero did not find agent_object in parent");
     return;
     }
-    return agent.updateById( "hero", newHero.name, newHero )
+    return agent.updateById( "hero", newHero.Name, newHero )
       .then(action(({ hero }) => { this.currentHero = hero; }))
       .finally(action(() => { this.updatingHero = false; }))
   }

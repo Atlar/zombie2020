@@ -100,7 +100,7 @@ func (dbagent *MongoAgent) GetConnectionUrl() string {
 
 }
 
-func (dbagent *MongoAgent) AddEvent( eventNew EventAdventure ){
+func (dbagent *MongoAgent) AddEvent(eventNew EventAdventure) {
 	//get collection
 	collection := dbagent.Database("test").Collection("TestEvent")
 
@@ -115,12 +115,12 @@ func (dbagent *MongoAgent) AddEvent( eventNew EventAdventure ){
 	}
 
 	id := res.InsertedID
-	
+
 	fmt.Println("inserted id-", id)
 
 }
 
-func (dbagent *MongoAgent) LoadEvents( ) []EventAdventure {
+func (dbagent *MongoAgent) LoadEvents() []EventAdventure {
 	//get collection
 	collection := dbagent.Database("test").Collection("TestEvent")
 
@@ -129,31 +129,125 @@ func (dbagent *MongoAgent) LoadEvents( ) []EventAdventure {
 	}
 
 	findOptions := options.Find()
-findOptions.SetLimit(10)
+	findOptions.SetLimit(10)
 
-	cur, err := collection.Find(context.Background(),bson.D{{}},findOptions)
-    
-    if err != nil {
-    	fmt.Println(err)
-    }
-    
-    var Event1 EventAdventure
-    var Result []EventAdventure
-    for cur.Next(context.Background()) {
-    	
-    	cur.Decode(&Event1)
-    	Result = append(Result, Event1)
-    }
-    cur.Close(context.Background())
-    fmt.Printf( "Found multiple documents (array of pointers): %+v\n", Result )
-    return Result
-    
+	cur, err := collection.Find(context.Background(), bson.D{{}}, findOptions)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	var Event1 EventAdventure
+	var Result []EventAdventure
+	for cur.Next(context.Background()) {
+
+		cur.Decode(&Event1)
+		Result = append(Result, Event1)
+	}
+	cur.Close(context.Background())
+	fmt.Printf("Found multiple documents (array of pointers): %+v\n", Result)
+	return Result
+
+}
+func (dbagent *MongoAgent) addObject(object interface{}, tableName string) {
+
+	collection := dbagent.Database("test").Collection(tableName)
+	if collection == nil {
+		fmt.Println("no such collection")
+	}
+
+	res, err := collection.InsertOne(context.Background(), object)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	id := res.InsertedID
+
+	fmt.Println("inserted id-", id, " into ", tableName)
+
 }
 
-type EventAdventure struct{
-	
-	Name string
+//A private function because it implies the use of a mongodb specific type bson.D
+func (dbagent *MongoAgent) findObject(tableName string, filter interface{}, objectFound interface{}) error {
+
+	collection := dbagent.Database("test").Collection(tableName)
+
+	//find that object
+	res := collection.FindOne(context.Background(), filter)
+
+	//check if error(not found) - return that error
+	if res.Err() != nil {
+		return res.Err()
+	}
+
+	//all is good - decode and return nil
+	res.Decode(objectFound)
+	return nil
+
+}
+func (dbagent *MongoAgent) updateObject(tableName string, filter interface{}, update interface{}) error {
+
+	collection := dbagent.Database("test").Collection(tableName)
+	res, err := collection.UpdateOne(context.Background(), filter, update)
+
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Updated count -", res.ModifiedCount)
+	}
+
+	return err
+}
+func FindHeroByName(nameHero string, heroFound *HeroCharacter) error {
+
+	//actually this wrap is to only hide the use of a mongoDB specific type bson.D
+	err := DBagent.findObject("TestHero", bson.D{{"name", "Hedrik"}}, heroFound)
+
+	//check if error(not found) - return that error
+	if err != nil {
+		return err
+	}
+
+	return nil
+
+}
+func AddHero(hero HeroCharacter) {
+	DBagent.addObject(hero, "TestHero")
+}
+func AddHeroXp(heroName string, addedXP int) {
+
+	//create command to increase Xp
+	increaseXpCommand := bson.D{
+		{"$inc",
+			bson.D{{"xp", addedXP}}},
+	}
+
+	//create filter to find Hero
+	filterHeroByName := bson.D{{"name", heroName}}
+
+	DBagent.updateObject("TestHero", filterHeroByName, increaseXpCommand)
+
+}
+
+type EventAdventure struct {
+	Name   string
 	Result string
-	Bonus int
-	
+	Bonus  int
+}
+
+type HeroCharacter struct {
+	Name   string
+	Level  int
+	Xp     int
+	Points int
+	Character
+}
+
+type Attribute int
+
+type Character struct {
+	Strength  Attribute
+	Intellect Attribute
+	Charisma  Attribute
 }

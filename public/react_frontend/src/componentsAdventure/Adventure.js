@@ -16,7 +16,8 @@ export default class Adventure extends React.Component {
     this.props.stores.eventStore.loadEvents();
 
     //set regular events update
-    setInterval( () => this.props.stores.eventStore.loadEvents() , 3500);
+    setInterval( () => this.props.stores.eventStore.loadEvents( "Hedrick" ) , 3500);
+    setInterval( () => this.props.stores.heroStore.loadHero( "Hedrick" ), 3500 )
 
   }
 
@@ -30,9 +31,22 @@ export default class Adventure extends React.Component {
 
     return (
       <div className="col-md-9">
-        <div>
-          {currentHero.name}
-        </div>
+        {currentHero&&(<div>
+                  <div>
+                    {currentHero.Name}
+                  </div>
+                  <div>
+                    {currentHero.Xp}
+                  </div>
+                  <div>
+                    <li>Strength {currentHero.Strength }</li>
+                    <li>Intellect {currentHero.Intellect }</li>
+                    <li>Charisma {currentHero.Charisma }</li>
+                  </div>
+                  <div>
+                    Unspend points: {currentHero.Points}
+                  </div>
+        </div>)}
         <div>
         { 
           events && events.map( (elem , index) => {
