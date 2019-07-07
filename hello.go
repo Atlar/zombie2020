@@ -179,15 +179,15 @@ func getEnvPort() string {
 //gameplay
 func DetermineResult( hero database_agent.HeroCharacter, event database_agent.EventAdventure) bool {
     //
-    var attribute database_agent.Attribute
-    switch (database_agent.EventAdventure){
+    var attribute int
+    switch (event.Name){
    
        case ("battle"):
-           attribute = hero.Strength
+           attribute = (int)hero.Strength
        case ("puzzle"):
-            attribute = hero.Intellect
+            attribute = (int)hero.Intellect
        case ("intrugue"):
-          attribute = hero.Charisma
+          attribute = (int)hero.Charisma
        
    } 
    heroRoll := rand.Intn( attribute ) * rand.Intn( attribute )
