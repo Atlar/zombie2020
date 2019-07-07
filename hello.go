@@ -141,7 +141,21 @@ func heroEventsHandler(c *gin.Context) {
 	//add event
 	XpBonus := rand.Intn(100) + 10
 	NewEvent := database_agent.EventAdventure{"Battle", "win", XpBonus}
-
+   
+    //
+    resultEvent := DetermineResult(hero, NewEvent)
+    if(!resultEvent){
+  
+        XpBonus = 0
+        resultString := "lost"
+   
+   }else{
+        resultString := "win" 
+  } 
+    
+    NewEvent.Result = resultString
+    NewEvent.Bonus = XpBonus 
+   
 	//update hero xp
 	database_agent.AddHeroXp(hero.Name, XpBonus)
 
@@ -161,4 +175,24 @@ func getEnvPort() string {
 		port = default_port
 	}
 	return port
+}
+//gameplay
+func DetermineResult( hero database_agent.HeroCharacter, event database_agent.EventAdventure) bool {
+    //
+    var attribute database_agent.Attribute
+    switch (database_agent.EventAdventure){
+   
+       case ("battle"):
+           attribute = hero.Strength
+       case ("puzzle"):
+            attribute = hero.Intellect
+       case ("intrugue"):
+          attribute = hero.Charisma
+       
+   } 
+   heroRoll := rand.Intn( attribute ) * rand.Intn( attribute )
+   result := heroRoll > 5
+  
+  return result 
+  
 }
