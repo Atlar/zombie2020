@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 
@@ -139,25 +140,25 @@ func heroEventsHandler(c *gin.Context) {
 	}
 
 	//add event
-	XpBonus := rand.Intn(100) + 10
-	NewEvent := database_agent.EventAdventure{"Battle", "win", XpBonus}
-   
-    //
-    resultEvent := DetermineResult(hero, NewEvent)
-    if(!resultEvent){
-  
-        XpBonus = 0
-        resultString := "lost"
-   
-   }else{
-        resultString := "win" 
-  } 
-    
-    NewEvent.Result = resultString
-    NewEvent.Bonus = XpBonus 
-   
+	NewEvent := CreateEvent()//database_agent.EventAdventure{"Battle", "win", XpBonus}
+
+	//
+	resultEvent := DetermineResult(hero, NewEvent)
+	var resultString string
+
+	if !resultEvent {
+
+		NewEvent.Bonus = 0
+		resultString = "lost"
+
+	} else {
+		resultString = "win"
+	}
+
+	NewEvent.Result = resultString
+
 	//update hero xp
-	database_agent.AddHeroXp(hero.Name, XpBonus)
+	database_agent.AddHeroXp(hero.Name, NewEvent.Bonus)
 
 	database_agent.DBagent.AddEvent(NewEvent)
 
@@ -176,23 +177,41 @@ func getEnvPort() string {
 	}
 	return port
 }
+
 //gameplay
-func DetermineResult( hero database_agent.HeroCharacter, event database_agent.EventAdventure) bool {
-    //
-    var attribute int
-    switch (event.Name){
-   
-       case ("battle"):
-           attribute = (int)hero.Strength
-       case ("puzzle"):
-            attribute = (int)hero.Intellect
-       case ("intrugue"):
-          attribute = (int)hero.Charisma
-       
-   } 
-   heroRoll := rand.Intn( attribute ) * rand.Intn( attribute )
-   result := heroRoll > 5
-  
-  return result 
-  
+func DetermineResult(hero database_agent.HeroCharacter, event database_agent.EventAdventure) bool {
+	//
+	var attribute int
+	switch event.Name {
+
+	case ("Battle"):
+		attribute = int(hero.Strength)
+	case ("Puzzle"):
+		attribute = int(hero.Intellect)
+	case ("Intrugue"):
+		attribute = int(hero.Charisma)
+	default:
+		attribute = 1
+
+	}
+	if attribute == 1 {
+		fmt.Println(" No attribute detected ")
+	}
+
+	heroRoll := rand.Intn(attribute) * rand.Intn(attribute)
+	result := heroRoll > 5
+
+	return result
+
+}
+func CreateEvent() database_agent.EventAdventure {
+
+	var NewEvent database_agent.EventAdventure
+	EventTypes := []string{"Battle","Puzzle","Intrugue"}
+
+	NewEvent.Name = EventTypes[ rand.Intn( len( EventTypes)  ) ]
+	NewEvent.Bonus = rand.Intn(100) + 10
+
+	return NewEvent
+
 }

@@ -130,6 +130,7 @@ func (dbagent *MongoAgent) LoadEvents() []EventAdventure {
 
 	findOptions := options.Find()
 	findOptions.SetLimit(10)
+	findOptions.SetSort(bson.D{{"_id", -1}})
 
 	cur, err := collection.Find(context.Background(), bson.D{{}}, findOptions)
 
