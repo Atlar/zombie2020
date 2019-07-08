@@ -120,6 +120,13 @@ type MongoAgent struct {
 	//extended mongo client
 	//wrapper
 	ConnectionUrl string
+	
+	//options for queue
+    queryOptions bson.D
+
+	ClientOptions.ApplyURI(ConnectionURI)
+	
+	
 	//Login         string
 	//Password      string
 	mongo.Client
@@ -301,6 +308,14 @@ func (self *MongoAgent) First( foundObject interface{}, id uint ){
 
 
 }
+
 func (self *MongoAgent) AutoMigrate( object interface{} ){
      fmt.Println( object )
+}
+
+func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
+
+      self.queryOptions = bson.D{ condition }
+      return self
+
 } 
