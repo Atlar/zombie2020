@@ -48,10 +48,11 @@ func TestDBFree(test_db *gorm.DB) error {
 }
 
 // Using this function to get a connection, you can create your connection pool here.
-func GetDB() *gorm.DB {
+func GetDB() *DBType{
+    //*gorm.DB {
 	//original
 	//return DB
-	return clientDB
+	return &clientDB
 }
 
 //My
