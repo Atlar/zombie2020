@@ -123,10 +123,7 @@ type MongoAgent struct {
 	
 	//options for queue
     queryOptions bson.D
-
-	ClientOptions.ApplyURI(ConnectionURI)
-	
-	
+		
 	//Login         string
 	//Password      string
 	mongo.Client
