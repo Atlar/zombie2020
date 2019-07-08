@@ -312,7 +312,7 @@ func (self *MongoAgent) AutoMigrate( object interface{} ){
 
 func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
 
-      self.queryOptions = bson.D{ condition }
+      self.queryOptions = bson.D{ condition.(bson.E) }
       return self
 
 } 
