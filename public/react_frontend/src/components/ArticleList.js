@@ -17,15 +17,15 @@ const ArticleList = props => {
       </div>
     );
   }
-
+  console.log("render articles list ")
+  console.log( JSON.stringify(props.articles) )
   return (
     <div>
-      {
-        props.articles.map(article => {
+      {props.articles /*&&  props.articles.map(article => {
           return (
             <ArticlePreview article={article} key={article.slug} />
           );
-        })
+        })*/
       }
 
       <ListPagination

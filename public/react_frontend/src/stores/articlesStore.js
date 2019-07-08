@@ -35,6 +35,7 @@ export class ArticlesStore {
   }
 
   $req() {
+    return agent.Articles.emptyRequest()
     if (this.predicate.myFeed) return agent.Articles.feed(this.page, LIMIT);
     if (this.predicate.favoritedBy) return agent.Articles.favoritedBy(this.predicate.favoritedBy, this.page, LIMIT);
     if (this.predicate.tag) return agent.Articles.byTag(this.predicate.tag, this.page, LIMIT);
@@ -44,11 +45,13 @@ export class ArticlesStore {
 
   @action loadArticles() {
     this.isLoading = true;
+    console.log("Load articles");
     return this.$req()
       .then(action(({ articles, articlesCount }) => {
         this.articlesRegistry.clear();
         articles.forEach(article => this.articlesRegistry.set(article.slug, article));
         this.totalPagesCount = Math.ceil(articlesCount / LIMIT);
+        console.log(this);
       }))
       .finally(action(() => { this.isLoading = false; }));
   }

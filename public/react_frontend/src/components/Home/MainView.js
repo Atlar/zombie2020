@@ -114,6 +114,7 @@ export default class MainView extends React.Component {
   };
 
   render() {
+    console.log("MainView")
     const { currentUser } = this.props.userStore;
     const { articles, isLoading, page, totalPagesCount } = this.props.articlesStore;
 

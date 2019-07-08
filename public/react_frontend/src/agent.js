@@ -91,7 +91,8 @@ const Articles = {
   update: article =>
     requests.put(`/articles/${article.slug}`, { article: omitSlug(article) }),
   create: article =>
-    requests.post('/articles', { article })
+    requests.post('/articles', { article }),
+  emptyRequest: emptyAnswer => superagent.get("./").then(res => {return {"articles":[],"articlesCount": 0};} )
 };
 
 const Comments = {

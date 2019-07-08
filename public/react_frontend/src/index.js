@@ -6,6 +6,8 @@ import { HashRouter } from 'react-router-dom';
 import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 
+import App from './components/App';
+
 import AdventureApp from './componentsAdventure/AdventureApp';
 import appStatusStore from './common_store/appStatusStore';
 import heroStore from "./quest_store/heroStore";
@@ -60,9 +62,9 @@ promiseFinally.shim();
 //useStrict(false);
 
 ReactDOM.render((
-  <Provider stores = {adventureStores}>
+  <Provider {...stores}>
     <HashRouter>
-      <AdventureApp/>
+      <App/>
     </HashRouter>
   </Provider>
 ), document.getElementById('root'));

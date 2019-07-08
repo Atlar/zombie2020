@@ -32,7 +32,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    window.alert("rendering" );
+    
     if (this.props.commonStore.appLoaded) {
       return (
         <div>
