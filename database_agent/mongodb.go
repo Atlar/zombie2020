@@ -292,3 +292,15 @@ type Character struct {
 	Intellect Attribute
 	Charisma  Attribute
 }
+
+//gorm interface
+//find first by id
+func (self *MongoAgent) First( foundObject interface{}, id uint ){
+
+    self.findObject( "bookshelf" , bson.D{{"id", id}}, &foundObject) 
+
+
+}
+func (self *MongoAgent) AutoMigrate( object interface{} ){
+     fmt.Println( object )
+} 
