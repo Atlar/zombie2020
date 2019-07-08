@@ -5,6 +5,9 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"os"
+	
+	//My
+	"github.com/Atlar/golang-gin-realworld-example-app/database_agent"
 )
 
 type Database struct {
@@ -46,5 +49,20 @@ func TestDBFree(test_db *gorm.DB) error {
 
 // Using this function to get a connection, you can create your connection pool here.
 func GetDB() *gorm.DB {
-	return DB
+	//original
+	//return DB
+	return clientDB
+}
+
+//My
+var clientDB DBType
+type DBType struct{ 
+   database_agent.MongoAgent
+} 
+
+func InitDB(){
+
+   clientDB.InitDB()
+   //database_agent.Init( &database_agent.DBagent) 
+  
 }

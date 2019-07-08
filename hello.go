@@ -12,9 +12,10 @@ import (
 	"github.com/Atlar/golang-gin-realworld-example-app/articles"
 	"github.com/Atlar/golang-gin-realworld-example-app/users"
 	"github.com/jinzhu/gorm"
+	"github.com/Atlar/golang-gin-realworld-example-app/common"
 
 	//My
-	"github.com/Atlar/golang-gin-realworld-example-app/database_agent"
+	
 )
 
 func Migrate(db *gorm.DB) {
@@ -32,7 +33,12 @@ func main() {
 	//Port := os.Getenv("PORT")
 	//var db database_agent.MongoAgent
 
-	database_agent.Init(&database_agent.DBagent)
+//worked
+	//database_agent.Init(&database_agent.DBagent)
+	
+	//component mongo
+	common.InitDB()
+	
 	//db := common.Init()
 	//database_agent.TestDB(&db)
 

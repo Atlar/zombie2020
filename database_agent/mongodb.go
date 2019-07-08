@@ -55,6 +55,46 @@ func Init(agent *MongoAgent) error {
 
 }
 
+func (agent *MongoAgent) InitDB() error {
+
+	//tutorial
+	//https://github.com/mongodb/mongo-go-driver
+
+	//create client
+	ClientOptions := options.Client()
+	//get Connection URI
+	ConnectionURI := agent.GetConnectionUrl()
+	ClientOptions.ApplyURI(ConnectionURI)
+	client, err := mongo.NewClient(ClientOptions)
+
+	if err != nil {
+
+		fmt.Println(err)
+
+	} else {
+
+		fmt.Println("connection to database success")
+
+	}
+
+	//save created client incto wrap class
+	agent.Client = *client
+
+	fmt.Println("client saved")
+
+	//connect
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+
+	fmt.Println("context created")
+
+	fmt.Println("connecting to database")
+	err = agent.Connect(ctx)
+	fmt.Println("connected to database")
+
+	return err
+
+}
+
 func TestDB(agent *MongoAgent) {
 
 	//get collection
