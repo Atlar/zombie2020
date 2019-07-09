@@ -123,7 +123,9 @@ type MongoAgent struct {
 	
 	//options for queue
     queryOptions bson.D
-		
+	
+	Error error
+
 	//Login         string
 	//Password      string
 	mongo.Client
