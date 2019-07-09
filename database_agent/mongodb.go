@@ -246,6 +246,20 @@ func (dbagent *MongoAgent) updateObject(tableName string, filter interface{}, up
 
 	return err
 }
+
+func (dbagent *MongoAgent) deleteObject(tableName string, filter interface{} ) error {
+
+    collection := dbagent.Database("test").Collection(tableName)
+    _, err:= collection.DeleteOne(context.Background(), filter )
+    
+    if err != nil {
+        fmt.Println(err)
+    }
+   
+    return err
+    
+}
+
 func FindHeroByName(nameHero string, heroFound *HeroCharacter) error {
 
 	//actually this wrap is to only hide the use of a mongoDB specific type bson.D
@@ -334,5 +348,43 @@ func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
 
       self.queryOptions = bson.D{ condition.(bson.E) }
       return self
+
+}
+
+func (self *MongoAgent) Save( value interface{}) *MongoAgent{
+
+        addObject(value, "bookshelf" )
+        return self
+    
+}
+func (self *MongoAgent) Delete( value interface{}) error {
+      
+       byteValue, _ := bson.Marshal( value )
+       
+       var rawValue bson.Raw
+       rawValue = byteValue.(bson.Raw)
+      
+       //find id type RawValue
+       foundID := rawValue.Lookup("id")
+       
+       //check if field found
+       if( len(foundID.Value) == 0 ){
+          
+          //
+          valueInt, isInt := foundID.Int32OK()
+          if( isInt ){
+          
+             filter := bson.D{{ "id", valueInt }}
+             self.deleteObject("bookshelf", filter )
+             
+         }
+          
+       } 
+     
+       //check Queryoptions filter
+       //filter := bson.D{{ "id", value.}}
+      
+       //
+       //self.deleteObject("bookshelf", filter )
 
 } 
