@@ -300,8 +300,20 @@ type Character struct {
 //gorm interface
 //find first by id
 func (self *MongoAgent) First( foundObject interface{}, conditions ...interface{}) *MongoAgent {
-
-    self.findObject( "bookshelf" , bson.D{ conditions.(bson.E) }, &foundObject) 
+    
+    if( conditions == nil) {
+        //no arguments - Just search with query conditions
+        self.findObject( "bookshelf" , self.queryOptions , &foundObject)
+    }else if (len( conditions) == 1){
+        // one argument. Switch on its type
+        switch conditionType := conditions[0].(type){
+            case int: 
+            //int meand we search by id
+            self.findObject( "bookshelf" , bson.D{{"id",conditions[0]}}, &foundObject)
+            default:
+            self.findObject( "bookshelf" , bson.D{{}}, &foundObject)
+       } 
+   } 
     return self
 
 }
