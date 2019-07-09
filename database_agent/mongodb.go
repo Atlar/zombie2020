@@ -353,7 +353,7 @@ func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
 
 func (self *MongoAgent) Save( value interface{}) *MongoAgent{
 
-        addObject(value, "bookshelf" )
+        self.addObject(value, "bookshelf" )
         return self
     
 }
