@@ -362,7 +362,7 @@ func (self *MongoAgent) Delete( value interface{}) error {
        byteValue, _ := bson.Marshal( value )
        
        var rawValue bson.Raw
-       rawValue = byteValue.(bson.Raw)
+       rawValue = byteValue
       
        //find id type RawValue
        foundID := rawValue.Lookup("id")
@@ -375,8 +375,8 @@ func (self *MongoAgent) Delete( value interface{}) error {
           if( isInt ){
           
              filter := bson.D{{ "id", valueInt }}
-             self.deleteObject("bookshelf", filter )
-             
+             err := self.deleteObject("bookshelf", filter )
+             return err
          }
           
        } 
@@ -387,4 +387,7 @@ func (self *MongoAgent) Delete( value interface{}) error {
        //
        //self.deleteObject("bookshelf", filter )
 
+       var defaultError error
+
+       return defaultError
 } 
