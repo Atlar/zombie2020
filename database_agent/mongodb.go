@@ -306,10 +306,16 @@ func (self *MongoAgent) First( foundObject interface{}, conditions ...interface{
         self.findObject( "bookshelf" , self.queryOptions , &foundObject)
     }else if (len( conditions) == 1){
         // one argument. Switch on its type
-        switch conditionType := conditions[0].(type){
+        switch condition := conditions[0].(type){
+            
             case int: 
             //int meand we search by id
-            self.findObject( "bookshelf" , bson.D{{"id",conditions[0]}}, &foundObject)
+            self.findObject( "bookshelf" , bson.D{{"id",condition}}, &foundObject)
+            
+            case bson.D:
+            //condition specified
+            self.findObject( "bookshelf" , bson.D{{"id",condition}}, &foundObject)
+            
             default:
             self.findObject( "bookshelf" , bson.D{{}}, &foundObject)
        } 
