@@ -299,10 +299,10 @@ type Character struct {
 
 //gorm interface
 //find first by id
-func (self *MongoAgent) First( foundObject interface{}, id uint ){
+func (self *MongoAgent) First( foundObject interface{}, conditions interface{}) *MongoAgent {
 
-    self.findObject( "bookshelf" , bson.D{{"id", id}}, &foundObject) 
-
+    self.findObject( "bookshelf" , bson.D{ conditions.(bson.E) }, &foundObject) 
+    return self
 
 }
 
