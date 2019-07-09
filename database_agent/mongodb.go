@@ -314,7 +314,7 @@ func (self *MongoAgent) First( foundObject interface{}, conditions ...interface{
             
             case bson.D:
             //condition specified
-            self.findObject( "bookshelf" , bson.D{{"id",condition}}, &foundObject)
+            self.findObject( "bookshelf" , condition, &foundObject)
             
             default:
             self.findObject( "bookshelf" , bson.D{{}}, &foundObject)
