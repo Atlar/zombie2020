@@ -125,6 +125,8 @@ type MongoAgent struct {
     queryOptions bson.D
 	
 	Error error
+	
+	ObjectModel interface{}
 
 	//Login         string
 	//Password      string
@@ -260,6 +262,12 @@ func (dbagent *MongoAgent) deleteObject(tableName string, filter interface{} ) e
     
 }
 
+func (dbagent *MongoAgent)SetModel( model interface{} ){
+    
+   dbagent.ObjectModel = model
+   
+}
+
 func FindHeroByName(nameHero string, heroFound *HeroCharacter) error {
 
 	//actually this wrap is to only hide the use of a mongoDB specific type bson.D
@@ -352,8 +360,26 @@ func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
 }
 
 func (self *MongoAgent) Save( value interface{}) *MongoAgent{
-
-        self.addObject(value, "bookshelf" )
+//func (s *DB) Save(value interface{}) *DB
+/mSave update value in database, if the value doesn't have primary key, will insert i
+        
+        //try update object or create new
+        //try get id from object
+        id, idBool := tryGetId( value )
+        if( idBool == true) {
+        	//try find object
+        	var objectFound
+        	err:=self.updateObject("bookshelf", bson.D{{"id", id } }, value )
+        }
+        if(err == nil){
+          
+           //updated
+         
+       }else{
+      
+           //not found. create object
+       
+       } 
         return self
     
 }
@@ -390,4 +416,127 @@ func (self *MongoAgent) Delete( value interface{}) error {
        var defaultError error
 
        return defaultError
+}
+
+func (self *MongoAgent) FirstOrCreate( foundPointer interface{}, conditions ...interface{} ) *MongoAgent{
+   
+  
+    var condition bson.D
+    //check conditions
+    if( conditions == nil ){
+      //try inner conditions
+      if( self.queryOptions == nil ){
+         //no conditions specified whatsoever
+         //just add new object and return it
+         //because function name mandates creation
+        
+         condition = nil
+         
+      }else{
+        
+         //options are in db
+         condition = self.queryOptions
+         
+      } 
+    }else{
+     
+      //use conditions from arguments
+      condition = convertToBSOND(conditions[0]) 
+    
+    }
+   
+    //try find by conditions
+    err:=self.findObject("bookshelf", condition , foundPointer)
+  
+    if( err == nil ){
+       //object found - return self
+       return self
+   }else{
+       //no object found - try create
+      
+       if( self.Model == nil) {
+       
+       		//no model
+       		//dont know what to create in db
+       		fmt.Println( "no model for first or create" ) 
+       
+       }else{
+       
+       		//create object by empty model
+       		self.addObject(  self.Model ,"bookshelf" ) 
+       
+       }
+     
+  } 
+    //try access model to create from
+           
+        if( condition == nil) {
+            //no conditions
+            
+        	//create object by empty model
+            if( self.ObjectModel == nil) {
+            	
+            	//no model
+            	//dont know what to create in db
+            	fmt.Println( "no model for first or create" ) 
+            
+            }else{
+            
+        		self.addObject(  self.ObjectModel ,"bookshelf" ) 
+            
+            } 
+        }else{
+            //there are conditions
+            //we should incorporate them into value
+           
+            newObject := convertToStruct( foundPointer ) 
+            self.addObject( newObject , "bookshelf")
+            
+        } 
+    
+
+    return self
+
+}
+func (self *MongoAgent) Model( model interface{} ) *MongoAgent{
+
+    self.SetModel( model ) 
+    return self
+    
+}
+func convertToBSOND( value interface{} ) (outBSOND bson.D) {
+   
+    bytesForm, _:= bson.Marshal( value) 
+    bson.Unmarshal( bytesForm, &outBSOND )
+    return
+}
+func convertToStruct( valuePointer interface{} ){
+   
+    bytesForm, _:= bson.Marshal(value)
+    bson.Unmarshal( bytesForm, valuePointer )
+  
+}
+func tryGetId( value interface{} ) int, bool {
+   
+  	outValue int
+   
+    bytesForm, err := bson.Marshal( value )
+    if( err == nil ){
+   
+  		rawForm, errId := bytesForm.Lookup("id")
+  		if( errId == nil ){
+  		
+  			outValue, errInt := rawForm.Int32OK()
+  		    if( errInt == nil ){
+  		    
+  		    	//all ok, id is int
+  		    	return outValue, true
+  		   
+  		    }
+  		   
+  		} 
+  		
+    }
+    return outValue, false
+     
 } 
