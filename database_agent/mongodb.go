@@ -490,8 +490,8 @@ func (self *MongoAgent) FirstOrCreate( foundPointer interface{}, conditions ...i
         }else{
             //there are conditions
             //we should incorporate them into value
-           
-            newObject := convertToStruct( condition, foundPointer ) 
+            newObject := (*foundPointer)
+            convertToStruct( condition, &newObject ) 
             self.addObject( newObject , "bookshelf")
             
         } 
