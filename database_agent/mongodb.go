@@ -525,7 +525,7 @@ func tryGetId( value interface{} ) (int, bool) {
     bytesForm, err := bson.Marshal( value )
     if( err == nil ){
         
-        rawForm := (bson.Raw) bytesForm 
+        rawForm := bson.Raw( bytesForm) 
   		rawValueForm, errId := rawForm.Lookup("id")
   		if( errId == nil ){
   		
