@@ -518,7 +518,7 @@ func convertToStruct( valuePointer interface{} ){
 }
 func tryGetId( value interface{} ) (int, bool) {
    
-  	outValue int
+  	var outValue int
    
     bytesForm, err := bson.Marshal( value )
     if( err == nil ){
