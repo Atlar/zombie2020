@@ -360,16 +360,17 @@ func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
 }
 
 func (self *MongoAgent) Save( value interface{}) *MongoAgent{
-//func (s *DB) Save(value interface{}) *DB
-//Save update value in database, if the value doesn't have primary key, will insert i
+		//func (s *DB) Save(value interface{}) *DB
+		//Save update value in database, if the value doesn't have primary key, will insert i
         
         //try update object or create new
         //try get id from object
+        var err error
         id, idBool := tryGetId( value )
         if( idBool == true) {
         	//try find object
         	
-        	err:=self.updateObject("bookshelf", bson.D{{"id", id } }, value )
+        	err = self.updateObject("bookshelf", bson.D{{"id", id } }, value )
         }
         if(err == nil){
           
@@ -378,6 +379,7 @@ func (self *MongoAgent) Save( value interface{}) *MongoAgent{
        }else{
       
            //not found. create object
+           self.addObject( value ,"bookshelf" )
        
        } 
         return self
@@ -489,7 +491,7 @@ func (self *MongoAgent) FirstOrCreate( foundPointer interface{}, conditions ...i
             //there are conditions
             //we should incorporate them into value
            
-            newObject := convertToStruct( foundPointer ) 
+            newObject := convertToStruct( condition, foundPointer ) 
             self.addObject( newObject , "bookshelf")
             
         } 
@@ -510,10 +512,10 @@ func convertToBSOND( value interface{} ) (outBSOND bson.D) {
     bson.Unmarshal( bytesForm, &outBSOND )
     return
 }
-func convertToStruct( valuePointer interface{} ){
+func convertToStruct( valuePointer interface{}, structuredValuePointer interface{} ){
    
-    bytesForm, _:= bson.Marshal(value)
-    bson.Unmarshal( bytesForm, valuePointer )
+    bytesForm, _:= bson.Marshal(valuePointer)
+    bson.Unmarshal( bytesForm, structuredValuePointer )
   
 }
 func tryGetId( value interface{} ) (int, bool) {
