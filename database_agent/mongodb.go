@@ -490,7 +490,7 @@ func (self *MongoAgent) FirstOrCreate( foundPointer interface{}, conditions ...i
         }else{
             //there are conditions
             //we should incorporate them into value
-            newObject := (*foundPointer)
+            newObject := *foundPointer
             convertToStruct( condition, &newObject ) 
             self.addObject( newObject , "bookshelf")
             
@@ -524,11 +524,12 @@ func tryGetId( value interface{} ) (int, bool) {
    
     bytesForm, err := bson.Marshal( value )
     if( err == nil ){
-   
-  		rawForm, errId := bytesForm.Lookup("id")
+        
+        rawForm := (bson.Raw) bytesForm 
+  		rawValueForm, errId := rawForm.Lookup("id")
   		if( errId == nil ){
   		
-  			outValue, errInt := rawForm.Int32OK()
+  			outValue, errInt := rawValueForm.Int32OK()
   		    if( errInt == nil ){
   		    
   		    	//all ok, id is int
