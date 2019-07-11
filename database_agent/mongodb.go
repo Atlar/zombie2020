@@ -361,14 +361,14 @@ func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
 
 func (self *MongoAgent) Save( value interface{}) *MongoAgent{
 //func (s *DB) Save(value interface{}) *DB
-/mSave update value in database, if the value doesn't have primary key, will insert i
+//Save update value in database, if the value doesn't have primary key, will insert i
         
         //try update object or create new
         //try get id from object
         id, idBool := tryGetId( value )
         if( idBool == true) {
         	//try find object
-        	var objectFound
+        	
         	err:=self.updateObject("bookshelf", bson.D{{"id", id } }, value )
         }
         if(err == nil){
@@ -516,7 +516,7 @@ func convertToStruct( valuePointer interface{} ){
     bson.Unmarshal( bytesForm, valuePointer )
   
 }
-func tryGetId( value interface{} ) int, bool {
+func tryGetId( value interface{} ) (int, bool) {
    
   	outValue int
    
