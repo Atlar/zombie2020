@@ -361,7 +361,7 @@ func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
 func (self *MongoAgent) Update ( data interface{} ){
      
       //check id
-      id, hasId := tryGetId( data )
+      //id, hasId := tryGetId( data )
       self.Save(data)
      
 }
