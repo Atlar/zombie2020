@@ -358,6 +358,13 @@ func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
       return self
 
 }
+func (self *MongoAgent) Update ( data interface{} ){
+     
+      //check id
+      id, hasId := tryGetId( data )
+      self.Save(data)
+     
+}
 
 func (self *MongoAgent) Save( value interface{}) *MongoAgent{
 		//func (s *DB) Save(value interface{}) *DB
@@ -500,6 +507,28 @@ func (self *MongoAgent) FirstOrCreate( foundPointer interface{}, conditions ...i
     return self
 
 }
+func (self *MongoAgent) Begin() *MongoAgent {
+    
+     self.queryOptions = nil
+     
+     self.Error  = nil 
+     
+     self.ObjectModel = nil
+     return self
+   
+}
+func (self *MongoAgent) Related( valuePointer interface{} , foregnKey ...string) *MongoAgent{
+
+    self.First( valuePointer , bson.D{{ foregnKey[0], 1}})
+    return self
+
+}
+func (self *MongoAgent) Find( valuePointer interface{}, where ...interface{}) *MongoAgent {
+
+    self.First( valuePointer, where) 
+    return self
+    
+} 
 func (self *MongoAgent) Model( model interface{} ) *MongoAgent{
 
     self.SetModel( model ) 
