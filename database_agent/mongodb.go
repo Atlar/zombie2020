@@ -358,11 +358,13 @@ func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
       return self
 
 }
-func (self *MongoAgent) Update ( data interface{} ){
+func (self *MongoAgent) Update ( data interface{} ) *MongoAgent {
      
       //check id
       //id, hasId := tryGetId( data )
       self.Save(data)
+     
+      return self
      
 }
 
@@ -392,7 +394,7 @@ func (self *MongoAgent) Save( value interface{}) *MongoAgent{
         return self
     
 }
-func (self *MongoAgent) Delete( value interface{}) error {
+func (self *MongoAgent) Delete( value interface{}) *MongoAgent {
       
        byteValue, _ := bson.Marshal( value )
        
@@ -410,8 +412,8 @@ func (self *MongoAgent) Delete( value interface{}) error {
           if( isInt ){
           
              filter := bson.D{{ "id", valueInt }}
-             err := self.deleteObject("bookshelf", filter )
-             return err
+             self.deleteObject("bookshelf", filter )
+             return self
          }
           
        } 
@@ -422,9 +424,9 @@ func (self *MongoAgent) Delete( value interface{}) error {
        //
        //self.deleteObject("bookshelf", filter )
 
-       var defaultError error
+       //var defaultError error
 
-       return defaultError
+       return self
 }
 
 func (self *MongoAgent) FirstOrCreate( foundPointer interface{}, conditions ...interface{} ) *MongoAgent{
@@ -516,6 +518,11 @@ func (self *MongoAgent) Begin() *MongoAgent {
      self.ObjectModel = nil
      return self
    
+}
+func (self *MongoAgent) Commit() *MongoAgent {
+
+     return self
+
 }
 func (self *MongoAgent) Related( valuePointer interface{} , foregnKey ...string) *MongoAgent{
 
