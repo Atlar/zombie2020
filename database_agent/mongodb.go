@@ -490,7 +490,7 @@ func (self *MongoAgent) FirstOrCreate( foundPointer interface{}, conditions ...i
         }else{
             //there are conditions
             //we should incorporate them into value
-            newObject := *foundPointer
+            newObject := foundPointer
             convertToStruct( condition, &newObject ) 
             self.addObject( newObject , "bookshelf")
             
@@ -511,6 +511,7 @@ func convertToBSOND( value interface{} ) (outBSOND bson.D) {
     bytesForm, _:= bson.Marshal( value) 
     bson.Unmarshal( bytesForm, &outBSOND )
     return
+    
 }
 func convertToStruct( valuePointer interface{}, structuredValuePointer interface{} ){
    
@@ -526,7 +527,7 @@ func tryGetId( value interface{} ) (int, bool) {
     if( err == nil ){
         
         rawForm := bson.Raw( bytesForm) 
-  		rawValueForm, errId := rawForm.Lookup("id")
+  		rawValueForm := rawForm.Lookup("id")
   		if( errId == nil ){
   		
   			outValue, errInt := rawValueForm.Int32OK()
