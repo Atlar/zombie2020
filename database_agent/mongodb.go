@@ -528,13 +528,13 @@ func tryGetId( value interface{} ) (int, bool) {
         
         rawForm := bson.Raw( bytesForm) 
   		rawValueForm := rawForm.Lookup("id")
-  		if( errId == nil ){
+  		if( len(rawValueForm.Value) > 0 ){
   		
-  			outValue, errInt := rawValueForm.Int32OK()
-  		    if( errInt == nil ){
+  			outValue, isInt := rawValueForm.Int32OK()
+  		    if( isInt == true ){
   		    
   		    	//all ok, id is int
-  		    	return outValue, true
+  		    	return int(outValue), true
   		   
   		    }
   		   
