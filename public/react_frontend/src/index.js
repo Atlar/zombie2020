@@ -25,8 +25,8 @@ import editorStore from './stores/editorStore';
 import userStore from './stores/userStore';
 import profileStore from './stores/profileStore';
 
-import {userStoreProject} from './stores_project/userStore';
-import {projectStoreProject} from './stores_project/projectStore';
+import {userStore as userStoreProject} from './stores_project/userStore';
+import {projectStore as projectStoreProject} from './stores_project/projectStore';
 
 import BookshelfApp from './ComponentsBookshelf/BookshelfApp';
 

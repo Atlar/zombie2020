@@ -1,5 +1,5 @@
 //package component_approach
-
+package main
 
 /*
 import(
