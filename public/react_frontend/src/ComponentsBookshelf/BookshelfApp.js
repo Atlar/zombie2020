@@ -36,7 +36,7 @@ export default class BookshelfApp extends React.Component {
               <div>
               	<UserWidget/>
           		
-              <div/>
+              </div>
           </Switch>
         </div>
       );
