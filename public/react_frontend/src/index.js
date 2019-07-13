@@ -65,8 +65,8 @@ BookshelfStore.addComponent( "appStatusStore", appStatus);
 BookshelfStore.userStore.currentUserId = 1;
 
 BookshelfStore.userStore.users = [
-0:{Name : "Chris" },
-1:{Name : "Gregor"}
+{Name : "Chris" },
+{Name : "Gregor"}
 ];
 
 /////////////////////////////
