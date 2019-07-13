@@ -127,6 +127,8 @@ type MongoAgent struct {
 	Error error
 	
 	ObjectModel interface{}
+	
+	findOptions options.FindOptions
 
 	//Login         string
 	//Password      string
@@ -352,8 +354,9 @@ func (self *MongoAgent) AutoMigrate( object interface{} ){
      fmt.Println( object )
 }
 
-func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
+func (self *MongoAgent) Where( conditions ...interface{}) *MongoAgent {
 
+      condition := conditions[0]
       self.queryOptions = bson.D{ condition.(bson.E) }
       return self
 
@@ -535,13 +538,31 @@ func (self *MongoAgent) Find( valuePointer interface{}, where ...interface{}) *M
     self.First( valuePointer, where) 
     return self
     
-} 
+}
 func (self *MongoAgent) Model( model interface{} ) *MongoAgent{
 
     self.SetModel( model ) 
     return self
     
 }
+// limit offset
+
+func (self *MongoAgent) Limit( number int ) *MongoAgent {
+
+     self.findOptions.Limit = int64(number) 
+     return self
+
+}
+
+func (self *MongoAgent) Offset( number int ) *MongoAgent {
+
+     self.findOptions.Skip = int64(number) 
+     return self
+
+}
+
+//
+
 func convertToBSOND( value interface{} ) (outBSOND bson.D) {
    
     bytesForm, _:= bson.Marshal( value) 

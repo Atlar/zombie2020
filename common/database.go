@@ -57,8 +57,9 @@ func GetDB() *DBType{
 
 //My
 var clientDB DBType
-type DBType struct{ 
-   database_agent.MongoAgent
+type DBType struct{
+   *gorm.DB
+   //database_agent.MongoAgent
 } 
 
 func InitDB(){
