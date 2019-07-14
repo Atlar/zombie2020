@@ -549,14 +549,14 @@ func (self *MongoAgent) Model( model interface{} ) *MongoAgent{
 
 func (self *MongoAgent) Limit( number int ) *MongoAgent {
 
-     self.findOptions.Limit = *int64( &number) 
+     self.findOptions.Limit = &(int64( number))
      return self
 
 }
 
 func (self *MongoAgent) Offset( number int ) *MongoAgent {
 
-     self.findOptions.Skip = *int64(&number) 
+     self.findOptions.Skip = &(int64(number))
      return self
 
 }
