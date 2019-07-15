@@ -12,6 +12,11 @@ export default class UserStore extends StoreComponent {
     @observable users
     @observable currentUserId
 
+    @action update = () =>{
+    
+       this.testVar = this.testVar + 1;
+    
+   } 
 }
  // @observable currentUser;
  // @observable loadingUser;

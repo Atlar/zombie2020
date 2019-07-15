@@ -1,6 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { withRouter, NavLink } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom';
+import {action} from 'mobx'
 
 @inject('store')
 @withRouter
@@ -16,7 +17,7 @@ export default class UserWidget extends React.Component {
     //this.props.store.userStore.loadUser();
     
     //set regular events update
-    //setInterval( () => this.props.stores.eventStore.loadEvents( "Hedrick" ) , 3500);
+    setInterval( action( () => this.props.store.userStore.update() ) , 3500);
     //setInterval( () => this.props.stores.heroStore.loadHero( "Hedrick" ), 3500 )
 
   }
@@ -28,7 +29,7 @@ export default class UserWidget extends React.Component {
     const currentUser = this.props.store.userStore.users[currentUserId];
     //const events = this.props.stores.eventStore.events;
     //alert("render" + JSON.stringify( events ) );
-    alert("render user" + JSON.stringify(currentUser) );
+    //alert("render user" + JSON.stringify(currentUser) );
     return (
       <div className="col-md-9">
         <div>UserWidget</div>

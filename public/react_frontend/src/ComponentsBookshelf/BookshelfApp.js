@@ -28,7 +28,7 @@ export default class BookshelfApp extends React.Component {
   }
 
   render() {
-    alert("render bookshelf " );
+    
     if (this.props.store.appStatusStore.appLoaded) {
       return (
         <div>
