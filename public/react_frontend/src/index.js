@@ -78,6 +78,13 @@ BookshelfStore.userStore.users = [
 {Name : "Gregor"}
 ];
 
+BookshelfStore.projectStore.projects = [
+    {Name: "MyProject" }, 
+    {Name: "Trivol Project" }, 
+    {Name: "Aqua general"}
+];
+BookshelfStore.projectStore.currentProjectId = 0;
+
 /////////////////////////////
 
 // For easier debugging

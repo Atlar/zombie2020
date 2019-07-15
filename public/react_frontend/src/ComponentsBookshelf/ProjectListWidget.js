@@ -31,11 +31,7 @@ export default class ProjectListWidget extends React.Component {
     //const events = this.props.stores.eventStore.events;
     //alert("render" + JSON.stringify( events ) );
 
-    const projects = [
-    {Name: "MyProject" }, 
-    {Name: "Trivol Project" }, 
-    {Name: "Aqua general"}
-    ];
+    const projects = this.props.store.projectStore.projects;
 
     return (
       <div className="col-md-9">
