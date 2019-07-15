@@ -31,10 +31,10 @@ export default class StoreComponent {
 }
  addComponent( nameComponent, componentInstance ){
    
-    alert("adding component " + nameComponent + "" + );
+    alert("adding component " + nameComponent + "" + "" );
  	this[ nameComponent ] = componentInstance;
  	componentInstance.parent = this;
- 
+    alert( "result cm " + JSON.stringify(this) );
  } 
  
 }
