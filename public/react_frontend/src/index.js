@@ -44,7 +44,8 @@ const stores = {
 const appStatus = new appStatusStore();
 appStatus.appName="Bookshelf";
 appStatus.APIRootURL="/api";
-//////
+/////
+/*
 const adventureStores = new StoreComponent();
 adventureStores.addComponent( "appStatusStore", appStatus);
 adventureStores.addComponent( "heroStore", new heroStore()) ;
@@ -54,11 +55,13 @@ adventureStores.addComponent( "agent_events", new agent_events());
 
 //////////////////////////
 adventureStores.heroStore.currentHero = { name: "Hedrick ", level: 1};
+*/
 //////SETUP GLOBAL STORE///
 
 //bookshelf store
 const BookshelfStore = new StoreComponent();
 alert(JSON.stringify( BookshelfStore) );
+alert("is defined? " + BookshelfStore);
 const UserStoreRef = new userStoreProject();
 alert( "us st " + UserStoreRef );
 BookshelfStore.addComponent( "userStore", new userStoreProject() );
