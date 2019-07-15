@@ -25,7 +25,10 @@ import editorStore from './stores/editorStore';
 import userStore from './stores/userStore';
 import profileStore from './stores/profileStore';
 
+import {userStore as userStoreProject} from './stores_project/userStore';
+import {projectStore as projectStoreProject} from './stores_project/projectStore';
 
+import BookshelfApp from './ComponentsBookshelf/BookshelfApp';
 
 //better because no need to initialize
 const stores = {
@@ -39,7 +42,7 @@ const stores = {
 };
 //////SETUP///////////////
 const appStatus = new appStatusStore();
-appStatus.appName="Quest";
+appStatus.appName="Bookshelf";
 appStatus.APIRootURL="/api";
 //////
 const adventureStores = new StoreComponent();
@@ -53,6 +56,19 @@ adventureStores.addComponent( "agent_events", new agent_events());
 adventureStores.heroStore.currentHero = { name: "Hedrick ", level: 1};
 //////SETUP GLOBAL STORE///
 
+//bookshelf store
+const BookshelfStore = new StoreComponent();
+BookshelfStore.addComponent( "userStore", new userStoreProject() );
+BookshelfStore.addComponent( "projectStore", new projectStoreProject());
+BookshelfStore.addComponent( "appStatusStore", appStatus);
+//
+BookshelfStore.userStore.currentUserId = 1;
+
+BookshelfStore.userStore.users = [
+{Name : "Chris" },
+{Name : "Gregor"}
+];
+
 /////////////////////////////
 
 // For easier debugging
@@ -62,9 +78,9 @@ promiseFinally.shim();
 //useStrict(false);
 
 ReactDOM.render((
-  <Provider {...stores}>
+  <Provider store={BookshelfStore}>
     <HashRouter>
-      <App/>
+      <BookshelfApp/>
     </HashRouter>
   </Provider>
 ), document.getElementById('root'));
