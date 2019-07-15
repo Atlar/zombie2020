@@ -58,13 +58,13 @@ adventureStores.heroStore.currentHero = { name: "Hedrick ", level: 1};
 
 //bookshelf store
 const BookshelfStore = new StoreComponent();
-alert(BookshelfStore);
+alert(JSON.stringify( BookshelfStore) );
 BookshelfStore.addComponent( "userStore", new userStoreProject() );
-alert(BookshelfStore);
+alert(JSON.stringify( BookshelfStore) );
 BookshelfStore.addComponent( "projectStore", new projectStoreProject());
-alert(BookshelfStore);
+alert(JSON.stringify( BookshelfStore) );
 BookshelfStore.addComponent( "appStatusStore", appStatus);
-alert(BookshelfStore);
+alert(JSON.stringify( BookshelfStore) );
 //
 BookshelfStore.userStore.currentUserId = 1;
 
