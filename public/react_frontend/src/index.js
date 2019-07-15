@@ -55,12 +55,16 @@ adventureStores.addComponent( "agent_events", new agent_events());
 //////////////////////////
 adventureStores.heroStore.currentHero = { name: "Hedrick ", level: 1};
 //////SETUP GLOBAL STORE///
-alert("Adventure stroe created" );
+
 //bookshelf store
 const BookshelfStore = new StoreComponent();
+alert(BookshelfStore);
 BookshelfStore.addComponent( "userStore", new userStoreProject() );
+alert(BookshelfStore);
 BookshelfStore.addComponent( "projectStore", new projectStoreProject());
+alert(BookshelfStore);
 BookshelfStore.addComponent( "appStatusStore", appStatus);
+alert(BookshelfStore);
 //
 BookshelfStore.userStore.currentUserId = 1;
 
