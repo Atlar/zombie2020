@@ -2,7 +2,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter, NavLink } from 'react-router-dom';
 
-import {ProjectEntry} from './ProjectEntry'
+import ProjectEntry from './ProjectEntry'
 
 @inject('store')
 @withRouter
@@ -42,7 +42,7 @@ export default class ProjectWidget extends React.Component {
                <div>{project.Name}</div>
              <div>
                {entries && entries.map((el, ind)=>{
-               return(<div key = {ind} >Entry</div> );})}
+               return(<ProjectEntry key={ind} index={ind} /> );})}
              </div>
           </div>)}
       </div>
