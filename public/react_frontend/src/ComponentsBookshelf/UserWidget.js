@@ -5,7 +5,7 @@ import { withRouter, NavLink } from 'react-router-dom'
 @inject('store')
 @withRouter
 @observer
-export default class Adventure extends React.Component {
+export default class UserWidget extends React.Component {
 
   componentWillMount() {
     this.props.store.appStatusStore.setAppLoaded();
@@ -31,12 +31,15 @@ export default class Adventure extends React.Component {
 
     return (
       <div className="col-md-9">
+        <div>UserWidget</div>
+        <div>
         {currentUser&&(<div>
                   <div>
                     {currentUser.Name}
                   </div>
                   
         </div>)}
+        </div>
         <div>
         { 
           events && events.map( (elem , index) => {

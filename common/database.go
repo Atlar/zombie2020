@@ -70,5 +70,5 @@ func InitDB(){
 }
 
 func (self *DBType) InitDB () *DBType{
-   return Init()   
+   return &DBType{ Init() }
 }
