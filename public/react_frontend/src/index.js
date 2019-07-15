@@ -60,16 +60,16 @@ adventureStores.heroStore.currentHero = { name: "Hedrick ", level: 1};
 
 //bookshelf store
 const BookshelfStore = new StoreComponent();
-alert(JSON.stringify( BookshelfStore) );
-alert("is defined? " + BookshelfStore);
+//alert(JSON.stringify( BookshelfStore) );
+//alert("is defined? " + BookshelfStore);
 const UserStoreRef = new userStoreProject();
-alert( "us st " + UserStoreRef );
+//alert( "us st " + UserStoreRef );
 BookshelfStore.addComponent( "userStore", new userStoreProject() );
-alert(JSON.stringify( BookshelfStore) );
+//alert(JSON.stringify( BookshelfStore) );
 BookshelfStore.addComponent( "projectStore", new projectStoreProject());
-alert(JSON.stringify( BookshelfStore) );
+//alert(JSON.stringify( BookshelfStore) );
 BookshelfStore.addComponent( "appStatusStore", appStatus);
-alert(JSON.stringify( BookshelfStore) );
+//alert(JSON.stringify( BookshelfStore) );
 //
 BookshelfStore.userStore.currentUserId = 1;
 
@@ -78,7 +78,6 @@ BookshelfStore.userStore.users = [
 {Name : "Gregor"}
 ];
 
-alert(BookshelfStore);
 /////////////////////////////
 
 // For easier debugging
