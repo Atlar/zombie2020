@@ -120,10 +120,12 @@ type MongoAgent struct {
 	//extended mongo client
 	//wrapper
 	ConnectionUrl string
-	
+
 	//options for queue
-    queryOptions bson.D
-		
+	queryOptions bson.D
+
+	Error error
+
 	//Login         string
 	//Password      string
 	mongo.Client
@@ -299,20 +301,20 @@ type Character struct {
 
 //gorm interface
 //find first by id
-func (self *MongoAgent) First( foundObject interface{}, id uint ){
+func (self *MongoAgent) First(foundObject interface{}, conditions ...interface{}) *MongoAgent {
 
-    self.findObject( "bookshelf" , bson.D{{"id", id}}, &foundObject) 
-
-
+	self.findObject("bookshelf", bson.D{{"id", conditions[0]}}, &foundObject)
+	return self 
+	
 }
 
-func (self *MongoAgent) AutoMigrate( object interface{} ){
-     fmt.Println( object )
+func (self *MongoAgent) AutoMigrate(object interface{}) {
+	fmt.Println(object)
 }
 
-func (self *MongoAgent) Where( condition interface{}) *MongoAgent {
+func (self *MongoAgent) Where(condition interface{}) *MongoAgent {
 
-      self.queryOptions = bson.D{ condition.(bson.E) }
-      return self
+	self.queryOptions = bson.D{condition.(bson.E)}
+	return self
 
-} 
+}
