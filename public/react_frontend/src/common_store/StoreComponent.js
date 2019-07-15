@@ -30,7 +30,8 @@ export default class StoreComponent {
  	return NewComponennt;
 }
  addComponent( nameComponent, componentInstance ){
- 
+   
+    alert("adding component " + nameComponent + "" + );
  	this[ nameComponent ] = componentInstance;
  	componentInstance.parent = this;
  
