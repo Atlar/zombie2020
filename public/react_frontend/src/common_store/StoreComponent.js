@@ -33,6 +33,7 @@ export default class StoreComponent {
    
     alert("adding component " + nameComponent + "" + JSON.stringify(componentInstance ) + " is defined? " + componentInstance);
  	this[ nameComponent ] = componentInstance;
+ 	alert("added member" + JSON.stringify(this));
  	componentInstance.parent = this;
     alert( "result cm " + JSON.stringify(this) );
  } 
