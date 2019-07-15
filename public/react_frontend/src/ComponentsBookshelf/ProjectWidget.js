@@ -1,6 +1,8 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { withRouter, NavLink } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom';
+
+import {ProjectEntry} from './ProjectEntry'
 
 @inject('store')
 @withRouter
@@ -28,10 +30,17 @@ export default class ProjectWidget extends React.Component {
     //const currentUser = this.props.store.userStore.users[currentUserId];
     //const events = this.props.stores.eventStore.events;
     //alert("render" + JSON.stringify( events ) );
-
+    const index = this.props.index;
+    const project = this.props.store.projectStore.projects[index];
+    const entries = this.props.store.entryStore.entries;
     return (
       <div className="col-md-9">
         <div>ProjectWidget</div>
+        {project && (<div>{project.Name}</div>
+        <div>
+        {entries && entries.map((el, ind)=>{
+        return(<ProjectEntry key = {ind} index={ind}/> );})}
+        </div>)}
       </div>
     );
   }

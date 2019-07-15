@@ -27,6 +27,7 @@ import profileStore from './stores/profileStore';
 
 import {default as userStoreProject} from './stores_project/userStore';
 import {default as projectStoreProject} from './stores_project/projectStore';
+import EntryStore from './stores_project/entryStore';
 
 import BookshelfApp from './ComponentsBookshelf/BookshelfApp';
 
@@ -70,6 +71,8 @@ BookshelfStore.addComponent( "projectStore", new projectStoreProject());
 //alert(JSON.stringify( BookshelfStore) );
 BookshelfStore.addComponent( "appStatusStore", appStatus);
 //alert(JSON.stringify( BookshelfStore) );
+BookshelfStore.addComponent(  "entryStore", new EntryStore());
+
 //
 BookshelfStore.userStore.currentUserId = 1;
 
@@ -79,11 +82,24 @@ BookshelfStore.userStore.users = [
 ];
 
 BookshelfStore.projectStore.projects = [
-    {Name: "MyProject" }, 
-    {Name: "Trivol Project" }, 
-    {Name: "Aqua general"}
+    {Name: "MyProject", 
+     Entries:[0,1]
+    }, 
+    {Name: "Trivol Project" , 
+    Entries:[3]
+    }, 
+    {Name: "Aqua general", 
+    Entries:[2]
+    }, 
 ];
 BookshelfStore.projectStore.currentProjectId = 0;
+
+BookshelfStore.entryStore.entries = [
+{Name: "Use this entry" },
+{Name: "Chapter 1" },
+{Name: "Guide to create substantive text" },
+{Name: "Empty text is cool" }
+];
 
 /////////////////////////////
 
