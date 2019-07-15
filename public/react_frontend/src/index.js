@@ -60,7 +60,7 @@ adventureStores.heroStore.currentHero = { name: "Hedrick ", level: 1};
 const BookshelfStore = new StoreComponent();
 alert(JSON.stringify( BookshelfStore) );
 const UserStoreRef = new userStoreProject();
-alert("us st " +JSON.stringify( UserStoreRef) );
+alert( "us st " + UserStoreRef );
 BookshelfStore.addComponent( "userStore", new userStoreProject() );
 alert(JSON.stringify( BookshelfStore) );
 BookshelfStore.addComponent( "projectStore", new projectStoreProject());
