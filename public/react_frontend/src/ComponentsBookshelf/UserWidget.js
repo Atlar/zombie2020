@@ -28,7 +28,7 @@ export default class UserWidget extends React.Component {
     const currentUser = this.props.store.userStore.users[currentUserId];
     //const events = this.props.stores.eventStore.events;
     //alert("render" + JSON.stringify( events ) );
-    alert("render user" + JSON.stringify(currentUser);
+    alert("render user" + JSON.stringify(currentUser) );
     return (
       <div className="col-md-9">
         <div>UserWidget</div>
