@@ -33,6 +33,8 @@ export default class ProjectWidget extends React.Component {
     const index = this.props.index;
     const project = this.props.store.projectStore.projects[index];
     const entries = this.props.store.entryStore.entries;
+    
+   
     return (
       <div className="col-md-9">
         <div>ProjectWidget</div>
@@ -40,7 +42,7 @@ export default class ProjectWidget extends React.Component {
                <div>{project.Name}</div>
              <div>
                {entries && entries.map((el, ind)=>{
-               return(<ProjectEntry key = {ind} index={ind}/> );})}
+               return(<div key = {ind} >Entry</div> );})}
              </div>
           </div>)}
       </div>

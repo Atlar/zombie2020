@@ -86,10 +86,10 @@ BookshelfStore.projectStore.projects = [
      Entries:[0,1]
     }, 
     {Name: "Trivol Project" , 
-    Entries:[3]
+     Entries:[3]
     }, 
-    {Name: "Aqua general", 
-    Entries:[2]
+    {Name: "Aqua general",
+     Entries:[2]
     }, 
 ];
 BookshelfStore.projectStore.currentProjectId = 0;
