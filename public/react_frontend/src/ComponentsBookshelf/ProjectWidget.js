@@ -2,12 +2,10 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter, NavLink } from 'react-router-dom'
 
-import ProjectWidget from './ProjectWidget'
-
 @inject('store')
 @withRouter
 @observer
-export default class ProjectListWidget extends React.Component {
+export default class ProjectWidget extends React.Component {
 
   componentWillMount() {
     //this.props.store.appStatusStore.setAppLoaded();
@@ -31,20 +29,9 @@ export default class ProjectListWidget extends React.Component {
     //const events = this.props.stores.eventStore.events;
     //alert("render" + JSON.stringify( events ) );
 
-    const projects = [
-    {Name: "MyProject" }, 
-    {Name: "Trivol Project" }, 
-    {Name: "Aqua general"}
-    ];
-
     return (
       <div className="col-md-9">
-        <div>ProjectListWidget</div>
-        <div>
-        {projects && projects.map( el, ind) => {
-        return(<ProjectWidget key={ind} />);
-       }}
-        </div>
+        <div>ProjectWidget</div>
       </div>
     );
   }
