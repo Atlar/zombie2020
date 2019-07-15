@@ -76,7 +76,7 @@ window._____APP_STATE_____ = stores;
 
 promiseFinally.shim();
 //useStrict(false);
-
+alert("render root" );
 ReactDOM.render((
   <Provider store={BookshelfStore}>
     <HashRouter>
