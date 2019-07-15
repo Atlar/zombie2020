@@ -7,7 +7,7 @@ import (
 	"os"
 	
 	//My
-	"github.com/Atlar/golang-gin-realworld-example-app/database_agent"
+	//"github.com/Atlar/golang-gin-realworld-example-app/database_agent"
 )
 
 type Database struct {
@@ -67,4 +67,8 @@ func InitDB(){
    clientDB.InitDB()
    //database_agent.Init( &database_agent.DBagent) 
   
+}
+
+func (self *DBType) InitDB () *DBType{
+   return Init()   
 }
