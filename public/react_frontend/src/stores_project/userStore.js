@@ -6,6 +6,7 @@ export default class UserStore extends StoreComponent {
 
     constructor(){
     super();
+    this.testVar = 1;
     }
 
     @observable users
