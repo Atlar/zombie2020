@@ -25,8 +25,8 @@ import editorStore from './stores/editorStore';
 import userStore from './stores/userStore';
 import profileStore from './stores/profileStore';
 
-import {UserStore as userStoreProject} from './stores_project/userStore';
-import {ProjectStore as projectStoreProject} from './stores_project/projectStore';
+import {default as userStoreProject} from './stores_project/userStore';
+import {default as projectStoreProject} from './stores_project/projectStore';
 
 import BookshelfApp from './ComponentsBookshelf/BookshelfApp';
 
@@ -59,6 +59,8 @@ adventureStores.heroStore.currentHero = { name: "Hedrick ", level: 1};
 //bookshelf store
 const BookshelfStore = new StoreComponent();
 alert(JSON.stringify( BookshelfStore) );
+const UserStoreRef = new userStoreProject();
+alert("us st " +JSON.stringify( UserStoreRef) );
 BookshelfStore.addComponent( "userStore", new userStoreProject() );
 alert(JSON.stringify( BookshelfStore) );
 BookshelfStore.addComponent( "projectStore", new projectStoreProject());
