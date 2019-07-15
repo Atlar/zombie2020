@@ -15,6 +15,7 @@ export default class UserStore extends StoreComponent {
     @action update = () =>{
     
        this.testVar = this.testVar + 1;
+       
     
    } 
 }
