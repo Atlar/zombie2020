@@ -55,7 +55,7 @@ adventureStores.addComponent( "agent_events", new agent_events());
 //////////////////////////
 adventureStores.heroStore.currentHero = { name: "Hedrick ", level: 1};
 //////SETUP GLOBAL STORE///
-
+alert("Adventure stroe created" );
 //bookshelf store
 const BookshelfStore = new StoreComponent();
 BookshelfStore.addComponent( "userStore", new userStoreProject() );
@@ -69,6 +69,7 @@ BookshelfStore.userStore.users = [
 {Name : "Gregor"}
 ];
 
+alert(BookshelfStore);
 /////////////////////////////
 
 // For easier debugging
