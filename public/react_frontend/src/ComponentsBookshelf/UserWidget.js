@@ -17,7 +17,7 @@ export default class UserWidget extends React.Component {
     //this.props.store.userStore.loadUser();
     
     //set regular events update
-    setInterval( action( () => this.props.store.userStore.update() ) , 3500);
+    setInterval( () => this.props.store.userStore.update() , 3500);
     //setInterval( () => this.props.stores.heroStore.loadHero( "Hedrick" ), 3500 )
 
   }
