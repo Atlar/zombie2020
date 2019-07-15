@@ -4,8 +4,8 @@ import StoreComponent from "../common_store/StoreComponent";
 
 export default class UserStore extends StoreComponent {
 
-    constructor(props){
-    super(props);
+    constructor(){
+    super();
     }
 
     @observable users
