@@ -79,18 +79,49 @@ BookshelfStore.userStore.currentUserId = 1;
 
 BookshelfStore.userStore.users = [
 {Name : "Chris" },
-{Name : "Gregor"}
+{Name : "Gregor"},
+{Name : "William"}
 ];
 
 BookshelfStore.projectStore.projects = [
     {Name: "MyProject", 
-     Entries:[0,1]
+     Entries:[0,1],
+     Participants:[
+     {
+     User: 1,
+     Role: "admin"
+     },
+     {
+     User: 0,
+     Role: "publisher"
+     }
+     ] 
     }, 
     {Name: "Trivol Project" , 
-     Entries:[3]
+     Entries:[3],
+     Participants:[
+     {
+     User: 0,
+     Role: "admin"
+     },
+     {
+     User: 2,
+     Role: "writer"
+     }
+     ] 
     }, 
     {Name: "Aqua general",
-     Entries:[2]
+     Entries:[2],
+     Participants:[
+        {
+           User: 2,
+           Role: "admin"
+        },
+        {
+           User: 1,
+           Role: "writer"
+        }
+     ] 
     }, 
 ];
 BookshelfStore.projectStore.currentProjectId = 0;

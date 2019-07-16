@@ -2,13 +2,10 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter, NavLink } from 'react-router-dom';
 
-import ProjectEntry from './ProjectEntry';
-import default from './ProjectParticipantsWidget'
-
 @inject('store')
 @withRouter
 @observer
-export default class ProjectWidget extends React.Component {
+export default class ProjectParticipantsWidget extends React.Component {
 
   componentWillMount() {
     //this.props.store.appStatusStore.setAppLoaded();
@@ -33,18 +30,15 @@ export default class ProjectWidget extends React.Component {
     //alert("render" + JSON.stringify( events ) );
     const index = this.props.index;
     const project = this.props.store.projectStore.projects[index];
-    const entries = this.props.store.entryStore.entries;
-    
+    //const entries = this.props.store.entryStore.entries;
+    const users = this.props.store.userStore.users;
    
     return (
       <div className="col-md-9">
-        <div>ProjectWidget</div>
+        <div>ProjectParticipants</div>
         {project && (<div>
-               <div>{project.Name}</div>
-             <ProjectParticipantsWidget index={index}/>
-             <div>
-               {project.Entries && project.Entries.map((el, ind)=>{
-               return(<ProjectEntry key={ind} index={el} /> );})}
+               {project.Participants && project.Participants.map((el, ind)=>{
+               return(<ul key={ind} index={el}>{users[el.User].Name + " role-" +users[el.Role]}</ul> );})}
              </div>
           </div>)}
       </div>
