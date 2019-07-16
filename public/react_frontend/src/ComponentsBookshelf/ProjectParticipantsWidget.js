@@ -39,7 +39,6 @@ export default class ProjectParticipantsWidget extends React.Component {
         {project && (<div>
                {project.Participants && project.Participants.map((el, ind)=>{
                return(<ul key={ind} index={el}>{users[el.User].Name + " role-" +users[el.Role]}</ul> );})}
-             </div>
           </div>)}
       </div>
     );
