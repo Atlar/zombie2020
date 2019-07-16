@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { withRouter, NavLink } from 'react-router-dom';
 
 import ProjectEntry from './ProjectEntry';
-import default from './ProjectParticipantsWidget'
+import ProjectParticipantsWidget from './ProjectParticipantsWidget'
 
 @inject('store')
 @withRouter
