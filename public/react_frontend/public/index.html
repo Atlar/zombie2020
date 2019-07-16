@@ -22,9 +22,25 @@
     <div id="output">App</div>
     <div id="console"></div>
     <div id="root"></div>
+    <div id="consoled"></div>
+    <script type="text/javascript">
+      if (typeof console  != "undefined") 
+        if (typeof console.log != 'undefined')
+            console.olog = console.log;
+        else
+            console.olog = function() {};
+
+      console.log = function(message) {
+          console.olog(message);
+          document.getElementById("consoled").innerHTML = document.getElementById("consoled").innerHTML + '<p>' + message + '</p>';
+      };
+      console.error = console.debug = console.info =  console.log;
+    </script>
     <script
         src="/static/bundle.js"
         charset="utf-8"></script>
+
+
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

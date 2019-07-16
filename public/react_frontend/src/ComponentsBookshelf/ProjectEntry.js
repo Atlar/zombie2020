@@ -28,12 +28,12 @@ export default class ProjectEntry extends React.Component {
     //const currentUser = this.props.store.userStore.users[currentUserId];
     //const events = this.props.stores.eventStore.events;
     //alert("render" + JSON.stringify( events ) );
-    //const index = this.props.index;
-    //const entry = this.props.store.entryStore.entries[index];
+    const index = this.props.index;
+    const entry = this.props.store.entryStore.entries[index];
     return (
       <div className="col-md-9">
         <div>Project Entry</div>
-        {//entry && (<div>{entry.Name}</div>)
+        {entry && (<div>{entry.Name}</div>)
         }
       </div>
     );

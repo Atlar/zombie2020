@@ -31,6 +31,7 @@ import EntryStore from './stores_project/entryStore';
 
 import BookshelfApp from './ComponentsBookshelf/BookshelfApp';
 
+console.log("Console started...");
 //better because no need to initialize
 const stores = {
   articlesStore,
