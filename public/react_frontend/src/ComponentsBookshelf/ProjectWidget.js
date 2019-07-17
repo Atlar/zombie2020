@@ -38,6 +38,7 @@ export default class ProjectWidget extends React.Component {
     
     //adding entry
     const editing = this.props.store.entryAddStore.addView;
+    console.log(this.props.store.entryAddStore);
     const addEntry = () => this.props.store.entryAddStore.CreateNewEntry( index );
 
     return (
