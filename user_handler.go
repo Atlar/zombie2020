@@ -44,9 +44,10 @@ func (self *Participation) Contains (id ID) bool {
 type ProjectParticipation struct{}
 type GroupParticipation struct{}
 
-func GetParticipated( participantId ID, projects []Participation, answer *[]ID){
+//unusable function because cant return projects id
+func GetParticipated( participantId ID, projects []Participation, answer *[]Participation){
     
-     AnswerId:= []ID{} 
+     AnswerId:= []Participation{} 
    
      for _, v := range projects{
         
@@ -58,7 +59,7 @@ func GetParticipated( participantId ID, projects []Participation, answer *[]ID){
        } 
        
      }
-     return &AnswerId
+     (*answer) = AnswerId;
      
 }
 type HistoryStamps struct{

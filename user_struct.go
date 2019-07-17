@@ -3,11 +3,9 @@ package main
 type User struct{
 
    ID
-   Name
+   Name string
    Users Participation
    Entries Participation
    HistoryStamps
 
 }
-
-type Name string
