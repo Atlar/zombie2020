@@ -44,7 +44,7 @@ export default class Login extends React.Component {
                     {currentUser.Name}
                   </div>)}
         </div>
-        {login && (<LoginForm>) }
+        {login && (<LoginForm/>) }
         { (!login) && (
         <button onClick = {onClick} >Login</button>
         ) }
