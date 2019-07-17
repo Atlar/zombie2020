@@ -28,6 +28,7 @@ import profileStore from './stores/profileStore';
 import {default as userStoreProject} from './stores_project/userStore';
 import {default as projectStoreProject} from './stores_project/projectStore';
 import EntryStore from './stores_project/entryStore';
+import LoginStore from './stores_project/loginStore';
 
 import BookshelfApp from './ComponentsBookshelf/BookshelfApp';
 
@@ -45,7 +46,7 @@ const stores = {
 //////SETUP///////////////
 const appStatus = new appStatusStore();
 appStatus.appName="Bookshelf";
-appStatus.APIRootURL="/api";
+appStatus.APIRootURL="/api/bookshelf";
 /////
 /*
 const adventureStores = new StoreComponent();
@@ -73,7 +74,8 @@ BookshelfStore.addComponent( "projectStore", new projectStoreProject());
 BookshelfStore.addComponent( "appStatusStore", appStatus);
 //alert(JSON.stringify( BookshelfStore) );
 BookshelfStore.addComponent(  "entryStore", new EntryStore());
-
+BookshelfStore.addComponent( "agent_object", new agent_object()) ;
+BookshelfStore.addComponent( "loginStore", new LoginStore()) ;
 //
 BookshelfStore.userStore.currentUserId = 1;
 
