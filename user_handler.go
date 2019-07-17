@@ -54,7 +54,7 @@ func GetParticipated( participantId ID, projects []Participation, answer *[]Part
        result := v.Contains( participantId )
        if( result!= false ) {
       
-           append( AnswerId, v)
+           AnswerId = append( AnswerId, v)
       
        } 
        
