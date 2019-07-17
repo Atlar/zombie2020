@@ -37,7 +37,7 @@ export default class BookshelfApp extends React.Component {
           <Switch>
               <div>
               	<UserWidget/>
-                <Login>
+                <Login/>
           		<ProjectListWidget/>
               </div>
           </Switch>
