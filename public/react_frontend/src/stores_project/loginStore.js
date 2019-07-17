@@ -24,6 +24,7 @@ export default class LoginStore extends StoreComponent{
     
      const userLogin = {username: this.username, password: this.password} ;
      //send hero api request
+     console.log("pre post");
      console.log( JSON.stringify(userLogin) );
      return agent.postObject( "login", userLogin)
      .then(action(( user ) => { 
