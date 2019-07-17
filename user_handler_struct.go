@@ -31,8 +31,8 @@ type LoginForm struct {
 
 type RegistrationForm struct {
 
-    Login
-    Email `json: "email"`
+    LoginForm
+    Email string `json: "email"`
 
 } 
 
