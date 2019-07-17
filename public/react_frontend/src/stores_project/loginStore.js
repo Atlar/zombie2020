@@ -12,7 +12,6 @@ export default class LoginStore extends StoreComponent{
   
   @action login(){
      //get appropriate agent
-     console.log("login call" );
      
      const agent = this.parent.agent_object;
      if(agent == 'undefined'){
@@ -26,7 +25,6 @@ export default class LoginStore extends StoreComponent{
      const userLogin = {username: this.username, password: this.password} ;
      //send hero api request
      console.log("pre post");
-     console.log( JSON.stringify(userLogin) );
      return agent.postObject( "login", userLogin)
      .then(action(( user ) => { 
      userStore.users[0]= user ;
