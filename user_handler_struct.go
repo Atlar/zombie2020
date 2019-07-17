@@ -17,7 +17,7 @@ func HandleLogin( context *gin.Context){
 
     var LoginInfo LoginForm
     context.bindJSON( &LoginInfo )
-    newUser := User{ Name: LoginInfo.Username } 
+    newUser := User{ Username: LoginInfo.Username } 
     context.JSON(http.StatusOK, User)
 
 }
