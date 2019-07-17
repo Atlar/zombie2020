@@ -19,7 +19,12 @@ export default class Login extends React.Component {
     //this.props.store.userStore.loadUser();
     
     //set regular events update
-    setInterval( () => {this.props.store.loginStore.login();console.log("regular login" )} , 3500);
+    setInterval( () => {
+       const loginView = this.props.store.loginStore.loginView;
+       if(!loginView){
+          this.props.store.loginStore.login();
+       } 
+    } , 3500);
     //setInterval( () => this.props.stores.heroStore.loadHero( "Hedrick" ), 3500 )
 
   }
