@@ -7,7 +7,7 @@ import StoreComponent from "../common_store/StoreComponent";
 //
 //create common url for api request site_api/type/id
 const urlTypeId = (root, type,id) => `${root}/${type}/${id}`;
-const urlAddress = (root, address) => `${root}/${address}`;
+const urlAddress = (root, address) => {console.log(`${root}/${address}`);return `${root}/${address}`;} 
 
 const returnResponseBody = res =>{ return res.body;  }
 //

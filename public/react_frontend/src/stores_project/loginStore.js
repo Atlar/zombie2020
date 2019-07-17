@@ -24,10 +24,12 @@ export default class LoginStore extends StoreComponent{
     
      const userLogin = {username: this.username, password: this.password} ;
      //send hero api request
+     console.log( JSON.stringify(userLogin) );
      return agent.postObject( "login", userLogin)
      .then(action(( user ) => { 
      userStore.users[0]= user ;
-     userStore.currentUserId = 0;}))
+     userStore.currentUserId = 0;
+     console.log("after post" )}))
      .then(action(() => { this.loginInProgress = false; }))
  } 
   @action handleUsernameChange = (event) =>{
@@ -42,7 +44,7 @@ export default class LoginStore extends StoreComponent{
      console.log( "new " + this.loginView);
 
  }
-  @action Trylogin = () => {
+ @action Trylogin = () => {
     
      console.log("try login call" );
    
