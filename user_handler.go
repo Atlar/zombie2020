@@ -57,7 +57,7 @@ func GetParticipated( participantId ID, projects []Participation, answer *[]ID){
     
      AnswerId:= []ID{} 
    
-     for _, v: = range projects{
+     for _, v := range projects{
         
        result := v.Participants.Contains( participantId )
        if( result!= false ) {
