@@ -73,7 +73,7 @@ BookshelfStore.addComponent( "projectStore", new projectStoreProject());
 //alert(JSON.stringify( BookshelfStore) );
 BookshelfStore.addComponent( "appStatusStore", appStatus);
 //alert(JSON.stringify( BookshelfStore) );
-BookshelfStore.addComponent(  "entryStore", new EntryStore());
+BookshelfStore.addComponent( "entryStore", new EntryStore());
 BookshelfStore.addComponent( "agent_object", new agent_object()) ;
 BookshelfStore.addComponent( "loginStore", new LoginStore()) ;
 //

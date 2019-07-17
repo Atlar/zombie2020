@@ -12,9 +12,10 @@ export default class LoginStore extends StoreComponent{
   
   @action login(){
      //get appropriate agent
-     console.log("login call" )
+     console.log("login call" );
+     console.log( this.parent.agent_object );
      var agent = this.parent.agent_object;
-     if(agent == undefined){
+     if(agent == 'undefined'){
      	console.log("login store on load hero did not find agent_object in parent");
      	return;
      }
