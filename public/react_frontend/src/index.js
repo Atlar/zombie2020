@@ -29,8 +29,10 @@ import {default as userStoreProject} from './stores_project/userStore';
 import {default as projectStoreProject} from './stores_project/projectStore';
 import EntryStore from './stores_project/entryStore';
 import LoginStore from './stores_project/loginStore';
+import AddEntryStore from './stores_project/entryAddStore';
 
 import BookshelfApp from './ComponentsBookshelf/BookshelfApp';
+import EntryAddStore from './stores_project/entryAddStore';
 
 console.log("Console started...");
 //better because no need to initialize
@@ -76,6 +78,7 @@ BookshelfStore.addComponent( "appStatusStore", appStatus);
 BookshelfStore.addComponent( "entryStore", new EntryStore());
 BookshelfStore.addComponent( "agent_object", new agent_object()) ;
 BookshelfStore.addComponent( "loginStore", new LoginStore()) ;
+BookshelfStore.addComponent( "entryAddStore", new EntryAddStore()) ;
 //
 BookshelfStore.userStore.currentUserId = 1;
 

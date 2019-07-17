@@ -4,6 +4,7 @@ import { withRouter, NavLink } from 'react-router-dom';
 
 import ProjectEntry from './ProjectEntry';
 import ProjectParticipantsWidget from './ProjectParticipantsWidget'
+import AddEntryWidget from './AddEntryWidget'
 
 @inject('store')
 @withRouter
@@ -35,7 +36,10 @@ export default class ProjectWidget extends React.Component {
     const project = this.props.store.projectStore.projects[index];
     const entries = this.props.store.entryStore.entries;
     
-   
+    //adding entry
+    const editing = this.props.store.entryAddStore.addView;
+    const addEntry = () => this.props.store.entryAddStore.CreateNewEntry( index );
+
     return (
       <div className="col-md-9">
         <div>ProjectWidget</div>
@@ -45,6 +49,8 @@ export default class ProjectWidget extends React.Component {
              <div>
                {project.Entries && project.Entries.map((el, ind)=>{
                return(<ProjectEntry key={ind} index={el} /> );})}
+               {!editing && (<button onClick={addEntry}>AddEntry</button>)}
+               {editing && (<AddEntryWidget/>)}
              </div>
           </div>)}
       </div>

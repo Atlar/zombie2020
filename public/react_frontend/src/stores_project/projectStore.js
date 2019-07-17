@@ -13,4 +13,11 @@ export default class PojectStore extends StoreComponent {
     @observable projects
     @observable currentProjectId
 
+    //add new Entry to project - for initial setup before network
+    @action addEntryToProject( projectId, EntryId ){
+
+        this.projects[projectId].Entries.push(EntryId);
+
+    }
+
 }
