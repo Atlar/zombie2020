@@ -6,6 +6,7 @@ import { inject, observer } from 'mobx-react';
 //import ProjectFeed from './ProjectFeed';
 import UserWidget from './UserWidget';
 import ProjectListWidget from './ProjectListWidget';
+import Login from './Login';
 //import AddWidget from './AddWidjet';
 
 @inject("store")
@@ -36,6 +37,7 @@ export default class BookshelfApp extends React.Component {
           <Switch>
               <div>
               	<UserWidget/>
+                <Login>
           		<ProjectListWidget/>
               </div>
           </Switch>
