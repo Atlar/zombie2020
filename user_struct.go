@@ -9,3 +9,5 @@ type User struct{
    HistoryStamps
 
 }
+
+type Name string
