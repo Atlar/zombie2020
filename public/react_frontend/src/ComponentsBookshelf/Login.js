@@ -19,7 +19,7 @@ export default class Login extends React.Component {
     //this.props.store.userStore.loadUser();
     
     //set regular events update
-    setInterval( () => this.props.store.loginStore.login() , 3500);
+    setInterval( () => {this.props.store.loginStore.login();console.log("regular login" )} , 3500);
     //setInterval( () => this.props.stores.heroStore.loadHero( "Hedrick" ), 3500 )
 
   }
@@ -46,7 +46,7 @@ export default class Login extends React.Component {
         </div>
         {login && (<LoginForm/>) }
         { (!login) && (
-        <button onClick = {onClick} >Login</button>
+        <button onClick={onClick} >Login</button>
         ) }
       </div>
     );

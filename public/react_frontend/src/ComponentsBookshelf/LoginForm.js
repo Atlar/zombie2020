@@ -38,7 +38,7 @@ export default class LoginForm extends React.Component {
     return (
       <div className="col-md-9">
         <input type="text" onChange={onChangeHandler} ></input>
-        <button onClick = {onClick} >Login</button>
+        <button onClick={onClick} >Login</button>
       </div>
     );
   }

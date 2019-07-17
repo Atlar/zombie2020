@@ -22,16 +22,16 @@ export default class agent_object extends StoreComponent{
     						//return response body parsed by default
                 .then( returnResponseBody )
 
-    postObject = (address, object) => this.superagent.post( urlAddress(this.getRootAPIUrl(), address ), object).accept('json')
+    postObject = (address, object) => this.superagent.post( urlAddress(this.getRootAPIUrl(), address ), object)
+               .accept('json')
                .then( returnResponseBody );
             
 	  updateById = (type, id, object_data) => this.superagent
-							.put(urlTypeId( this.getRootAPIUrl() ,type, id), object_data)
-              .then( returnResponseBody )
+			   .put(urlTypeId( this.getRootAPIUrl() ,type, id), object_data)
+               .then( returnResponseBody )
               
-		getRootAPIUrl = () => this.parent.appStatusStore.APIRootURL		
+		getRootAPIUrl = () => {this.parent.appStatusStore.APIRootURL; console.log("url-"+this.parent.appStatusStore.APIRootURL)} 		
 }
-
 
 //
 /*

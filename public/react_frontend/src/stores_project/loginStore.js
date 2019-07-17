@@ -10,8 +10,9 @@ export default class LoginStore extends StoreComponent{
   @observable loginInProgress;
   //@observable updatingUserErrors;
   
-  @action login( ){
+  @action login(){
      //get appropriate agent
+     console.log("login call" )
      var agent = this.parent.agent_object;
      if(agent == undefined){
      	console.log("login store on load hero did not find agent_object in parent");
@@ -36,12 +37,16 @@ export default class LoginStore extends StoreComponent{
   @action switchLogin = (login) => {
  
      this.loginView = login;
+     console.log( "switch login" );
+     console.log( "new " + this.loginView);
 
  }
   @action Trylogin = () => {
     
+     console.log("try login call" );
+   
      this.login()
-     .then( action( () => this.loginView = false) ) 
+     .then( action( () => this.switchLogin(false) )); 
      
  } 
   
