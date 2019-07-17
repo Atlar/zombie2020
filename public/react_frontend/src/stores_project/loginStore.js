@@ -13,14 +13,15 @@ export default class LoginStore extends StoreComponent{
   @action login(){
      //get appropriate agent
      console.log("login call" );
-     console.log( this.parent.agent_object );
-     var agent = this.parent.agent_object;
+     
+     const agent = this.parent.agent_object;
      if(agent == 'undefined'){
      	console.log("login store on load hero did not find agent_object in parent");
      	return;
      }
+     
      this.loginInProgress = true;
-     userStore = this.parent.userStore;
+     const userStore = this.parent.userStore;
     
      const userLogin = {username: this.username, password: this.password} ;
      //send hero api request
