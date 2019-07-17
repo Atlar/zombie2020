@@ -5,20 +5,14 @@ import(
     "gopkg.in/gin-gonic/gin.v1"
     "net/http"
 
-) 
-
-func HandleUser( context *gin.Context ){
-
-    context.bindJSON
-
-} 
+)
 
 func HandleLogin( context *gin.Context){
 
     var LoginInfo LoginForm
-    context.bindJSON( &LoginInfo )
-    newUser := User{ Username: LoginInfo.Username } 
-    context.JSON(http.StatusOK, User)
+    context.BindJSON( &LoginInfo )
+    newUser := User{ Name: LoginInfo.Username } 
+    context.JSON(http.StatusOK, newUser)
 
 }
 
