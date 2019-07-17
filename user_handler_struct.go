@@ -7,11 +7,6 @@ import(
 
 ) 
 
-type UserHandler struct{
-
-    *gin.Router
-
-}
 func HandleUser( context *gin.Context ){
 
     context.bindJSON

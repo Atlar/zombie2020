@@ -1,16 +1,7 @@
 package main
 
-import(
-
-    "gopkg.in/gin-gonic/gin.v1"
-
-) 
-
 type ID int
-type UserHandler struct{
-    
 
-}
 type UserAbstraction struct{
 
     ProjectParticipation
@@ -37,9 +28,9 @@ type Participation struct{
     Participants []ID
 
 }
-func (self *[]ID) Contains (id ID) bool {
+func (self *Participation) Contains (id ID) bool {
    
-   for _, v:= range self{
+   for _, v:= range self.Participants{
  
         if ( v == id){
         
@@ -59,7 +50,7 @@ func GetParticipated( participantId ID, projects []Participation, answer *[]ID){
    
      for _, v := range projects{
         
-       result := v.Participants.Contains( participantId )
+       result := v.Contains( participantId )
        if( result!= false ) {
       
            append( AnswerId, v)
