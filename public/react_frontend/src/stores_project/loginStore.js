@@ -1,6 +1,5 @@
 import { observable, action } from 'mobx';
 //import agent from '../agent';
-import agent_object from './agent_object';
 import StoreComponent from "../common_store/StoreComponent";
 
 export default class LoginStore extends StoreComponent{
