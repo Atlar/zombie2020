@@ -13,13 +13,13 @@ export default class EntryStore extends StoreComponent {
 
     @action addEntry(){
 
-        entries.push();
+        this.entries.push();
         return entries.length()-1;
 
     }
     @action AddEntryProject( ProjectId ){
 
-        const NewEntryId = addEntry();
+        const NewEntryId = this.addEntry();
         this.parent.projectStore.addEntryToProject( projectId, NewEntryId );
         return NewEntryId;
 
