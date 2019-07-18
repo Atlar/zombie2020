@@ -39,7 +39,8 @@ export default class ProjectWidget extends React.Component {
     //adding entry
     const editing = this.props.store.entryAddStore.addView;
     console.log(this.props.store.entryAddStore);
-    const addEntry = () => this.props.store.entryAddStore.CreateNewEntry( index );
+    const addEntry = () => this.props.store.entryAddStore.StartNewEntry( index );
+    const editThisProject = this.props.store.projectStore.currentProjectId == index;
 
     return (
       <div className="col-md-9">
@@ -50,8 +51,8 @@ export default class ProjectWidget extends React.Component {
              <div>
                {project.Entries && project.Entries.map((el, ind)=>{
                return(<ProjectEntry key={ind} index={el} /> );})}
-               {!editing && (<button onClick={addEntry}>AddEntry</button>)}
-               {editing && (<AddEntryWidget/>)}
+               {(!editThisProject || !editing) && (<button onClick={addEntry}>AddEntry</button>)}
+               {editing && editThisProject && (<AddEntryWidget/>)}
              </div>
           </div>)}
       </div>

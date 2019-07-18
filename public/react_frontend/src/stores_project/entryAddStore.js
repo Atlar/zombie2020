@@ -7,7 +7,9 @@ export default class EntryAddStore extends StoreComponent{
     @observable addView;//bool
     @observable text;
     @observable title;
+    @observable entryId;
     @observable updateInProgress;
+
     //@observable updatingUserErrors;
     
     @action addEntry(){
@@ -24,14 +26,14 @@ export default class EntryAddStore extends StoreComponent{
         const CurrentEntryId = EntryStore.currentEntryId;
         const ProjectStore = this.parent.projectStore;
         
-        const entryAdded = {title: this.title, text: this.text, project_id: ProjectStore.currentProjectId};
+        const entryAdded = {title: this.title, text: this.text, id: this.entryId};
         //send post object api request
         return agent.postObject( "entry", entryAdded)
         .then(action(( entry ) => {
-        //entry add to store
-        EntryStore.entries[entry.Id]= entry ;
-        //add reference to project
-        ProjectStore.projects[entry.ProjectId].Entries.push( entry.Id) ;}))
+            //update entry with possible new info
+            var ProperEntry = {Text: entry.text, Title: entry.title, ...entry };
+            this.parent.entryStore.UpdateEntry(entry.id, ProperEntry);
+        }))
         .then(action(() => { this.updateInProgress = false; }))
     } 
 
@@ -55,16 +57,24 @@ export default class EntryAddStore extends StoreComponent{
 
     }
 
-    //add entry and set edit mode
-    @action CreateNewEntry(ProjectId){
+    //add entry and set edit mode and project Id
+    @action StartNewEntry(ProjectId){
 
-        this.parent.entryStore.AddEntryProject(ProjectId);
+        const NewEntryId = this.parent.entryStore.AddEntryProject(ProjectId);
+        this.entryId = NewEntryId;
+        this.parent.projectStore.currentProjectId = ProjectId;
         this.switchEntry(true);
 
     }
 
     @action TrySubmitEntry = () => {
         
+        //create entry locally and send to server
+        //const projectId = this.parent.projectStore.currentProjectId;
+        //const EntryId = this.parent.entryStore.AddEntryProject(projectId);
+
+        //this.entryId = EntryId;
+
         this.addEntry()
         .then( action( () => this.switchEntry(false) )); 
         

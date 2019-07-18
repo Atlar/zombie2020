@@ -67,7 +67,8 @@ func main() {
 	r.GET("/api/events/hero/*name", heroEventsHandler)
 
     r.POST("/api/bookshelf/login", HandleLogin )
-   
+	r.POST("/api/bookshelf/entry", HandleEntry )
+
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))
 	v1.Use(users.AuthMiddleware(false))

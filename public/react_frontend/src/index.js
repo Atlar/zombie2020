@@ -34,7 +34,11 @@ import AddEntryStore from './stores_project/entryAddStore';
 import BookshelfApp from './ComponentsBookshelf/BookshelfApp';
 import EntryAddStore from './stores_project/entryAddStore';
 
-console.log("Console started...");
+
+console.log("console...");
+console.error("console...");
+console.info("console...");
+console.debug("console...");
 //better because no need to initialize
 const stores = {
   articlesStore,
@@ -132,10 +136,10 @@ BookshelfStore.projectStore.projects = [
 BookshelfStore.projectStore.currentProjectId = 0;
 
 BookshelfStore.entryStore.entries = [
-{Name: "Use this entry" },
-{Name: "Chapter 1" },
-{Name: "Guide to create substantive text" },
-{Name: "Empty text is cool" }
+{Title: "Use this entry" },
+{Title: "Chapter 1" },
+{Title: "Guide to create substantive text" },
+{Title: "Empty text is cool" }
 ];
 
 /////////////////////////////

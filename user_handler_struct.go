@@ -18,15 +18,15 @@ func HandleLogin( context *gin.Context){
 
 type LoginForm struct {
 
-    Username string `json: "username"`
-    Password string `json: "password"`
+    Username string `json:"username"`
+    Password string `json:"password"`
 
 } 
 
 type RegistrationForm struct {
 
     LoginForm
-    Email string `json: "email"`
+    Email string `json:"email"`
 
 } 
 

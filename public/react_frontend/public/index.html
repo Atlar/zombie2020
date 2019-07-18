@@ -26,15 +26,15 @@
     <script type="text/javascript">
       if (typeof console  != "undefined") 
         if (typeof console.log != 'undefined')
-            console.olog = console.log;
+          console.olog = console.log;
         else
-            console.olog = function() {};
+          console.olog = function() {};
 
       console.log = function(message) {
-          console.olog(message);
-          document.getElementById("consoled").innerHTML = document.getElementById("consoled").innerHTML + '<p>' + message + '</p>';
+        console.olog(message);
+        document.getElementById("consoled").innerHTML = document.getElementById("consoled").innerHTML + '<p>' + message + '</p>';
       };
-      console.error = console.debug = console.info =  console.log;
+      console.error = console.trace = console.debug = console.info =  console.log;
     </script>
     <script
         src="/static/bundle.js"

@@ -33,7 +33,10 @@ export default class ProjectEntry extends React.Component {
     return (
       <div className="col-md-9">
         <div>Project Entry</div>
-        {entry && (<div>{entry.Name}</div>)
+        {entry && (<div>
+            <div>{entry.Title}</div>
+            <div>{entry.Text}</div>
+          </div>)
         }
       </div>
     );
