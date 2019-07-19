@@ -42,7 +42,7 @@ export default class ProjectListWidget extends React.Component {
 
     const projectDrafter = this.props.store.projectStore.Drafter;
    
-    const UpdateProjectCommand = ProjectStore.Agent.sendCommand("UpdateAggregationByAggregatorId", ) 
+    const UpdateProjectCommand = ProjectStore.Agent.sendCommand("UpdateAggregationByAggregatorId", "user", 1, "project") 
     
     const SubmitDraft = () => ProjectStore.Agent.sendCommand("CreateAndAddToAggregation", "user", 1, "project", draftProject )//post /user/id/project, object
                               .then( action( () => projectDrafter.isDrafting = false) )

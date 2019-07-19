@@ -91,7 +91,7 @@ BookshelfStore.addComponent( "agent_object", new agent_object()) ;
 BookshelfStore.addComponent( "loginStore", new LoginStore()) ;
 BookshelfStore.addComponent( "entryAddStore", new EntryAddStore()) ;
 //net agent setup
-//BookshelfStore.addComponent( "Agent", sidAgentCommands) ;
+//BookshelfStore.addComponent( "Agent", sidAgent) ;
 BookshelfStore.addComponent( "AgentCommands", sidAgentCommands) ;
 
 //setup stores components
@@ -103,10 +103,10 @@ projectDrafter.draftPrototype = {
 };
 const projectAgent = new SidAgent();
 projectAgent.commands = sidAgentCommands;
-Bookshelf.projectStore.addComponent( "Drafter", projectDrafter);
-Bookshelf.projectStore.addComponent( "Agent", projectAgent);
+BookshelfStore.projectStore.addComponent( "Drafter", projectDrafter);
+BookshelfStore.projectStore.addComponent( "Agent", projectAgent);
 
-
+console.log("store configured. creating test data...");
 BookshelfStore.userStore.currentUserId = 1;
 
 BookshelfStore.userStore.users = [
@@ -165,6 +165,7 @@ BookshelfStore.entryStore.entries = [
 {Title: "Empty text is cool" }
 ];
 
+console.log("store initialized and set");
 /////////////////////////////
 
 // For easier debugging
