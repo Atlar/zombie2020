@@ -30,6 +30,8 @@ import {default as projectStoreProject} from './stores_project/projectStore';
 import EntryStore from './stores_project/entryStore';
 import LoginStore from './stores_project/loginStore';
 import AddEntryStore from './stores_project/entryAddStore';
+import SidAgent from './sidAgent';
+import SidAgentCommands from './sidAgentCommands';
 
 import BookshelfApp from './ComponentsBookshelf/BookshelfApp';
 import EntryAddStore from './stores_project/entryAddStore';
@@ -72,6 +74,8 @@ const BookshelfStore = new StoreComponent();
 //alert(JSON.stringify( BookshelfStore) );
 //alert("is defined? " + BookshelfStore);
 const UserStoreRef = new userStoreProject();
+const sidAgent = new SidAgent();
+const sidAgentCommands = new SidAgentCommands();
 //alert( "us st " + UserStoreRef );
 BookshelfStore.addComponent( "userStore", new userStoreProject() );
 //alert(JSON.stringify( BookshelfStore) );
@@ -83,7 +87,10 @@ BookshelfStore.addComponent( "entryStore", new EntryStore());
 BookshelfStore.addComponent( "agent_object", new agent_object()) ;
 BookshelfStore.addComponent( "loginStore", new LoginStore()) ;
 BookshelfStore.addComponent( "entryAddStore", new EntryAddStore()) ;
-//
+//net agent setup
+BookshelfStore.addComponent( "Agent", sidAgent) ;
+BookshelfStore.addComponent( "AgentCommands", sidAgentCommands) ;
+
 BookshelfStore.userStore.currentUserId = 1;
 
 BookshelfStore.userStore.users = [

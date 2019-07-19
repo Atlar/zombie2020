@@ -1,6 +1,6 @@
 import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
-import StoreComponent from "../common_store/StoreComponent";
+import StoreComponent from "./common_store/StoreComponent";
 //agent to send any object by standart api
 //
 //create common url for api request site_api/type/id
@@ -13,20 +13,22 @@ export default class SidAgent extends StoreComponent{
 
     superagent = superagentPromise(_superagent, global.Promise);
 
-    ResponceReceived;//bool
+    ResponseReceived;//bool
     commands;//pool of get post and so on.
     
     //sends command to putput item, wait and sets waiting over
     //expects item to be prepared beforehand
     //receives answer with updated aggregator and new item
-    CreateAndAddToAggregation( aggregationId, aggregationField, Entity) {
+    CreateAndAddToAggregation( aggregation, aggregationField, Entity) {
         this.ResponseReceived=false;
-        return this.commands.aggregation.add( aggregationId, aggregationField, Entity )
-        .then( ()=> this.ResponseReceived =true ) ;
-        .then( (aggregator, item) => {this.UpdateAggregator(aggregator.id), this.UpdateCreateItem(item) } )
-    } 
+        const CreateInAggregationCommand  = this.parent.agentCommands.CreateInAggregation;
+        return CreateInAggregationCommand( aggregation, aggregationField, Entity )
+              .then( ()=> this.ResponseReceived = true )
+              .then( (aggregator, item) => {this.UpdateAggregator(aggregator.id), this.UpdateCreateItem(item) } )
+    }
     
    
+
     loadById = (type, id ) => this.superagent
     						//send request site/api/objectt_type/object_name
                 .get( urlTypeId( this.getRootAPIUrl(), type, id) )

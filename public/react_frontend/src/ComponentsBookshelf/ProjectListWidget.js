@@ -33,12 +33,27 @@ export default class ProjectListWidget extends React.Component {
 
     const projects = this.props.store.projectStore.projects;
 
+    //adding project
+    const StartDraftProject = () => this.props.store.projectStore.Draft.NewDraft();
+    const draftNewProject = this.props.store.projectStore.Draft.isDrafting;
+
+    const handleTitleChange = (event) => this.props.store.projectStore.Draft.updateField("Title",event.target.value);
+
     return (
       <div className="col-md-9">
         <div>ProjectListWidget</div>
         <div>
         {projects && projects.map( (el, ind) => {
         return(<ProjectWidget key={ind} index={ind}/>);}) }
+        {//create new project
+        !draftNewProject && (<button onClick={StartDraftProject}>Add Project</button>)
+        }
+        {//draft title
+        draftNewProject && (<div>
+                              <input type="text" onChange={handleTitleChange}></input>
+                              <button onClick={StartDraftProject}>Submit new Project</button>
+                            </div>)
+        }
         </div>
       </div>
     );
