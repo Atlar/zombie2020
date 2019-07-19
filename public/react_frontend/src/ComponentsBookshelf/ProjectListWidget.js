@@ -32,12 +32,21 @@ export default class ProjectListWidget extends React.Component {
     //alert("render" + JSON.stringify( events ) );
 
     const projects = this.props.store.projectStore.projects;
-
+    const ProjectStore = this.props.store.projectStore;
     //adding project
-    const StartDraftProject = () => this.props.store.projectStore.Draft.NewDraft();
-    const draftNewProject = this.props.store.projectStore.Draft.isDrafting;
+    const StartDraftProject = () => this.props.store.projectStore.Drafter.StartNewDraft();
+    const draftNewProject = this.props.store.projectStore.Drafter.isDrafting;
 
-    const handleTitleChange = (event) => this.props.store.projectStore.Draft.updateField("Title",event.target.value);
+    const draftProject = this.props.store.projectStore.Drafter.Entity;
+    const handleTitleChange = (event) => this.props.store.projectStore.Drafter.updateDraft({Name:event.target.value});
+
+    const projectDrafter = this.props.store.projectStore.Drafter;
+   
+    const UpdateProjectCommand = ProjectStore.Agent.sendCommand("UpdateAggregationByAggregatorId", ) 
+    
+    const SubmitDraft = () => ProjectStore.Agent.sendCommand("CreateAndAddToAggregation", "user", 1, "project", draftProject )//post /user/id/project, object
+                              .then( action( () => projectDrafter.isDrafting = false) )
+                              .then( ()=>UpdateProjectCommand() );
 
     return (
       <div className="col-md-9">
@@ -50,8 +59,8 @@ export default class ProjectListWidget extends React.Component {
         }
         {//draft title
         draftNewProject && (<div>
-                              <input type="text" onChange={handleTitleChange}></input>
-                              <button onClick={StartDraftProject}>Submit new Project</button>
+                              <input type="text" onChange={handleTitleChange}>{draftProject.Name}</input>
+                              <button onClick={SubmitDraft}>Submit new Project</button>
                             </div>)
         }
         </div>

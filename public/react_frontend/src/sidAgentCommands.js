@@ -8,15 +8,20 @@ const urlTypeId = (root, type,id) => `${root}/${type}/${id}`;
 const urlAddress = (root, address) => {console.log(`${root}/${address}`);return `${root}/${address}`;} 
 
 const returnResponseBody = res =>{ return res.body;  }
-//
-export default class Aggregator extends StoreComponent{
+
+//this is singleton top store component
+//provides list of commands 
+export default class SidAgentCommands extends StoreComponent{
+
 
     getRootAPIUrl = () => this.parent.appStatusStore.APIRootURL;
 
     superagent = superagentPromise(_superagent, global.Promise);
 
-    CreateInAggregation = (aggregation,field,object) => superagent.post(`${this.getRootAPIUrl()}/${aggregation}/${field}`,object)
+    CreateInAggregation = (aggregation,id, field,object) => superagent.post(`${this.getRootAPIUrl()}/${aggregation}/${id}/${field}`,object)
                           .accept('json')
                           .then(returnResponseBody)
-
+    UpdateAggregationByAggregatorId = (aggregation, subject , aggregatorId) => superagent.get(`${this.getRootAPIUrl()}/${aggregation}/${aggregatorId}/${subject}`)
+                          .accept('json')
+                          .then(returnResponseBody)
 }

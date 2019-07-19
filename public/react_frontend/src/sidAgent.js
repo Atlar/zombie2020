@@ -24,10 +24,20 @@ export default class SidAgent extends StoreComponent{
         const CreateInAggregationCommand  = this.parent.agentCommands.CreateInAggregation;
         return CreateInAggregationCommand( aggregation, aggregationField, Entity )
               .then( ()=> this.ResponseReceived = true )
-              .then( (aggregator, item) => {this.UpdateAggregator(aggregator.id), this.UpdateCreateItem(item) } )
+              //.then( (aggregator, item) => {this.UpdateAggregator(aggregator.id), this.UpdateCreateItem(item) } )
     }
-    
+    UpdateAggregationByAggregatorId( aggregation, subject, aggregatorId ){
+        this.ResponseReceived=false;
+        const CreateInAggregationCommand  = this.parent.agentCommands.UpdateAggregationByAggregatorId;
+    }
    
+    sendCommand = (functionName, ...args)=>{
+       
+        this.ResponseReceived=false;
+        return this.commands[functionName]({args})
+                   .finally( ()=> this.ResponseReceived = true )
+      
+    } 
 
     loadById = (type, id ) => this.superagent
     						//send request site/api/objectt_type/object_name

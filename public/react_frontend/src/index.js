@@ -30,8 +30,11 @@ import {default as projectStoreProject} from './stores_project/projectStore';
 import EntryStore from './stores_project/entryStore';
 import LoginStore from './stores_project/loginStore';
 import AddEntryStore from './stores_project/entryAddStore';
+//net
 import SidAgent from './sidAgent';
 import SidAgentCommands from './sidAgentCommands';
+//functional components
+import Drafter from './common_store/Drafter';
 
 import BookshelfApp from './ComponentsBookshelf/BookshelfApp';
 import EntryAddStore from './stores_project/entryAddStore';
@@ -88,8 +91,21 @@ BookshelfStore.addComponent( "agent_object", new agent_object()) ;
 BookshelfStore.addComponent( "loginStore", new LoginStore()) ;
 BookshelfStore.addComponent( "entryAddStore", new EntryAddStore()) ;
 //net agent setup
-BookshelfStore.addComponent( "Agent", sidAgent) ;
+//BookshelfStore.addComponent( "Agent", sidAgentCommands) ;
 BookshelfStore.addComponent( "AgentCommands", sidAgentCommands) ;
+
+//setup stores components
+const projectDrafter = new Drafter();
+projectDrafter.draftPrototype = {
+    Name: "New Project",
+    Entries: [],
+    Participants: []
+};
+const projectAgent = new SidAgent();
+projectAgent.commands = sidAgentCommands;
+Bookshelf.projectStore.addComponent( "Drafter", projectDrafter);
+Bookshelf.projectStore.addComponent( "Agent", projectAgent);
+
 
 BookshelfStore.userStore.currentUserId = 1;
 
