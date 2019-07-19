@@ -60,7 +60,7 @@ export default class ProjectListWidget extends React.Component {
         {//draft title
         draftNewProject && (<div>
                               <input type="text" onChange={handleTitleChange} ></input>
-                              <button >Submit new Project</button>
+                              <button onClick={SubmitDraft} >Submit new Project</button>
                             </div>)
         }
         </div>
