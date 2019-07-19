@@ -11,9 +11,10 @@ export default class Drafter extends StoreComponent{
 
     @action newDraft = () => {
        
-        this.Entity = draftPrototype;
+        this.Entity = this.draftPrototype;
       
     }
+    
     //create new prototype and start
     @action StartDraftingNew(){
     
@@ -21,6 +22,7 @@ export default class Drafter extends StoreComponent{
         this.isDrafting = true;
     
     }
+    
     //update or set new fields
     @action UpdateDraft(Update){
     
