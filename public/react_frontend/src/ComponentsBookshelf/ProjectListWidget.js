@@ -34,7 +34,7 @@ export default class ProjectListWidget extends React.Component {
     const projects = this.props.store.projectStore.projects;
     const ProjectStore = this.props.store.projectStore;
     //adding project
-    const StartDraftProject = () => this.props.store.projectStore.Drafter.StartNewDraft();
+    const StartDraftProject = () => this.props.store.projectStore.Drafter.StartDraftingNew();
     const draftNewProject = this.props.store.projectStore.Drafter.isDrafting;
 
     const draftProject = this.props.store.projectStore.Drafter.Entity;
