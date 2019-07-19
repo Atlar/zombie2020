@@ -18,11 +18,11 @@ export default class SidAgentCommands extends StoreComponent{
 
     superagent = superagentPromise(_superagent, global.Promise);
 
-    CreateInAggregation = (aggregation,id, field,object) => this.superagent.post(`${this.getRootAPIUrl()}/${aggregation}/${id}/${field}`,object)
+    CreateInAggregation = ({aggregation,id, field,object} ) => this.superagent.post(`${this.getRootAPIUrl()}/${aggregation}/${id}/${field}`,object)
                           .accept('json')
                           .then(returnResponseBody);
                           
-    UpdateAggregationByAggregatorId = (aggregation, subject , aggregatorId) => this.superagent.get(`${this.getRootAPIUrl()}/${aggregation}/${aggregatorId}/${subject}`)
+    UpdateAggregationByAggregatorId = ({aggregation, subject , aggregatorId} ) => this.superagent.get(`${this.getRootAPIUrl()}/${aggregation}/${aggregatorId}/${subject}`)
                           .accept('json')
                           .then(returnResponseBody);
 }

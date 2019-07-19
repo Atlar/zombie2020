@@ -31,10 +31,10 @@ export default class SidAgent extends StoreComponent{
         const CreateInAggregationCommand  = this.parent.agentCommands.UpdateAggregationByAggregatorId;
     }
    
-    sendCommand = (functionName, ...args)=>{
+    sendCommand = (functionName, args)=>{
        
         this.ResponseReceived=false;
-        return this.commands[functionName]({args})
+        return this.commands[functionName](args)
                    .finally( ()=> this.ResponseReceived = true );
       
     } 
