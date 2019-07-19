@@ -33,7 +33,7 @@ export default class SidAgent extends StoreComponent{
    
     sendCommand = (functionName, args)=>{
     
-        console.log("doesfunction exist "+this.commands[functionName] + this.commands);
+        console.log("doesfunction exist  " +functionName + " " +this.commands[functionName] + this.commands+ this.commands.getRootAPI() + " test fun " + this.commands.getRootAPIUrl() + " test fun object " + this.commands.getRootAPIUrl() + " test target "+ this.CreateAndAddToAggregation);
         this.ResponseReceived=false;
         return this.commands[functionName](args)
                    .finally( ()=> this.ResponseReceived = true );
