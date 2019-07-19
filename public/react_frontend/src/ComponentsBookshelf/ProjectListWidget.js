@@ -42,11 +42,11 @@ export default class ProjectListWidget extends React.Component {
 
     const projectDrafter = this.props.store.projectStore.Drafter;
    
-    const UpdateProjectCommand = () => ProjectStore.Agent.sendCommand("UpdateAggregationByAggregatorId", { user , project, 1} );
+    const UpdateProjectCommand = () => {ProjectStore.Agent.sendCommand("UpdateAggregationByAggregatorId", { user , project, 1} )};
     
-    //const SubmitDraft = () => ProjectStore.Agent.sendCommand("CreateAndAddToAggregation",{ "user", 1, "project", draftProject} )//post /user/id/project, object
-    //                          .then( action( () => projectDrafter.isDrafting = false) )
-    //                          .then( () => UpdateProjectCommand() );
+    const SubmitDraft = () => {ProjectStore.Agent.sendCommand("CreateAndAddToAggregation",{ "user", 1, "project", draftProject} )//post /user/id/project, object
+                              .then( action( () => projectDrafter.isDrafting = false) )
+                              .then( () => UpdateProjectCommand() )};
 
     return (
       <div className="col-md-9">
