@@ -104,6 +104,8 @@ const projectAgent = new SidAgent();
 projectAgent.commands = sidAgentCommands;
 BookshelfStore.projectStore.addComponent( "Drafter", projectDrafter);
 BookshelfStore.projectStore.addComponent( "Agent", projectAgent);
+BookshelfStore.projectStore.Agent.commands = sidAgentCommands;
+
 
 console.log("store configured. creating test data...");
 BookshelfStore.userStore.currentUserId = 1;
