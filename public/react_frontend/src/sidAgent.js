@@ -35,7 +35,7 @@ export default class SidAgent extends StoreComponent{
        
         this.ResponseReceived=false;
         return this.commands[functionName]({args})
-                   .finally( ()=> this.ResponseReceived = true )
+                   .finally( ()=> this.ResponseReceived = true );
       
     } 
 

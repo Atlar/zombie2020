@@ -20,8 +20,9 @@ export default class SidAgentCommands extends StoreComponent{
 
     CreateInAggregation = (aggregation,id, field,object) => superagent.post(`${this.getRootAPIUrl()}/${aggregation}/${id}/${field}`,object)
                           .accept('json')
-                          .then(returnResponseBody)
+                          .then(returnResponseBody);
+                          
     UpdateAggregationByAggregatorId = (aggregation, subject , aggregatorId) => superagent.get(`${this.getRootAPIUrl()}/${aggregation}/${aggregatorId}/${subject}`)
                           .accept('json')
-                          .then(returnResponseBody)
+                          .then(returnResponseBody);
 }

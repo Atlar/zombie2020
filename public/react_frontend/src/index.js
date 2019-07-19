@@ -99,8 +99,7 @@ const projectDrafter = new Drafter();
 projectDrafter.draftPrototype = {
     Name: "New Project",
     Entries: [],
-    Participants: []
-};
+    Participants: [] };
 const projectAgent = new SidAgent();
 projectAgent.commands = sidAgentCommands;
 BookshelfStore.projectStore.addComponent( "Drafter", projectDrafter);
