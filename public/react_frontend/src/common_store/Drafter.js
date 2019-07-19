@@ -5,7 +5,7 @@ import StoreComponent from './StoreComponent';
 export default class Drafter extends StoreComponent{
  
     @observable Entity //copy of entity
-    @isDrafting //bool
+    @observable isDrafting //bool
 
     draftPrototype //exemplar of draft to create. should be set on start
 
