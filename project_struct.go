@@ -1,10 +1,16 @@
 package main
 
-type Project struct{
+type Project struct {
+	Id           ID				  `binding:"omitempty"`
+	Name         string           `json:"Name"`
+	Participants Participation	  `binding:"omitempty"`
+	Entries      Participation    `binding:"omitempty"`
+	HistoryStamps                 `binding:"omitempty"`
+}
+type AddProject struct {
 
-   Id ID
-   Users Participation
-   Entries Participation
-   HistoryStamps
+   Name           string
+   Participants   []ID
+   Entries        []ID
    
 }

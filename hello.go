@@ -10,9 +10,9 @@ import (
 	"gopkg.in/gin-gonic/gin.v1"
 
 	"github.com/Atlar/golang-gin-realworld-example-app/articles"
+	"github.com/Atlar/golang-gin-realworld-example-app/common"
 	"github.com/Atlar/golang-gin-realworld-example-app/users"
 	"github.com/jinzhu/gorm"
-	"github.com/Atlar/golang-gin-realworld-example-app/common"
 
 	//My
 	"github.com/Atlar/golang-gin-realworld-example-app/database_agent"
@@ -33,12 +33,12 @@ func main() {
 	//Port := os.Getenv("PORT")
 	//var db database_agent.MongoAgent
 
-//worked
+	//worked
 	//database_agent.Init(&database_agent.DBagent)
-	
+
 	//component mongo
 	common.InitDB()
-	
+
 	//db := common.Init()
 	//database_agent.TestDB(&db)
 
@@ -66,8 +66,11 @@ func main() {
 	r.GET("/api/hero/*name", heroHandler)
 	r.GET("/api/events/hero/*name", heroEventsHandler)
 
-    r.POST("/api/bookshelf/login", HandleLogin )
-	r.POST("/api/bookshelf/entry", HandleEntry )
+	r.POST("/api/bookshelf/login", HandleLogin)
+	r.POST("/api/bookshelf/entry", HandleEntry)
+
+	r.POST("/api/bookshelf/user/:id/project", HandleAddProject)
+	r.GET("/api/bookshelf/user/:id/project", HandleGetProjects)
 
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))
@@ -149,7 +152,7 @@ func heroEventsHandler(c *gin.Context) {
 	}
 
 	//add event
-	NewEvent := CreateEvent()//database_agent.EventAdventure{"Battle", "win", XpBonus}
+	NewEvent := CreateEvent() //database_agent.EventAdventure{"Battle", "win", XpBonus}
 
 	//
 	resultEvent := DetermineResult(hero, NewEvent)
@@ -216,9 +219,9 @@ func DetermineResult(hero database_agent.HeroCharacter, event database_agent.Eve
 func CreateEvent() database_agent.EventAdventure {
 
 	var NewEvent database_agent.EventAdventure
-	EventTypes := []string{"Battle","Puzzle","Intrugue"}
+	EventTypes := []string{"Battle", "Puzzle", "Intrugue"}
 
-	NewEvent.Name = EventTypes[ rand.Intn( len( EventTypes)  ) ]
+	NewEvent.Name = EventTypes[rand.Intn(len(EventTypes))]
 	NewEvent.Bonus = rand.Intn(100) + 10
 
 	return NewEvent

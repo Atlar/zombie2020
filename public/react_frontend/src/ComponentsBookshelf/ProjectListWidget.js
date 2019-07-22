@@ -1,8 +1,9 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { withRouter, NavLink } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom';
+import {action} from 'mobx';
 
-import ProjectWidget from './ProjectWidget'
+import ProjectWidget from './ProjectWidget';
 
 @inject('store')
 @withRouter
@@ -38,14 +39,14 @@ export default class ProjectListWidget extends React.Component {
     const draftNewProject = this.props.store.projectStore.Drafter.isDrafting;
 
     const draftProject = this.props.store.projectStore.Drafter.Entity;
-    const handleTitleChange = (event) => this.props.store.projectStore.Drafter.updateDraft({Name:event.target.value});
+    const handleTitleChange = (event) => this.props.store.projectStore.Drafter.UpdateDraft({Name:event.target.value});
 
     const projectDrafter = this.props.store.projectStore.Drafter;
    
-    const UpdateProjectCommand = () => {ProjectStore.Agent.sendCommand("UpdateAggregationByAggregatorId", {aggregation:user, subject: project , aggregatorId : 1} )};
+    const UpdateProjectCommand = () => {ProjectStore.Agent.commands.UpdateAggregationByAggregatorId({aggregation: user, subject: project , aggregatorId : 1} )};
     
-    const SubmitDraft = () => {ProjectStore.Agent.sendCommand("CreateAndAddToAggregation", {aggregation: "user" ,id:1, field:"project",object: draftProject} )//post /user/id/project, object
-                              .then( action( () => projectDrafter.isDrafting = false) )
+    const SubmitDraft = () => {ProjectStore.Agent.commands.CreateInAggregation({aggregation: "user" ,id:1, field:"project",object: draftProject} )//post /user/id/project, object
+                              .then( action( () => projectDrafter.isDrafting = false ) )
                               .then( () => UpdateProjectCommand() )};
 
     return (
