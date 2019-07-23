@@ -59,6 +59,8 @@ func main() {
 	var r Api
 	r.ServerEngine.Engine = gin.Default()
 
+    InitTestApi(r)
+
 	//set html
 	r.LoadHTMLGlob("public/react_frontend/public/index*.html")
 	//r.Static("/public/react_frontend/public", "static")
@@ -250,3 +252,12 @@ func CreateEvent() database_agent.EventAdventure {
 	return NewEvent
 
 }
+func InitTestApi( ApiInstance Api ){
+
+    var newProject Project
+    newProject.Name = "Server Test project"
+    newProject.Entries = Aggregation{ 1,0}
+    newProject.Users = Aggregation{ 1,0} 
+    ApiInstance.AddOne(newProject, "projects")
+    
+} 
