@@ -99,7 +99,7 @@ func main() {
 		c.BindJSON(&addProject) //validate
 		var newProject Project
 		newProject.Name = addProject.Name
-		newProject.Users = append([]ForegnKey(newProject.Users), ForeignKey(id)) 
+		newProject.Users = append([]ForeignKey(newProject.Users), ForeignKey(id)) 
 		r.AddOne(newProject, "projects")
 		c.JSON(http.StatusOK, map[string]interface{}{"result": true})
 	})
