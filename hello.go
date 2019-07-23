@@ -94,7 +94,7 @@ func main() {
 	r.POST("/api/bookshelf/project/user/:id", func(c *gin.Context) {
 		//var newProject map[string]interface{}
 		idString := c.Param("id")
-		id := strconv.Atoi(idString)
+		id,_:= strconv.Atoi(idString)
 		addProject := struct{
 		    Name string
 		}{}
