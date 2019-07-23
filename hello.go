@@ -91,8 +91,15 @@ func main() {
 		c.JSON(http.StatusOK, projects)
 	})
 	r.POST("/api/bookshelf/project/user/:id", func(c *gin.Context) {
-		var newProject map[string]interface{}
-		c.BindJSON(&newProject) //validate
+		//var newProject map[string]interface{}
+		id := c.Param("id")
+		addProject := struct{
+		    Name string
+		}{}
+		c.BindJSON(&addProject) //validate
+		var newProject Project
+		newProject.Name = addProject.Name
+		newProject.Users = append([]ForegnKey(newProject.Users), ForeignKey(id)) 
 		r.AddOne(newProject, "projects")
 		c.JSON(http.StatusOK, map[string]interface{}{"result": true})
 	})

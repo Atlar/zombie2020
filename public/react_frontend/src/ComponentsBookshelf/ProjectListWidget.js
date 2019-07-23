@@ -49,7 +49,7 @@ export default class ProjectListWidget extends React.Component {
                                         .then( (project) => console.log(ProjectStore.projects) )
                                         };
     
-    const SubmitDraft = () => {ProjectStore.Agent.commands.CreateInAggregation({aggregation: "user" ,id:1, field:"project",object: draftProject} )//post /user/id/project, object
+    const SubmitDraft = () => {ProjectStore.Agent.commands.CreateInAggregationRecorded({aggregation: "project" ,id:1, field:"user",object: draftProject} )//post /user/id/project, object
                               .then( action( () => projectDrafter.isDrafting = false ) )
                               .then( () => UpdateProjectCommand() )};
 

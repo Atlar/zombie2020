@@ -97,9 +97,7 @@ BookshelfStore.addComponent( "AgentCommands", sidAgentCommands) ;
 //setup stores components
 const projectDrafter = new Drafter();
 projectDrafter.draftPrototype = {
-    Name: "New Project",
-    Entries: [],
-    Participants: { Participants: [] } 
+    Name: "New Project" 
   };
 const projectAgent = new SidAgent();
 projectAgent.commands = sidAgentCommands;
