@@ -14,6 +14,8 @@ import (
 	"github.com/Atlar/golang-gin-realworld-example-app/users"
 	"github.com/jinzhu/gorm"
 
+	"go.mongodb.org/mongo-driver/bson"
+
 	//My
 	"github.com/Atlar/golang-gin-realworld-example-app/database_agent"
 )
@@ -25,6 +27,12 @@ func Migrate(db *gorm.DB) {
 	db.AutoMigrate(&articles.FavoriteModel{})
 	db.AutoMigrate(&articles.ArticleUserModel{})
 	db.AutoMigrate(&articles.CommentModel{})
+}
+
+type Api struct {
+	ServerEngine
+	database_agent.MongoAgent
+	Projects ProjectsComponent
 }
 
 func main() {
@@ -47,7 +55,9 @@ func main() {
 	//Migrate(db)
 	//defer db.Close()
 
-	r := gin.Default()
+	//r := gin.Default()
+	var r Api
+	r.ServerEngine.Engine = gin.Default()
 
 	//set html
 	r.LoadHTMLGlob("public/react_frontend/public/index*.html")
@@ -71,6 +81,19 @@ func main() {
 
 	r.POST("/api/bookshelf/user/:id/project", HandleAddProject)
 	r.GET("/api/bookshelf/user/:id/project", HandleGetProjects)
+
+	r.GET("/api/bookshelf/project/user/:id", func(c *gin.Context) {
+		id := c.Param("id")
+		var projects []Project
+		r.FindMany("projects", []bson.E{{"id", id}}, &projects)
+		c.JSON(http.StatusOK, projects)
+	})
+	r.POST("/api/bookshelf/project/user/:id", func(c *gin.Context) {
+		var newProject map[string]interface{}
+		c.BindJSON(&newProject) //validate
+		r.AddOne(newProject, "projects")
+		c.JSON(http.StatusOK, map[string]interface{}{"result": true})
+	})
 
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))

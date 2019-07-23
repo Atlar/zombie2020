@@ -12,7 +12,8 @@ func HandleLogin(context *gin.Context) {
 
 	var LoginInfo LoginForm
 	context.BindJSON(&LoginInfo)
-	newUser := User{Name: LoginInfo.Username}
+	var newUser User
+	newUser.Name = LoginInfo.Username
 	context.JSON(http.StatusOK, newUser)
 
 }
@@ -32,7 +33,14 @@ func HandleAddProject(context *gin.Context) {
 	userId := context.Param("id")
 	userIdint, _ := strconv.Atoi(userId)
 
-	var ProjectInfo Project
+	//var ProjectInfo ProjectTest
+	ProjectInfo := struct {
+		Name         string
+		Entries      []ID
+		Participants struct {
+			Participants []ID
+		}
+	}{}
 	context.BindJSON(&ProjectInfo)
 	newProject := ProjectInfo
 	//newProject.Participants.Participants = append([]ID(newProject.Participants.Participants), ID(userIdint))
@@ -46,9 +54,9 @@ func HandleGetProjects(context *gin.Context) {
 
 	userId := context.Param("id")
 	userIdint, _ := strconv.Atoi(userId)
-	var Projects []Project
-	Projects = []Project{
-		Project{
+	var Projects []ProjectTest
+	Projects = []ProjectTest{
+		{
 			Name:         "Server sideproject",
 			Participants: Participation{[]ID{ID(userIdint)}},
 		},
