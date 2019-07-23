@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"math/rand"
+	"strconv"
 
 	"gopkg.in/gin-gonic/gin.v1"
 
@@ -92,7 +93,8 @@ func main() {
 	})
 	r.POST("/api/bookshelf/project/user/:id", func(c *gin.Context) {
 		//var newProject map[string]interface{}
-		id := c.Param("id")
+		idString := c.Param("id")
+		id := strconv.Atoi(idString)
 		addProject := struct{
 		    Name string
 		}{}
