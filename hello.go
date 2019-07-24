@@ -116,7 +116,7 @@ func main() {
 	    	Name string
 	    	Text string
 		}{}
-		c.BindJSON(&addProject) //validate
+		c.BindJSON(&addEntry) //validate
 		var newEntry ProjectEntry
 		newEntry.Name = addEntry.Name
 		newEntry.Text = addEntry.Text
