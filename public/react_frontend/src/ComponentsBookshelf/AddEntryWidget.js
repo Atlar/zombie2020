@@ -33,9 +33,12 @@ export default class AddEntryWidget extends React.Component {
     const currentUser = this.props.store.userStore.users[currentUserId];
 
     const login = this.props.store.loginStore.loginView;
-    const onClickSubmit = this.props.store.entryAddStore.TrySubmitEntry ;
-    const onChangeTextHandler = this.props.store.entryAddStore.handleEntryTextChange ;
+    //const onClickSubmit = this.props.store.entryAddStore.TrySubmitEntry ;
+    //const onChangeTextHandler = this.props.store.entryAddStore.handleEntryTextChange ;
     const onChangeTitleHandler = this.props.store.entryAddStore.handleEntryTitleChange ;
+
+	const onChangeTextHandler = (event) => this.props.store.entryStore.Draft.UpdateDraft({Text:event.target.value});
+    const onClickSubmit = this.props.store.entryStore.Draft.SubmitAction;
 
     return (
       <div className="col-md-9">

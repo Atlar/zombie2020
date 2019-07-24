@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import promiseFinally from 'promise.prototype.finally';
 import React from 'react';
 import { HashRouter } from 'react-router-dom';
-import { useStrict } from 'mobx';
+import { useStrict, action} from 'mobx';
 import { Provider } from 'mobx-react';
 
 import App from './components/App';
@@ -158,6 +158,24 @@ BookshelfStore.projectStore.projects = [
 ];
 BookshelfStore.projectStore.currentProjectId = 0;
 
+const entryDrafter = new Drafter();
+entryDrafter.draftPrototype = {
+    Name: "New Entry",
+    Text: ""
+  };
+entryDrafter.SubmitAction = () => sidAgentCommands.CreateInAggregation({aggregation:"project", id: entryDrafter.Id, field:"entry", object: entryDrafter.Entity}) 
+								.then( action( () => entryDrafter.isDrafting = false ) )
+                              	.then( () => BookshelfStore.entryStore.Updater.Update() );
+
+BookshelfStore.entryStore.Updater = {
+	Update: () => sidAgentCommands.UpdateAggregationByAggregatorId({aggregation:"project" , subject:"entry" , aggregatorId:entryDrafter.Id} )
+					.then( action(entries => BookshelfStore.entryStore.entries = entries )) 
+} 
+
+const entryAgent = new SidAgent();
+entryAgent.commands = sidAgentCommands;
+BookshelfStore.entryStore.addComponent( "Drafter", entryDrafter);
+BookshelfStore.entryStore.addComponent( "Agent", entryAgent);
 BookshelfStore.entryStore.entries = [
 {Title: "Use this entry" },
 {Title: "Chapter 1" },

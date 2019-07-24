@@ -107,6 +107,31 @@ func main() {
 		r.AddOne(newProject, "projects")
 		c.JSON(http.StatusOK, map[string]interface{}{"result": true})
 	})
+	//handle entry
+	r.POST("/api/bookshelf/project/:projectid/entry/", func(c *gin.Context) {
+		
+		idString := c.Param("projectid")
+		id, _ := strconv.Atoi(idString)
+		addEntry := struct {
+	    	Name string
+	    	Text string
+		}{}
+		c.BindJSON(&addProject) //validate
+		var newEntry ProjectEntry
+		newEntry.Name = addEntry.Name
+		newEntry.Text = addEntry.Text
+		r.AddOne(newEntry, "entries")
+		c.JSON(http.StatusOK, map[string]interface{}{"result": true})
+	})
+	r.GET("/api/bookshelf/project/:id/entry", func(c *gin.Context) {
+		idString := c.Param("id")
+		id, _ := strconv.Atoi(idString)
+		var entries []ProjectEntry
+		r.FindMany("entries", bson.D{{}}, &entries)
+		c.JSON(http.StatusOK, entries)
+	})
+	
+
 
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))

@@ -74,7 +74,9 @@ type ProjectEntry struct {
 	PermissionComponent //user edit
 
 }
-type ContentComponent string
+type ContentComponent struct{
+	Text string
+} 
 type PublicationStatus int
 type PermissionComponent struct {
 	SubjectName string
