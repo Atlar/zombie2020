@@ -25,7 +25,7 @@ func (self *MongoAgent) FindMany(objects string, filter interface{}, objectFound
 	findOptions.SetLimit(10)
 	findOptions.SetSort(bson.D{{"_id", -1}})
 
-	cur, err := collection.Find(context.Background(), bson.D{filter.(bson.E)}, findOptions)
+	cur, err := collection.Find(context.Background(), filter, findOptions)
 
 	if err != nil {
 		fmt.Println(err)

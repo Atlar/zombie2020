@@ -77,19 +77,28 @@ type ProjectEntry struct {
 type ContentComponent string
 type PublicationStatus int
 type PermissionComponent struct {
-	SubjectName        string
-	SubjectPermissions map[ForeignKey]Permissions
+	SubjectName string
+	PermissionsArray
 }
 type Permissions map[string]bool
+type PermissionsById struct {
+	Id ForeignKey
+	Permissions
+}
+type PermissionsArray []PermissionsById
 
 func (self *PermissionComponent) CheckPermission(permission string, subject string, subjectId ID) bool {
-	checkResult, _ := self.SubjectPermissions[ForeignKey(subjectId)][permission]
-	return checkResult
-}
-func (self *PermissionComponent) AddPermission(permission string, permissionState bool, subject string, subjectId ID) {
 
-	OldPermissions := self.SubjectPermissions[ForeignKey(subjectId)]
-	OldPermissions[permission] = permissionState
+	PermissionsInstance := self.PermissionsArray.FindById(subjectId)
+	checkResult, _ := PermissionsInstance.Permissions[permission]
+
+	return checkResult
+
+}
+func (self *PermissionComponent) AddPermission(permission string, permissionState bool, subjectId ID) {
+
+	PermissionsInstance := self.PermissionsArray.FindById(subjectId)
+	PermissionsInstance.Permissions[permission] = permissionState
 	//SubjectPermissions[ForeignKey(subjectId)] = Permissions( append( []string( OldPermissions ), permission ) )
 
 }
@@ -122,6 +131,23 @@ type Viewer interface {
 	//GetPermissions()
 	//GetFriendship()
 	//FollowComponent?
+
+}
+
+//find
+func (self *PermissionsArray) FindById(Id ID) *PermissionsById {
+
+	for _, v := range []PermissionsById(*self) {
+
+		if v.Id == ForeignKey(Id) {
+
+			return &v
+
+		}
+
+	}
+
+	return nil
 
 }
 

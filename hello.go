@@ -58,9 +58,10 @@ func main() {
 
 	//r := gin.Default()
 	var r Api
+	r.InitDB()
 	r.ServerEngine.Engine = gin.Default()
 
-    InitTestApi(r)
+	InitTestApi(r)
 
 	//set html
 	r.LoadHTMLGlob("public/react_frontend/public/index*.html")
@@ -86,22 +87,23 @@ func main() {
 	r.GET("/api/bookshelf/user/:id/project", HandleGetProjects)
 
 	r.GET("/api/bookshelf/project/user/:id", func(c *gin.Context) {
-		id := c.Param("id")
+		idString := c.Param("id")
+		id, _ := strconv.Atoi(idString)
 		var projects []Project
-		r.FindMany("projects", []bson.E{{"id", id}}, &projects)
+		r.FindMany("projects", bson.D{{"userscomponent.users", id}}, &projects)
 		c.JSON(http.StatusOK, projects)
 	})
 	r.POST("/api/bookshelf/project/user/:id", func(c *gin.Context) {
 		//var newProject map[string]interface{}
 		idString := c.Param("id")
-		id,_:= strconv.Atoi(idString)
-		addProject := struct{
-		    Name string
+		id, _ := strconv.Atoi(idString)
+		addProject := struct {
+			Name string
 		}{}
 		c.BindJSON(&addProject) //validate
 		var newProject Project
 		newProject.Name = addProject.Name
-		newProject.Users = append([]ForeignKey(newProject.Users), ForeignKey(id)) 
+		newProject.Users = append([]ForeignKey(newProject.Users), ForeignKey(id))
 		r.AddOne(newProject, "projects")
 		c.JSON(http.StatusOK, map[string]interface{}{"result": true})
 	})
@@ -261,12 +263,12 @@ func CreateEvent() database_agent.EventAdventure {
 	return NewEvent
 
 }
-func InitTestApi( ApiInstance Api ){
+func InitTestApi(ApiInstance Api) {
 
-    var newProject Project
-    newProject.Name = "Server Test project"
-    newProject.Entries = Aggregation{ 1,0}
-    newProject.Users = Aggregation{ 1,0} 
-    ApiInstance.AddOne(newProject, "projects")
-    
-} 
+	var newProject Project
+	newProject.Name = "Server Test project"
+	newProject.Entries = Aggregation{1, 0}
+	newProject.Users = Aggregation{1, 0}
+	ApiInstance.AddOne(newProject, "projects")
+
+}
