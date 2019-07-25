@@ -38,9 +38,10 @@ export default class ProjectWidget extends React.Component {
     
     //adding entry
     const editing = this.props.store.entryStore.Drafter.isDrafting;
-    console.log(this.props.store.entryAddStore);
+    //console.log(this.props.store.entryAddStore);
     const addEntry = () => {this.props.store.entryStore.Drafter.StartDraftingNew();
-    					 	this.props.store.entryStore.Drafter.Id = index;}
+                            this.props.store.entryStore.Drafter.Id = index;
+                            this.props.store.projectStore.currentProjectId = index;}
     const editThisProject = this.props.store.projectStore.currentProjectId == index;
 
     return (

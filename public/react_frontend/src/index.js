@@ -163,12 +163,12 @@ entryDrafter.draftPrototype = {
     Name: "New Entry",
     Text: ""
   };
-entryDrafter.SubmitAction = () => sidAgentCommands.CreateInAggregation({aggregation:"project", id: entryDrafter.Id, field:"entry", object: entryDrafter.Entity}) 
+entryDrafter.SubmitAction = () => sidAgentCommands.CreateInAggregationRecorded({aggregation:"entry", id: entryDrafter.Id, field:"project", object: entryDrafter.Entity}) 
 								.then( action( () => entryDrafter.isDrafting = false ) )
                               	.then( () => BookshelfStore.entryStore.Updater.Update() );
 
 BookshelfStore.entryStore.Updater = {
-	Update: () => sidAgentCommands.UpdateAggregationByAggregatorId({aggregation:"project" , subject:"entry" , aggregatorId:entryDrafter.Id} )
+	Update: () => sidAgentCommands.UpdateAggregationBySubjectId({aggregation:"entry" , subject:"project" , aggregatorId:entryDrafter.Id} )
 					.then( action(entries => BookshelfStore.entryStore.entries = entries )) 
 } 
 
