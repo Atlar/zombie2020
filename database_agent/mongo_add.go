@@ -1,8 +1,8 @@
 package database_agent
 
-func (self *MongoAgent) AddOne(value interface{}, table string) {
+func (self *MongoAgent) AddOne(value interface{}, table string) string {
 
-	self.addObject(value, table)
+	return self.addObject(value, table)
 
 }
 func (dbagent *MongoAgent) UpdateOne(table string, filter interface{}, update interface{}) {

@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 var DBagent MongoAgent
@@ -200,7 +201,7 @@ func (dbagent *MongoAgent) LoadEvents() []EventAdventure {
 	return Result
 
 }
-func (dbagent *MongoAgent) addObject(object interface{}, tableName string) {
+func (dbagent *MongoAgent) addObject(object interface{}, tableName string) string {
 
 	collection := dbagent.Database("test").Collection(tableName)
 	if collection == nil {
@@ -214,6 +215,8 @@ func (dbagent *MongoAgent) addObject(object interface{}, tableName string) {
 	}
 
 	id := res.InsertedID
+
+    return GetHexIdFromResult(id) 
 
 	fmt.Println("inserted id-", id, " into ", tableName)
 
@@ -263,6 +266,20 @@ func (dbagent *MongoAgent) deleteObject(tableName string, filter interface{} ) e
     return err
     
 }
+//utility
+func GetHexIdFromResult( result *mongo.InsertOneResult ) string{
+
+		objectId, ok := result.(primitive.ObnectID);
+		
+		if ok {
+		
+			return objectId.Hex()
+		
+		} 
+		return ""
+		
+} 
+//
 
 func (dbagent *MongoAgent)SetModel( model interface{} ){
     

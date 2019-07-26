@@ -120,11 +120,12 @@ func main() {
 		var newEntry ProjectEntry
 		newEntry.Name = addEntry.Name
 		newEntry.Text = addEntry.Text
-		r.AddOne(newEntry, "entries")
+		insertedId := r.AddOne(newEntry, "entries")
 		//update project
 		r.UpdateOne("projects", bson.D{{"id", id}}, bson.D{
-			{"$addToSet", bson.E{"entries", id}}})
+			{"$addToSet", bson.E{"entries", insertedId }}})
 		c.JSON(http.StatusOK, map[string]interface{}{"result": true})
+		
 	})
 	r.GET("/api/bookshelf/entry/project/:id", func(c *gin.Context) {
 		//idString := c.Param("id")
