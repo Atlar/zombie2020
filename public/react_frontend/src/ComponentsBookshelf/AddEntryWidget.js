@@ -53,7 +53,7 @@ export default class AddEntryWidget extends React.Component {
         <div>Entry Add</div>
         <input type="text" onChange={onChangeTitleHandler} ></input>
         <textarea onChange={onChangeTextHandler} ></textarea>
-        <button onClick={onClickSubmit} >Submit</button>
+        <button onClick={Drafter.SubmitAction} >Submit</button>
       </div>
     );
   }
