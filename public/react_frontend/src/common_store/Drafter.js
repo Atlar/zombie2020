@@ -29,6 +29,8 @@ export default class Drafter extends StoreComponent{
     
         this.Entity = { ...this.Entity, ...Update};
     
-    } 
+    }
+   
+   
 
 } 

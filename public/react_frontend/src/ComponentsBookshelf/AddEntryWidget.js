@@ -42,8 +42,8 @@ export default class AddEntryWidget extends React.Component {
     //submit redefine
     const index = this.props.store.projectStore.currentProjectId;
     const Drafter = this.props.store.entryStore.Drafter;
-    entryDrafter.SubmitAction = () => sidAgentCommands.CreateInAggregationRecorded({aggregation:"entry", id: index, field:"project", object: entryDrafter.Entity}) 
-    .then( action( () => entryDrafter.isDrafting = false ) )
+    Drafter.SubmitAction = () => sidAgentCommands.CreateInAggregationRecorded({aggregation:"entry", id: index, field:"project", object: Drafter.Entity}) 
+    .then( action( () => Drafter.isDrafting = false ) )
     .then( () => BookshelfStore.entryStore.Updater.Update() );
     
     const onClickSubmit = this.props.store.entryStore.Drafter.SubmitAction;
