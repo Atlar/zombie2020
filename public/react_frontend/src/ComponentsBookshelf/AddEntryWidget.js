@@ -38,6 +38,14 @@ export default class AddEntryWidget extends React.Component {
     const onChangeTitleHandler = this.props.store.entryAddStore.handleEntryTitleChange ;
 
 	const onChangeTextHandler = (event) => this.props.store.entryStore.Drafter.UpdateDraft({Text:event.target.value});
+   
+    //submit redefine
+    const index = this.props.store.projectStore.currentProjectId;
+    const Drafter = this.props.store.entryStore.Drafter;
+    entryDrafter.SubmitAction = () => sidAgentCommands.CreateInAggregationRecorded({aggregation:"entry", id: index, field:"project", object: entryDrafter.Entity}) 
+    .then( action( () => entryDrafter.isDrafting = false ) )
+    .then( () => BookshelfStore.entryStore.Updater.Update() );
+    
     const onClickSubmit = this.props.store.entryStore.Drafter.SubmitAction;
 
     return (

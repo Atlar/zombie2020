@@ -8,6 +8,7 @@ export default class Drafter extends StoreComponent{
     @observable isDrafting //bool
 
     draftPrototype //exemplar of draft to create. should be set on start
+    submitAddress //url to use on submit
 
     @action newDraft = () => {
        
