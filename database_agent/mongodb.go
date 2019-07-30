@@ -267,9 +267,9 @@ func (dbagent *MongoAgent) deleteObject(tableName string, filter interface{} ) e
     
 }
 //utility
-func GetHexIdFromResult( result mongo.InsertOneResult ) string{
+func GetHexIdFromResult( result *mongo.InsertOneResult ) string{
 
-		objectId, ok := result.InsertedID.(primitive.ObjectID);
+		objectId, ok := result.InsertedID.(*primitive.ObjectID);
 		
 		if ok {
 		
