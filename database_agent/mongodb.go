@@ -214,11 +214,11 @@ func (dbagent *MongoAgent) addObject(object interface{}, tableName string) strin
 		fmt.Println(err)
 	}
 
-	id := res.InsertedID.Hex()
+	id := res.InsertedID
 
 	fmt.Println("inserted id-", id, " into ", tableName)
 
-    return id //GetHexIdFromResult(res) 
+    return GetHexIdFromResult(res) 
 
 }
 
@@ -267,10 +267,16 @@ func (dbagent *MongoAgent) deleteObject(tableName string, filter interface{} ) e
     
 }
 //utility
-func GetHexIdFromResult( result *mongo.InsertOneResult ) string{
+func GetHexIdFromResult( result mongo.InsertOneResult ) string{
 
-		objectId := result.InsertedID;
-		return objectId.Hex()
+		objectId, ok := result.InsertedID.(primitive.ObjectID);
+		
+		if ok {
+		
+		   return objectId.Hex()
+		
+		} 
+		return "" 
 		
 } 
 //
