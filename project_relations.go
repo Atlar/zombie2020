@@ -56,7 +56,6 @@ type Entry struct {
 	HistoryStamps
 }
 type NamedEntry struct {
-	Entry
 	Name string
 }
 type ForeignKey ID //use to get relation data

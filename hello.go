@@ -104,8 +104,8 @@ func main() {
 		var newProject Project
 		newProject.Name = addProject.Name
 		newProject.Users = append([]ForeignKey(newProject.Users), ForeignKey(id))
-		r.AddOne(newProject, "projects")
-		c.JSON(http.StatusOK, map[string]interface{}{"result": true})
+		addedId := r.AddOne(newProject, "projects")
+		c.JSON(http.StatusOK, map[string]interface{}{"result": true, "id":addedId})
 	})
 	//handle entry
 	r.POST("/api/bookshelf/entry/project/:projectid", func(c *gin.Context) {

@@ -280,7 +280,11 @@ func GetHexIdFromResult( result *mongo.InsertOneResult ) string{
 		
 } 
 //
-
+//EntryStruct
+type EntryId struct{
+   Id bson.ObjectID Id bson.ObjectId `bson:"_id,omitempty"`
+} 
+//
 func (dbagent *MongoAgent)SetModel( model interface{} ){
     
    dbagent.ObjectModel = model

@@ -166,10 +166,22 @@ entryDrafter.draftPrototype = {
 entryDrafter.SubmitAction = () => sidAgentCommands.CreateInAggregationRecorded({aggregation:"entry", id: entryDrafter.Id, field:"project", object: entryDrafter.Entity}) 
 								.then( action( () => entryDrafter.isDrafting = false ) )
                               	.then( () => BookshelfStore.entryStore.Updater.Update() );
+//serializer
+Serialize = (arrayRegular) => {
+	
+	serialized = [];
+	arrayRegular.map( (el, ind) => {
+	    serialized[el.id] = el;
+	   } 
+	)
+
+	return serialized
+
+} 
 
 BookshelfStore.entryStore.Updater = {
 	Update: () => sidAgentCommands.UpdateAggregationBySubjectId({aggregation:"entry" , subject:"project" , aggregatorId:entryDrafter.Id} )
-					.then( action(entries => BookshelfStore.entryStore.entries = entries )) 
+					.then( action(entries => BookshelfStore.entryStore.entries = Serialize( entries) )) 
 } 
 
 const entryAgent = new SidAgent();

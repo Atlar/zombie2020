@@ -52,7 +52,7 @@ export default class ProjectWidget extends React.Component {
              <ProjectParticipantsWidget index={index}/>
              <div>
                {project.Entries && project.Entries.map((el, ind)=>{
-               return(<ProjectEntry key={ind} index={el} /> );})}
+               return(<ProjectEntry key={ind} index={el.id} /> );})}
                {(!editThisProject || !editing) && (<button onClick={addEntry}>AddEntry</button>)}
                {editing && editThisProject && (<AddEntryWidget/>)}
              </div>
