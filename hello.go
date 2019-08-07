@@ -89,7 +89,10 @@ func main() {
 	r.GET("/api/bookshelf/project/user/:id", func(c *gin.Context) {
 		idString := c.Param("id")
 		id, _ := strconv.Atoi(idString)
-		var projects []Project
+		var projects []struct{
+			EntryId
+			Project
+		}
 		r.FindMany("projects", bson.D{{"userscomponent.users", id}}, &projects)
 		c.JSON(http.StatusOK, projects)
 	})

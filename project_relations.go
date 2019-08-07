@@ -1,6 +1,7 @@
 package main
 
 type Aggregation []ForeignKey
+type AggregationOfId []string
 
 func (self *Aggregation) AddToAggregation(EntityId ID) {
 
@@ -38,7 +39,7 @@ type UsersComponent struct {
 	Users Aggregation
 }
 type EntriesComponent struct {
-	Entries Aggregation
+	Entries AggregationOfId
 }
 type UserApi struct {
 	NamedEntry
