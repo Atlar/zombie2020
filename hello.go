@@ -301,7 +301,7 @@ func InitTestApi(ApiInstance Api) {
 
 	var newProject Project
 	newProject.Name = "Server Test project"
-	newProject.Entries = AggregationOfId{1, 0}
+	newProject.Entries = AggregationOfId{"1", "0"}
 	newProject.Users = Aggregation{1, 0}
 	ApiInstance.AddOne(newProject, "projects")
 
