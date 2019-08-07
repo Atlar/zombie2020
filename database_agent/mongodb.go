@@ -282,7 +282,7 @@ func GetHexIdFromResult( result *mongo.InsertOneResult ) string{
 //
 //EntryStruct
 type EntryId struct{
-   Id bson.ObjectId `bson:"_id,omitempty"`
+   Id [12]byte `bson:"_id,omitempty"`
 } 
 //
 func (dbagent *MongoAgent)SetModel( model interface{} ){
