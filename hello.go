@@ -93,6 +93,7 @@ func main() {
 		r.FindMany("projects", bson.D{{"userscomponent.users", id}}, &projects)
 		c.JSON(http.StatusOK, projects)
 	})
+	//add project
 	r.POST("/api/bookshelf/project/user/:id", func(c *gin.Context) {
 		//var newProject map[string]interface{}
 		idString := c.Param("id")
@@ -130,7 +131,10 @@ func main() {
 	r.GET("/api/bookshelf/entry/project/:id", func(c *gin.Context) {
 		//idString := c.Param("id")
 		//id, _ := strconv.Atoi(idString)
-		var entries []ProjectEntry
+		var entries []struct{
+			EntryId
+			ProjectEntry
+			} 
 		r.FindMany("entries", bson.D{{}}, &entries)
 		c.JSON(http.StatusOK, entries)
 	})
