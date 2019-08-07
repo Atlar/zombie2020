@@ -90,7 +90,7 @@ func main() {
 		idString := c.Param("id")
 		id, _ := strconv.Atoi(idString)
 		var projects []struct{
-			EntryId
+			database_agent.EntryId
 			Project
 		}
 		r.FindMany("projects", bson.D{{"userscomponent.users", id}}, &projects)
@@ -135,7 +135,7 @@ func main() {
 		//idString := c.Param("id")
 		//id, _ := strconv.Atoi(idString)
 		var entries []struct{
-			EntryId
+			database_agent.EntryId
 			ProjectEntry
 			} 
 		r.FindMany("entries", bson.D{{}}, &entries)
@@ -301,7 +301,7 @@ func InitTestApi(ApiInstance Api) {
 
 	var newProject Project
 	newProject.Name = "Server Test project"
-	newProject.Entries = Aggregation{1, 0}
+	newProject.Entries = AggregationOfId{1, 0}
 	newProject.Users = Aggregation{1, 0}
 	ApiInstance.AddOne(newProject, "projects")
 
