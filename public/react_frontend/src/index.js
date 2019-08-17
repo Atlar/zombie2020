@@ -167,7 +167,7 @@ entryDrafter.SubmitAction = () => sidAgentCommands.CreateInAggregationRecorded({
 								.then( action( () => entryDrafter.isDrafting = false ) )
                               	.then( () => BookshelfStore.entryStore.Updater.Update() );
 //serializer
-Serialize = (arrayRegular) => {
+const Serialize = (arrayRegular) => {
 	
 	serialized = [];
 	arrayRegular.map( (el, ind) => {
