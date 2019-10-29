@@ -16,6 +16,7 @@ import (
 	"github.com/jinzhu/gorm"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	//My
 	"github.com/Atlar/golang-gin-realworld-example-app/database_agent"
@@ -61,7 +62,8 @@ func main() {
 	r.InitDB()
 	r.ServerEngine.Engine = gin.Default()
 
-	InitTestApi(r)
+	//Add test Projects
+	//InitTestApi(r)
 
 	//set html
 	r.LoadHTMLGlob("public/react_frontend/public/index*.html")
@@ -86,14 +88,16 @@ func main() {
 	r.POST("/api/bookshelf/user/:id/project", HandleAddProject)
 	r.GET("/api/bookshelf/user/:id/project", HandleGetProjects)
 
+	//get all progets by user
 	r.GET("/api/bookshelf/project/user/:id", func(c *gin.Context) {
 		idString := c.Param("id")
 		id, _ := strconv.Atoi(idString)
-		var projects []struct{
-			database_agent.EntryId
-			Project
+		var projects []struct {
+			primitive.ObjectID `bson:"_id"`
+			project            Project
 		}
-		r.FindMany("projects", bson.D{{"userscomponent.users", id}}, &projects)
+		//database_agent.EntryId `bson:"_id"`
+		r.FindMany("projects", bson.D{{"project.userscomponent.users", id}}, &projects)
 		c.JSON(http.StatusOK, projects)
 	})
 	//add project
@@ -105,11 +109,15 @@ func main() {
 			Name string
 		}{}
 		c.BindJSON(&addProject) //validate
-		var newProject Project
+		fmt.Println("accepted Project -", addProject)
+		var newProject struct {
+			Project `bson:"project"`
+		}
 		newProject.Name = addProject.Name
 		newProject.Users = append([]ForeignKey(newProject.Users), ForeignKey(id))
+		fmt.Println("insert Project -", newProject)
 		addedId := r.AddOne(newProject, "projects")
-		c.JSON(http.StatusOK, map[string]interface{}{"result": true, "id":addedId})
+		c.JSON(http.StatusOK, map[string]interface{}{"result": true, "id": addedId})
 	})
 	//handle entry
 	r.POST("/api/bookshelf/entry/project/:projectid", func(c *gin.Context) {
@@ -127,17 +135,17 @@ func main() {
 		insertedId := r.AddOne(newEntry, "entries")
 		//update project
 		r.UpdateOne("projects", bson.D{{"id", id}}, bson.D{
-			{"$addToSet", bson.E{"entries", insertedId }}})
+			{"$addToSet", bson.E{"entries", insertedId}}})
 		c.JSON(http.StatusOK, map[string]interface{}{"result": true})
-		
+
 	})
 	r.GET("/api/bookshelf/entry/project/:id", func(c *gin.Context) {
 		//idString := c.Param("id")
 		//id, _ := strconv.Atoi(idString)
-		var entries []struct{
-			database_agent.EntryId
+		var entries []struct {
+			database_agent.EntryId `bson:"id"`
 			ProjectEntry
-			} 
+		}
 		r.FindMany("entries", bson.D{{}}, &entries)
 		c.JSON(http.StatusOK, entries)
 	})

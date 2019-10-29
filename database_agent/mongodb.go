@@ -8,9 +8,9 @@ import (
 
 	//mongodb driver
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 var DBagent MongoAgent
@@ -121,14 +121,14 @@ type MongoAgent struct {
 	//extended mongo client
 	//wrapper
 	ConnectionUrl string
-	
+
 	//options for queue
-    queryOptions bson.D
-	
+	queryOptions bson.D
+
 	Error error
-	
+
 	ObjectModel interface{}
-	
+
 	findOptions options.FindOptions
 
 	//Login         string
@@ -218,7 +218,7 @@ func (dbagent *MongoAgent) addObject(object interface{}, tableName string) strin
 
 	fmt.Println("inserted id-", id, " into ", tableName)
 
-    return GetHexIdFromResult(res) 
+	return GetHexIdFromResult(res)
 
 }
 
@@ -254,41 +254,52 @@ func (dbagent *MongoAgent) updateObject(tableName string, filter interface{}, up
 	return err
 }
 
-func (dbagent *MongoAgent) deleteObject(tableName string, filter interface{} ) error {
+func (dbagent *MongoAgent) deleteObject(tableName string, filter interface{}) error {
 
-    collection := dbagent.Database("test").Collection(tableName)
-    _, err:= collection.DeleteOne(context.Background(), filter )
-    
-    if err != nil {
-        fmt.Println(err)
-    }
-   
-    return err
-    
+	collection := dbagent.Database("test").Collection(tableName)
+	_, err := collection.DeleteOne(context.Background(), filter)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return err
+
 }
-//utility
-func GetHexIdFromResult( result *mongo.InsertOneResult ) string{
 
-		objectId, ok := result.InsertedID.(*primitive.ObjectID);
-		
-		if ok {
-		
-		   return objectId.Hex()
-		
-		} 
-		return "" 
-		
-} 
+//utility
+func GetHexIdFromResult(result *mongo.InsertOneResult) string {
+
+	objectId, ok := result.InsertedID.(primitive.ObjectID)
+
+	fmt.Println("inserted ok-", ok, " into ", result)
+
+	if ok {
+
+		return objectId.Hex()
+
+	}
+	return ""
+
+}
+
 //
 //EntryStruct
-type EntryId struct{
-   Id [12]byte `bson:"_id,omitempty"`
-} 
+type EntryId struct {
+	primitive.ObjectID
+}
+
+// {
+//Id [12]byte
+
+//`bson:"_id,omitempty"`
+//}
+
 //
-func (dbagent *MongoAgent)SetModel( model interface{} ){
-    
-   dbagent.ObjectModel = model
-   
+func (dbagent *MongoAgent) SetModel(model interface{}) {
+
+	dbagent.ObjectModel = model
+
 }
 
 func FindHeroByName(nameHero string, heroFound *HeroCharacter) error {
@@ -346,281 +357,280 @@ type Character struct {
 
 //gorm interface
 //find first by id
-func (self *MongoAgent) First( foundObject interface{}, conditions ...interface{}) *MongoAgent {
-    
-    if( conditions == nil) {
-        //no arguments - Just search with query conditions
-        self.findObject( "bookshelf" , self.queryOptions , &foundObject)
-    }else if (len( conditions) == 1){
-        // one argument. Switch on its type
-        switch condition := conditions[0].(type){
-            
-            case int: 
-            //int meand we search by id
-            self.findObject( "bookshelf" , bson.D{{"id",condition}}, &foundObject)
-            
-            case bson.D:
-            //condition specified
-            self.findObject( "bookshelf" , condition, &foundObject)
-            
-            default:
-            self.findObject( "bookshelf" , bson.D{{}}, &foundObject)
-       } 
-   } 
-    return self
+func (self *MongoAgent) First(foundObject interface{}, conditions ...interface{}) *MongoAgent {
+
+	if conditions == nil {
+		//no arguments - Just search with query conditions
+		self.findObject("bookshelf", self.queryOptions, &foundObject)
+	} else if len(conditions) == 1 {
+		// one argument. Switch on its type
+		switch condition := conditions[0].(type) {
+
+		case int:
+			//int meand we search by id
+			self.findObject("bookshelf", bson.D{{"id", condition}}, &foundObject)
+
+		case bson.D:
+			//condition specified
+			self.findObject("bookshelf", condition, &foundObject)
+
+		default:
+			self.findObject("bookshelf", bson.D{{}}, &foundObject)
+		}
+	}
+	return self
 
 }
 
-func (self *MongoAgent) AutoMigrate( object interface{} ){
-     fmt.Println( object )
+func (self *MongoAgent) AutoMigrate(object interface{}) {
+	fmt.Println(object)
 }
 
-func (self *MongoAgent) Where( conditions ...interface{}) *MongoAgent {
+func (self *MongoAgent) Where(conditions ...interface{}) *MongoAgent {
 
-      condition := conditions[0]
-      self.queryOptions = bson.D{ condition.(bson.E) }
-      return self
+	condition := conditions[0]
+	self.queryOptions = bson.D{condition.(bson.E)}
+	return self
 
 }
-func (self *MongoAgent) Update ( data interface{} ) *MongoAgent {
-     
-      //check id
-      //id, hasId := tryGetId( data )
-      self.Save(data)
-     
-      return self
-     
+func (self *MongoAgent) Update(data interface{}) *MongoAgent {
+
+	//check id
+	//id, hasId := tryGetId( data )
+	self.Save(data)
+
+	return self
+
 }
 
-func (self *MongoAgent) Save( value interface{}) *MongoAgent{
-		//func (s *DB) Save(value interface{}) *DB
-		//Save update value in database, if the value doesn't have primary key, will insert i
-        
-        //try update object or create new
-        //try get id from object
-        var err error
-        id, idBool := tryGetId( value )
-        if( idBool == true) {
-        	//try find object
-        	
-        	err = self.updateObject("bookshelf", bson.D{{"id", id } }, value )
-        }
-        if(err == nil){
-          
-           //updated
-         
-       }else{
-      
-           //not found. create object
-           self.addObject( value ,"bookshelf" )
-       
-       } 
-        return self
-    
+func (self *MongoAgent) Save(value interface{}) *MongoAgent {
+	//func (s *DB) Save(value interface{}) *DB
+	//Save update value in database, if the value doesn't have primary key, will insert i
+
+	//try update object or create new
+	//try get id from object
+	var err error
+	id, idBool := tryGetId(value)
+	if idBool == true {
+		//try find object
+
+		err = self.updateObject("bookshelf", bson.D{{"id", id}}, value)
+	}
+	if err == nil {
+
+		//updated
+
+	} else {
+
+		//not found. create object
+		self.addObject(value, "bookshelf")
+
+	}
+	return self
+
 }
-func (self *MongoAgent) Delete( value interface{}) *MongoAgent {
-      
-       byteValue, _ := bson.Marshal( value )
-       
-       var rawValue bson.Raw
-       rawValue = byteValue
-      
-       //find id type RawValue
-       foundID := rawValue.Lookup("id")
-       
-       //check if field found
-       if( len(foundID.Value) == 0 ){
-          
-          //
-          valueInt, isInt := foundID.Int32OK()
-          if( isInt ){
-          
-             filter := bson.D{{ "id", valueInt }}
-             self.deleteObject("bookshelf", filter )
-             return self
-         }
-          
-       } 
-     
-       //check Queryoptions filter
-       //filter := bson.D{{ "id", value.}}
-      
-       //
-       //self.deleteObject("bookshelf", filter )
+func (self *MongoAgent) Delete(value interface{}) *MongoAgent {
 
-       //var defaultError error
+	byteValue, _ := bson.Marshal(value)
 
-       return self
+	var rawValue bson.Raw
+	rawValue = byteValue
+
+	//find id type RawValue
+	foundID := rawValue.Lookup("id")
+
+	//check if field found
+	if len(foundID.Value) == 0 {
+
+		//
+		valueInt, isInt := foundID.Int32OK()
+		if isInt {
+
+			filter := bson.D{{"id", valueInt}}
+			self.deleteObject("bookshelf", filter)
+			return self
+		}
+
+	}
+
+	//check Queryoptions filter
+	//filter := bson.D{{ "id", value.}}
+
+	//
+	//self.deleteObject("bookshelf", filter )
+
+	//var defaultError error
+
+	return self
 }
 
-func (self *MongoAgent) FirstOrCreate( foundPointer interface{}, conditions ...interface{} ) *MongoAgent{
-   
-  
-    var condition bson.D
-    //check conditions
-    if( conditions == nil ){
-      //try inner conditions
-      if( self.queryOptions == nil ){
-         //no conditions specified whatsoever
-         //just add new object and return it
-         //because function name mandates creation
-        
-         condition = nil
-         
-      }else{
-        
-         //options are in db
-         condition = self.queryOptions
-         
-      } 
-    }else{
-     
-      //use conditions from arguments
-      condition = convertToBSOND(conditions[0]) 
-    
-    }
-   
-    //try find by conditions
-    err:=self.findObject("bookshelf", condition , foundPointer)
-  
-    if( err == nil ){
-       //object found - return self
-       return self
-   }else{
-       //no object found - try create
-      
-       if( self.Model == nil) {
-       
-       		//no model
-       		//dont know what to create in db
-       		fmt.Println( "no model for first or create" ) 
-       
-       }else{
-       
-       		//create object by empty model
-       		self.addObject(  self.Model ,"bookshelf" ) 
-       
-       }
-     
-  } 
-    //try access model to create from
-           
-        if( condition == nil) {
-            //no conditions
-            
-        	//create object by empty model
-            if( self.ObjectModel == nil) {
-            	
-            	//no model
-            	//dont know what to create in db
-            	fmt.Println( "no model for first or create" ) 
-            
-            }else{
-            
-        		self.addObject(  self.ObjectModel ,"bookshelf" ) 
-            
-            } 
-        }else{
-            //there are conditions
-            //we should incorporate them into value
-            newObject := foundPointer
-            convertToStruct( condition, &newObject ) 
-            self.addObject( newObject , "bookshelf")
-            
-        } 
-    
+func (self *MongoAgent) FirstOrCreate(foundPointer interface{}, conditions ...interface{}) *MongoAgent {
 
-    return self
+	var condition bson.D
+	//check conditions
+	if conditions == nil {
+		//try inner conditions
+		if self.queryOptions == nil {
+			//no conditions specified whatsoever
+			//just add new object and return it
+			//because function name mandates creation
+
+			condition = nil
+
+		} else {
+
+			//options are in db
+			condition = self.queryOptions
+
+		}
+	} else {
+
+		//use conditions from arguments
+		condition = convertToBSOND(conditions[0])
+
+	}
+
+	//try find by conditions
+	err := self.findObject("bookshelf", condition, foundPointer)
+
+	if err == nil {
+		//object found - return self
+		return self
+	} else {
+		//no object found - try create
+
+		if self.Model == nil {
+
+			//no model
+			//dont know what to create in db
+			fmt.Println("no model for first or create")
+
+		} else {
+
+			//create object by empty model
+			self.addObject(self.Model, "bookshelf")
+
+		}
+
+	}
+	//try access model to create from
+
+	if condition == nil {
+		//no conditions
+
+		//create object by empty model
+		if self.ObjectModel == nil {
+
+			//no model
+			//dont know what to create in db
+			fmt.Println("no model for first or create")
+
+		} else {
+
+			self.addObject(self.ObjectModel, "bookshelf")
+
+		}
+	} else {
+		//there are conditions
+		//we should incorporate them into value
+		newObject := foundPointer
+		convertToStruct(condition, &newObject)
+		self.addObject(newObject, "bookshelf")
+
+	}
+
+	return self
 
 }
 func (self *MongoAgent) Begin() *MongoAgent {
-    
-     self.queryOptions = nil
-     
-     self.Error  = nil 
-     
-     self.ObjectModel = nil
-     return self
-   
+
+	self.queryOptions = nil
+
+	self.Error = nil
+
+	self.ObjectModel = nil
+	return self
+
 }
 func (self *MongoAgent) Commit() *MongoAgent {
 
-     return self
+	return self
 
 }
-func (self *MongoAgent) Related( valuePointer interface{} , foregnKey ...string) *MongoAgent{
+func (self *MongoAgent) Related(valuePointer interface{}, foregnKey ...string) *MongoAgent {
 
-    self.First( valuePointer , bson.D{{ foregnKey[0], 1}})
-    return self
+	self.First(valuePointer, bson.D{{foregnKey[0], 1}})
+	return self
 
 }
-func (self *MongoAgent) Find( valuePointer interface{}, where ...interface{}) *MongoAgent {
+func (self *MongoAgent) Find(valuePointer interface{}, where ...interface{}) *MongoAgent {
 
-    self.First( valuePointer, where) 
-    return self
-    
-}
-func (self *MongoAgent) Model( model interface{} ) *MongoAgent{
+	self.First(valuePointer, where)
+	return self
 
-    self.SetModel( model ) 
-    return self
-    
 }
+func (self *MongoAgent) Model(model interface{}) *MongoAgent {
+
+	self.SetModel(model)
+	return self
+
+}
+
 // limit offset
 
-func (self *MongoAgent) Limit( number int ) *MongoAgent {
+func (self *MongoAgent) Limit(number int) *MongoAgent {
 
-     self.findOptions.Limit = new(int64)
-     (*self.findOptions.Limit) = int64(number)
-     return self
+	self.findOptions.Limit = new(int64)
+	(*self.findOptions.Limit) = int64(number)
+	return self
 
 }
 
-func (self *MongoAgent) Offset( number int ) *MongoAgent {
+func (self *MongoAgent) Offset(number int) *MongoAgent {
 
-     self.findOptions.Skip = new(int64) 
-     (*self.findOptions.Skip) = int64( number)
-     return self
+	self.findOptions.Skip = new(int64)
+	(*self.findOptions.Skip) = int64(number)
+	return self
 
 }
 
 //
 
-func convertToBSOND( value interface{} ) (outBSOND bson.D) {
-   
-    bytesForm, _:= bson.Marshal( value) 
-    bson.Unmarshal( bytesForm, &outBSOND )
-    return
-    
+func convertToBSOND(value interface{}) (outBSOND bson.D) {
+
+	bytesForm, _ := bson.Marshal(value)
+	bson.Unmarshal(bytesForm, &outBSOND)
+	return
+
 }
-func convertToStruct( valuePointer interface{}, structuredValuePointer interface{} ){
-   
-    bytesForm, _:= bson.Marshal(valuePointer)
-    bson.Unmarshal( bytesForm, structuredValuePointer )
-  
+func convertToStruct(valuePointer interface{}, structuredValuePointer interface{}) {
+
+	bytesForm, _ := bson.Marshal(valuePointer)
+	bson.Unmarshal(bytesForm, structuredValuePointer)
+
 }
-func tryGetId( value interface{} ) (int, bool) {
-   
-  	var outValue int
-   
-    bytesForm, err := bson.Marshal( value )
-    if( err == nil ){
-        
-        rawForm := bson.Raw( bytesForm) 
-  		rawValueForm := rawForm.Lookup("id")
-  		if( len(rawValueForm.Value) > 0 ){
-  		
-  			outValue, isInt := rawValueForm.Int32OK()
-  		    if( isInt == true ){
-  		    
-  		    	//all ok, id is int
-  		    	return int(outValue), true
-  		   
-  		    }
-  		   
-  		} 
-  		
-    }
-    return outValue, false
-     
-} 
+func tryGetId(value interface{}) (int, bool) {
+
+	var outValue int
+
+	bytesForm, err := bson.Marshal(value)
+	if err == nil {
+
+		rawForm := bson.Raw(bytesForm)
+		rawValueForm := rawForm.Lookup("id")
+		if len(rawValueForm.Value) > 0 {
+
+			outValue, isInt := rawValueForm.Int32OK()
+			if isInt == true {
+
+				//all ok, id is int
+				return int(outValue), true
+
+			}
+
+		}
+
+	}
+	return outValue, false
+
+}

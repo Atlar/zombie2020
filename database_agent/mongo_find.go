@@ -4,10 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"reflect"
-
 	//mongodb driver
-	"go.mongodb.org/mongo-driver/bson"
+
 	//"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -22,8 +20,8 @@ func (self *MongoAgent) FindMany(objects string, filter interface{}, objectFound
 	}
 
 	findOptions := options.Find()
-	findOptions.SetLimit(10)
-	findOptions.SetSort(bson.D{{"_id", -1}})
+	//findOptions.SetLimit(10)
+	//findOptions.SetSort(bson.D{{"_id", -1}})
 
 	cur, err := collection.Find(context.Background(), filter, findOptions)
 
@@ -31,19 +29,22 @@ func (self *MongoAgent) FindMany(objects string, filter interface{}, objectFound
 		fmt.Println(err)
 	}
 
+	errDecode := cur.All(context.Background(), objectFoundSlice)
+	fmt.Println("err decode - ", errDecode, "-value-", objectFoundSlice, " -cursor- ", cur)
 	//slice of unknown
 	//https://stackoverflow.com/questions/24777603/create-slice-of-unknown-type
-	slice := reflect.ValueOf(objectFoundSlice).Elem()
-	slice.Set(reflect.MakeSlice(slice.Type(), 0, 100))
+	//slice := reflect.ValueOf(objectFoundSlice).Elem()
+	//slice.Set(reflect.MakeSlice(slice.Type(), 0, 100))
 
-	elementType := slice.Type().Elem()
+	/*elementType := slice.Type().Elem()
 	value := reflect.New(elementType)
 
 	for cur.Next(context.Background()) {
 
-		cur.Decode(value.Interface())
+		errDecode := cur.Decode(value.Interface())
+		fmt.Println("err decode - ", errDecode, "-value-", value, " -cursor- ", cur)
 		slice.Set(reflect.Append(slice, value.Elem()))
-	}
+	}*/
 	cur.Close(context.Background())
 	fmt.Printf("Found multiple documents (array of pointers): %+v\n", objectFoundSlice)
 

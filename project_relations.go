@@ -25,7 +25,7 @@ func ( engine *gin.Engine )GenerateHandlerAggregation( action func( ID, ID ), en
 
 }*/
 type Project struct {
-	NamedEntry
+	NamedEntry `bson:"namedentry"`
 	DescriptionComponent
 	PermissionComponent
 	UsersComponent
@@ -57,7 +57,7 @@ type Entry struct {
 	HistoryStamps
 }
 type NamedEntry struct {
-	Name string
+	Name string `bson:"name"`
 }
 type ForeignKey ID //use to get relation data
 func (key *ForeignKey) Related(Entries []Entry) Entry {
@@ -74,9 +74,9 @@ type ProjectEntry struct {
 	PermissionComponent //user edit
 
 }
-type ContentComponent struct{
+type ContentComponent struct {
 	Text string
-} 
+}
 type PublicationStatus int
 type PermissionComponent struct {
 	SubjectName string
