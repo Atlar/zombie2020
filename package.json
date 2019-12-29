@@ -50,7 +50,7 @@
     "methods": "1.1.2",
     "mobx": "5.10.1",
     "mobx-react": "6.1.1",
-    "mongoose": "5.4.15",
+    "mongoose": "5.7.5",
     "mongoose-unique-validator": "1.0.2",
     "morgan": "1.7.0",
     "passport": "0.3.2",
