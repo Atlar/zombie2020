@@ -46,7 +46,7 @@
     "history": "4.7.2",
     "jsonwebtoken": "7.1.9",
     "marked": "^0.3.6",
-    "method-override": "2.3.5",
+    "method-override": "2.3.10",
     "methods": "1.1.2",
     "mobx": "5.10.1",
     "mobx-react": "6.1.1",
