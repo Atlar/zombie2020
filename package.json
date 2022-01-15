@@ -45,7 +45,7 @@
     "express-session": "1.13.0",
     "history": "4.7.2",
     "jsonwebtoken": "7.1.9",
-    "marked": "^0.3.6",
+    "marked": "^4.0.10",
     "method-override": "2.3.5",
     "methods": "1.1.2",
     "mobx": "5.10.1",
