@@ -44,7 +44,7 @@
     "express-jwt": "3.3.0",
     "express-session": "1.13.0",
     "history": "4.7.2",
-    "jsonwebtoken": "7.1.9",
+    "jsonwebtoken": "9.0.0",
     "marked": "^0.3.6",
     "method-override": "2.3.5",
     "methods": "1.1.2",
